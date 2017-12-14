@@ -21,7 +21,6 @@ function createWebhook(options) {
   // verify_token required
   if (!verify_token) throw 'VERIFY_TOKEN REQUIRED';
   
-  
   // Sets server port and logs message on success
   app.listen(port || process.env.PORT, () => console.log('webhook is listening'));
 
@@ -59,13 +58,23 @@ function createWebhook(options) {
 }
 
 function emitEvent (webhook_event) {
-  // Check if the event is a message or postback and
-  // pass the event to the appropriate handler function
-  if (webhook_event.message) {
-    handleMessage(sender_psid, webhook_event.message);        
-  } else if (webhook_event.postback) {
+  if (webhook_event.postback) {
+    // messaging_postbacks
     
-    handlePostback(sender_psid, webhook_event.postback);
+  } else if (webhook_event.message.text) {
+    if (webhook_event.message.quick_reply) {
+      // messages - quick_reply
+      
+    } else {
+      // messages - text
+      
+    }          
+  } else if (webhook_event.message.attachments) {
+    // messages - attachment
+    
+  } else {
+    // unknown event
+    console.error("Webhook received unknown messagingEvent: ", webhook_event);
   }
 }
 
