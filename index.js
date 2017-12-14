@@ -58,20 +58,60 @@ function createWebhook(options) {
 }
 
 function emitEvent (webhook_event) {
-  if (webhook_event.postback) {
-    // messaging_postbacks
-    
-  } else if (webhook_event.message.text) {
-    if (webhook_event.message.quick_reply) {
-      // messages - quick_reply
-      
-    } else {
-      // messages - text
-      
+  if (webhook_event.message) {
+    let message = webhook_event.message;
+    if (message.text) {      
+      if (message.quick_reply) {
+        // messages - quick_reply  
+      } else {
+        // messages - text    
+      }
+    } else if (message.attachments) {
+      // messages - attachment
+
+    } else if (message.is_echo) {
+      //messaging_echoes
+
     }          
-  } else if (webhook_event.message.attachments) {
-    // messages - attachment
+
+  } else if (webhook_event.postback) {
+    // messaging_postbacks
+
+  } else if (webhook_event.standby) {
+    // standby
+
+  } else if (webhook_event.delivery) {
+    // messaging_deliveries
+
+  } else if (webhook_event.read) {
+    // messaging_reads
     
+  } else if (webhook_event.account_linking) {
+    // messaging_account_linking
+
+  } else if (webhook_event.optin) {
+    // messaging_optins
+
+  } else if (webhook_event.referral) {
+    // messaging_referrals
+
+  } else if (webhook_event.pass_thread_control || webhook_event.take_thread_control) {
+    // messaging_handovers
+
+  } else if (webhook_event.policy-enforcement) {
+    // messaging_policy_enforcement
+
+  } else if (webhook_event.payment) {
+    // messaging_payments
+
+  } else if (webhook_event.pre_checkout) {
+    // messaging_pre_checkouts
+
+  } else if (webhook_event.checkout_update) {
+    // messaging_checkout_updates
+
+  } else if (webhook_event.game_play) {
+    // messaging_game_plays
   } else {
     // unknown event
     console.error("Webhook received unknown messagingEvent: ", webhook_event);
