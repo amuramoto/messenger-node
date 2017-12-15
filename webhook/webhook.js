@@ -3,6 +3,7 @@
 const express = require('express'),
       body_parser = require('body-parser'),
       app = express().use(body_parser.json()),
+      util = require('./util'),
       EventEmitter = require('events'),
       emitter = new EventEmitter();
 
@@ -40,7 +41,7 @@ function addWebhookVerification () {
     let mode = req.query['hub.mode'],
         token = req.query['hub.verify_token'],
         challenge = req.query['hub.challenge'];
-    verifyWebhook(mode, token, challenge);
+    util.verifyWebhook(mode, token, challenge);
   });
 }
 
@@ -70,95 +71,79 @@ function addWebhookReceiver () {
 }
 
 function emitWebhookEvent (webhook_event) {
-
-  if (webhook_event.message) {
+  let event_type = util.parseEventType(webhook_event);
+  if (event_type === 'messages') {
     let message = webhook_event.message;
     if (message.text) {      
       if (message.quick_reply) {
         // messages - quick_reply  
-        emitter.emit('messages');
+        
       } else {
         // messages - text    
-        emitter.emit('messages');
+        
       }
     } else if (message.attachments) {
       // messages - attachment
-      emitter.emit('messages');
+      
 
     } else if (message.is_echo) {
       //messaging_echoes
-      emitter.emit('messaging_echoes');
+      
 
     }          
-  } else if (webhook_event.postback) {
+  } else if (event_type === 'messaging_postbacks') {
     // messaging_postbacks
-    emitter.emit('messaging_postbacks');
-
-  } else if (webhook_event.standby) {
-    // standby
-    emitter.emit('standby');
-
-  } else if (webhook_event.delivery) {
-    // messaging_deliveries
-    emitter.emit('messaging_deliveries');
-
-  } else if (webhook_event.read) {
-    // messaging_reads
-    emitter.emit('messaging_reads');
     
-  } else if (webhook_event.account_linking) {
+
+  } else if (event_type === 'standby') {
+    // standby
+    
+
+  } else if (event_type === 'messaging_deliveries') {
+    // messaging_deliveries
+    
+
+  } else if (event_type === 'messaging_reads') {
+    // messaging_reads
+    
+    
+  } else if (event_type === 'messaging_account_linking') {
     // messaging_account_linking
-    emitter.emit('messaging_account_linking');
+    
 
-  } else if (webhook_event.optin) {
+  } else if (event_type === 'messaging_optins') {
     // messaging_optins
-    emitter.emit('messaging_optins');
+    
 
-  } else if (webhook_event.referral) {
+  } else if (event_type === 'messaging_referrals') {
     // messaging_referrals
-    emitter.emit('messaging_referrals');
+   
 
-  } else if (webhook_event.pass_thread_control || webhook_event.take_thread_control) {
+  } else if (event_type === 'messaging_handovers') {
     // messaging_handovers
-    emitter.emit('messaging_handovers');
+   
 
-  } else if (webhook_event.policy-enforcement) {
+  } else if (event_type === 'messaging_policy_enforcement') {
     // messaging_policy_enforcement
-    emitter.emit('messaging_policy_enforcement');
+   
 
-  } else if (webhook_event.payment) {
+  } else if (event_type === 'messaging_payments') {
     // messaging_payments
-    emitter.emit('messaging_payments');
+   
 
-  } else if (webhook_event.pre_checkout) {
+  } else if (event_type === 'messaging_pre_checkouts') {
     // messaging_pre_checkouts
-    emitter.emit('messaging_pre_checkouts');
+    
 
-  } else if (webhook_event.checkout_update) {
+  } else if (event_type === 'messaging_checkout_updates') {
     // messaging_checkout_updates
-    emitter.emit('messaging_checkout_updates');
+   
 
-  } else if (webhook_event.game_play) {
+  } else if (event_type === messaging_game_plays) {
     // messaging_game_plays
-    emitter.emit('messaging_game_plays');
-  } else {
-    // unknown event
-    console.error("Webhook received unknown messagingEvent: ", webhook_event);
-    emitter.emit('unknown_event');
+   
   }
+
+  emitter.emit(event_type)
 }
 
-function verifyWebhook(mode, token, challenge) {
-  console.log('Verifying webhook...');          
-  // Check the mode and token sent are correct
-  if (mode === 'subscribe' && token === verify_token) {      
-    // Respond with 200 OK and challenge token from the request
-    console.log('Webhook verification: SUCCESS');
-    res.status(200).send(challenge);
-
-  } else {
-    // Responds with '403 Forbidden' if verify tokens do not match
-    throw 'Webhook verification: FAILED. Check that your verify_token is set correctly.';
-    res.sendStatus(403);      
-  }
-}
