@@ -1,18 +1,23 @@
 'use strict';
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-// Imports dependencies and set up http server
-const 
-  env = require('./env'),
-  request = require('request'),
-  express = require('express'),
-  body_parser = require('body-parser'),
-  app = express().use(body_parser.json()),
-  Rx = require('rxjs/Rx');
+const request = require('request'),
+      express = require('express'),
+      body_parser = require('body-parser'),
+      app = express().use(body_parser.json()),
+      EventEmitter = require('events'),
+      emitter = new EventEmitter();
 
-exports = module.exports = createWebhook;
+module.exports = webhook;
 
-function createWebhook(options) {
+
+function webhook() {
+  this.create = createWebhook;
+  this.events = emitter;
+  this.getInstance = getWebhookInstance;
+}
+
+function createWebhook (options) {
   let endpoint = options.endpoint || '/webhook';
   let port = options.port || process.env.PORT;  
   let verify_token = options.verify_token;
@@ -20,10 +25,32 @@ function createWebhook(options) {
   
   // verify_token required
   if (!verify_token) throw 'VERIFY_TOKEN REQUIRED';
-  
+
   // Sets server port and logs message on success
   app.listen(port || process.env.PORT, () => console.log('webhook is listening'));
+  addWebhookReceiver();
+  addWebhookVerification();
+  return app;
+}
 
+
+function getWebhookInstance () {
+  return app;
+}
+
+function addWebhookVerification () {
+  let app = getWebhookInstance();
+  app.get('/webhook', (req, res) => {
+    // Parse params from the verification request
+    let mode = req.query['hub.mode'],
+        token = req.query['hub.verify_token'],
+        challenge = req.query['hub.challenge'];
+    verifyWebhook(mode, token, challenge);
+  });
+}
+
+function addWebhookReceiver () {
+  let app = getWebhookInstance();
   // Accepts POST requests at /webhook endpoint
   app.post('/webhook', (req, res) => {  
     let body = req.body;
@@ -36,7 +63,7 @@ function createWebhook(options) {
       body.entry.forEach(entry => {
         let webhook_event = entry.messaging[0];        
         if (logging) console.log('EVENT RECEIVED:\n' + webhook_event);
-        emitEventType(webhook_event)
+        emitWebhookEvent(webhook_event);
       });
       
     } else {
@@ -45,76 +72,84 @@ function createWebhook(options) {
     }
 
   });
-
-  app.get('/webhook', (req, res) => {
-    // Parse params from the verification request
-    let mode = req.query['hub.mode'],
-        token = req.query['hub.verify_token'],
-        challenge = req.query['hub.challenge'];
-    verifyWebhook(mode, token, challenge);
-  });
-
-  return app;
 }
 
-function emitEvent (webhook_event) {
+function emitWebhookEvent (webhook_event) {
+
   if (webhook_event.message) {
     let message = webhook_event.message;
     if (message.text) {      
       if (message.quick_reply) {
         // messages - quick_reply  
+        emitter.emit('messages');
       } else {
         // messages - text    
+        emitter.emit('messages');
       }
     } else if (message.attachments) {
       // messages - attachment
+      emitter.emit('messages');
 
     } else if (message.is_echo) {
       //messaging_echoes
+      emitter.emit('messaging_echoes');
 
     }          
-
   } else if (webhook_event.postback) {
     // messaging_postbacks
+    emitter.emit('messaging_postbacks');
 
   } else if (webhook_event.standby) {
     // standby
+    emitter.emit('standby');
 
   } else if (webhook_event.delivery) {
     // messaging_deliveries
+    emitter.emit('messaging_deliveries');
 
   } else if (webhook_event.read) {
     // messaging_reads
+    emitter.emit('messaging_reads');
     
   } else if (webhook_event.account_linking) {
     // messaging_account_linking
+    emitter.emit('messaging_account_linking');
 
   } else if (webhook_event.optin) {
     // messaging_optins
+    emitter.emit('messaging_optins');
 
   } else if (webhook_event.referral) {
     // messaging_referrals
+    emitter.emit('messaging_referrals');
 
   } else if (webhook_event.pass_thread_control || webhook_event.take_thread_control) {
     // messaging_handovers
+    emitter.emit('messaging_handovers');
 
   } else if (webhook_event.policy-enforcement) {
     // messaging_policy_enforcement
+    emitter.emit('messaging_policy_enforcement');
 
   } else if (webhook_event.payment) {
     // messaging_payments
+    emitter.emit('messaging_payments');
 
   } else if (webhook_event.pre_checkout) {
     // messaging_pre_checkouts
+    emitter.emit('messaging_pre_checkouts');
 
   } else if (webhook_event.checkout_update) {
     // messaging_checkout_updates
+    emitter.emit('messaging_checkout_updates');
 
   } else if (webhook_event.game_play) {
     // messaging_game_plays
+    emitter.emit('messaging_game_plays');
   } else {
     // unknown event
     console.error("Webhook received unknown messagingEvent: ", webhook_event);
+    emitter.emit('unknown_event');
   }
 }
 
@@ -177,45 +212,3 @@ function handleMessage(sender_psid, received_message) {
   // Send the response message
   callSendAPI(sender_psid, response);    
 }
-
-function handlePostback(sender_psid, received_postback) {
-  console.log('ok')
-   let response;
-  // Get the payload for the postback
-  let payload = received_postback.payload;
-
-  // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
-  }
-  // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
-}
-
-function callSendAPI(sender_psid, response) {
-  // Construct the message body
-  let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  }
-
-  // Send the HTTP request to the Messenger Platform
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
-    }
-  }); 
-}
-
-
