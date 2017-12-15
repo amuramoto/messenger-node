@@ -74,78 +74,36 @@ function addWebhookReceiver () {
 
 function emitWebhookEvent (webhook_event) {
   let event_type = util.parseEventType(webhook_event);
+  let event_subtype = null;
   if (event_type === 'messages') {
     let message = webhook_event.message;
     if (message.text) {      
       if (message.quick_reply) {
         // messages - quick_reply  
-        
+        event_subtype = 'quick_reply';
       } else {
         // messages - text    
-        
+        event_subtype = 'text';
       }
     } else if (message.attachments) {
-      // messages - attachment
-      
-
-    } else if (message.is_echo) {
-      //messaging_echoes
-      
-
-    }          
-  } else if (event_type === 'messaging_postbacks') {
-    // messaging_postbacks
-    
-
-  } else if (event_type === 'standby') {
-    // standby
-    
-
-  } else if (event_type === 'messaging_deliveries') {
-    // messaging_deliveries
-    
-
-  } else if (event_type === 'messaging_reads') {
-    // messaging_reads
-    
-    
-  } else if (event_type === 'messaging_account_linking') {
-    // messaging_account_linking
-    
-
-  } else if (event_type === 'messaging_optins') {
-    // messaging_optins
-    
-
+      // messages - attachment      
+      event_subtype = 'attachments';
+   }            
   } else if (event_type === 'messaging_referrals') {
-    // messaging_referrals
-   
-
-  } else if (event_type === 'messaging_handovers') {
-    // messaging_handovers
-   
-
-  } else if (event_type === 'messaging_policy_enforcement') {
-    // messaging_policy_enforcement
-   
-
-  } else if (event_type === 'messaging_payments') {
-    // messaging_payments
-   
-
-  } else if (event_type === 'messaging_pre_checkouts') {
-    // messaging_pre_checkouts
-    
-
-  } else if (event_type === 'messaging_checkout_updates') {
-    // messaging_checkout_updates
-   
-
-  } else if (event_type === messaging_game_plays) {
-    // messaging_game_plays
-   
+    // messaging_referrals - source
+    event_subtype = webhook_event.referral.source;    
+  } else if (event_type === 'messaging_handovers') {    
+    if (webhook_event.pass_thread_control) {
+      // messaging_handovers - pass_thread_control
+      event_subtype = 'pass_thread_control';
+    } else if (webhook_event.take_thread_control) {
+      // messaging_handovers - take_thread_control
+      event_subtype = 'take_thread_control';
+    } else if (webhook_event.app_roles) {
+      // messaging_handovers - app_roles
+      event_subtype = 'app_roles';
+    }   
   }
-
-  emitter.emit(event_type, webhook_event)
+  emitter.emit(event_type, event_subtype, webhook_event);
 }
 
