@@ -38,10 +38,12 @@ function addWebhookVerification () {
   let app = getWebhookInstance();
   app.get('/webhook', (req, res) => {
     // Parse params from the verification request
-    let mode = req.query['hub.mode'],
-        token = req.query['hub.verify_token'],
-        challenge = req.query['hub.challenge'];
-    util.verifyWebhook(mode, token, challenge);
+    let verification = util.verifyWebhook(req.query);
+
+    if (!verification) {
+      res.sendStatus(403);
+    }
+    res.status(200).send(challenge);
   });
 }
 
@@ -144,6 +146,6 @@ function emitWebhookEvent (webhook_event) {
    
   }
 
-  emitter.emit(event_type)
+  emitter.emit(event_type, webhook_event)
 }
 
