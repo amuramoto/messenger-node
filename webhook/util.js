@@ -46,38 +46,42 @@ function addWebhookReceiver (eventEmitter, app, options) {
 }
 
 function emitWebhookEvent (eventEmitter, webhook_event) {      
-  let event_type = util.parseEventType(webhook_event);
-  let event_subtype = null;
-  if (event_type === 'messages') {
+  let sender = parseSenderId(webhook_event.sender);
+  let event = {
+    'type': util.parseEventType(webhook_event),
+    'subtype': null
+  }  
+  
+  if (event.type === 'messages') {
     let message = webhook_event.message;
     if (message.text) {      
       if (message.quick_reply) {
         // messages - quick_reply  
-        event_subtype = 'quick_reply';
+        event.subtype = 'quick_reply';
       } else {
         // messages - text    
-        event_subtype = 'text';
+        event.subtype = 'text';
       }
     } else if (message.attachments) {
       // messages - attachment      
-      event_subtype = 'attachments';
+      event.subtype = 'attachments';
    }            
-  } else if (event_type === 'messaging_referrals') {
+  } else if (event.type === 'messaging_referrals') {
     // messaging_referrals - source
-    event_subtype = webhook_event.referral.source;    
-  } else if (event_type === 'messaging_handovers') {    
+    event.subtype = webhook_event.referral.source;    
+  } else if (event.type === 'messaging_handovers') {    
     if (webhook_event.pass_thread_control) {
       // messaging_handovers - pass_thread_control
-      event_subtype = 'pass_thread_control';
+      event.subtype = 'pass_thread_control';
     } else if (webhook_event.take_thread_control) {
       // messaging_handovers - take_thread_control
-      event_subtype = 'take_thread_control';
+      event.subtype = 'take_thread_control';
     } else if (webhook_event.app_roles) {
       // messaging_handovers - app_roles
-      event_subtype = 'app_roles';
+      event.subtype = 'app_roles';
     }   
   }
-  eventEmitter.emit(event_type, event_subtype, webhook_event);
+  eventEmitter.emit(event, sender, webhook_event);
 }
 
 function verifyWebhook(verify_token, qs) {
@@ -92,6 +96,21 @@ function verifyWebhook(verify_token, qs) {
   }
   console.error('Webhook verification: FAILED. Check that your verify_token is set correctly.');
   return false; 
+}
+
+function parseSenderId(sender_info) {
+  let sender_id = {'type': '', 'id': ''};
+  if (sender_info.id) {
+    sender_id.id = sender_info.id;
+    sender_info.type = 'psid';
+  } else if (sender_info.phone_number) {
+    sender_id.id = sender_info.phone_number;
+    sender_info.type = 'phone_number';
+  } else if (sender_info.user_ref) {
+    sender_id.id = sender_info.user_ref;
+    sender_info.type = 'user_ref';
+  }
+  return sender_id;
 }
 
 function parseEventType (webhook_event) {
