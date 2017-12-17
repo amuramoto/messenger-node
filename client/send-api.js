@@ -18,7 +18,9 @@ function QuickReplies (options) {
   if (!options.content_type) {
     console.error('"content_type" required');
     return;
-  } else if (['text', 'location'].indexOf(options.content_type) == -1) {
+  }
+
+  if (['text', 'location'].indexOf(options.content_type) == -1) {
     console.error('Invalid "content_type"');
     return;
   }
@@ -29,14 +31,13 @@ function QuickReplies (options) {
   }
 
   if (options.content_type === 'text') {
+    let error = ' required when "content_type" is "text"';
     if (!options.title) {
-      console.error('"title" required when "content_type" is "text"');
-      return;
+      console.error('"title"' + error);      
+    } else if (!options.payload) {
+      console.error('"payload"' + error);      
     }
-    if (!options.payload) {
-      console.error('"payload" required when "content_type" is "text"');
-      return; 
-    }
+    return; 
   }
 }
 
