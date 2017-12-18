@@ -11,7 +11,7 @@ module.exports = Webhook;
 function Webhook (options) {  
   let app = createWebhook(options);
   this.getEmitter = () => { return emitter };
-  this.getWebhookInstance = () => { return app };  
+  this.getInstance = () => { return app };  
   return this;
 }
 
