@@ -1,8 +1,8 @@
 'use strict';
-const webhook = require('./webhook');
+const webhook = require('./webhook'),
+      client = require('./client');
 
-module.exports = messenger;
-
-function messenger() {
-  this.Webhook = webhook;
+module.exports = {
+  Webhook: webhook,
+  Client: client
 }

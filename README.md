@@ -4,8 +4,7 @@
 
 ```js
 const Messenger = require('./index');
-const Instance = new Messenger();
-const Webhook = Instance.Webhook({'verify_token':'<YOUR VERIFY TOKEN'});
+const Webhook = new Messenger.Webhook({'verify_token':'<YOUR VERIFY TOKEN>'});
 ```
 
 ## Subscribing to events

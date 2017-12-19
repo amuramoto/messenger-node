@@ -4,6 +4,7 @@ const express = require('express'),
       body_parser = require('body-parser'),      
       util = require('./util'),
       EventEmitter = require('events'),
+      env = require('../env'),
       emitter = new EventEmitter();      
 
 module.exports = Webhook;
@@ -17,7 +18,7 @@ function Webhook (options) {
 
 function createWebhook (options) {
   // verify_token required
-  if (!options.verify_token) throw 'VERIFY_TOKEN REQUIRED';
+  if (!env.VERIFY_TOKEN && !options.verify_token) throw 'VERIFY_TOKEN required to create webhook!';
   
   let app = express().use(body_parser.json());      
   util.addWebhookReceiver(emitter, app, options);
