@@ -4,15 +4,14 @@
 
 ```js
 const Messenger = require('./index');
-const instance = new Messenger();
-const webook = instance.Webhook;
-webhook.create({'verify_token':'<YOUR VERIFY TOKEN'})
+const Instance = new Messenger();
+const Webhook = Instance.Webhook({'verify_token':'<YOUR VERIFY TOKEN'});
 ```
 
 ## Subscribing to events
 
 ```js
-webhook.event.on('<EVENT NAME>', (event, sender, webhook_event) => {
+Webhook.event.on('<EVENT NAME>', (event, sender, webhook_event) => {
   // do something
 });
 ```
