@@ -48,12 +48,12 @@ function addWebhookEndpoint (endpoint, app) {
 
       body.entry.forEach(entry => {
         let webhook_event = entry.messaging[0];        
-        let sender = parseSenderId(webhook_event.sender);
+        let sender_id = parseSenderId(webhook_event.sender);
         let event_type = util.parseEventType(webhook_event);
 
         if (logging) console.log('EVENT RECEIVED:\n' + webhook_event);
         
-        app.emit(event_type, sender, webhook_event)
+        app.emit(event_type, sender_id, webhook_event)
       });
 
       // Return a '200 OK' response to all events

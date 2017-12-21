@@ -15,15 +15,15 @@ function verifyWebhook(verify_token, qs) {
 }
 
 function parseSenderId(sender_info) {
-  let sender_id = {'type': '', 'id': ''};
+  let sender_id = {'type': '', 'value': ''};
   if (sender_info.id) {
-    sender_id.id = sender_info.id;
-    sender_info.type = 'psid';
+    sender_id.value = sender_info.id;
+    sender_info.type = 'id';
   } else if (sender_info.phone_number) {
-    sender_id.id = sender_info.phone_number;
+    sender_id.value = sender_info.phone_number;
     sender_info.type = 'phone_number';
   } else if (sender_info.user_ref) {
-    sender_id.id = sender_info.user_ref;
+    sender_id.value = sender_info.user_ref;
     sender_info.type = 'user_ref';
   }
   return sender_id;
