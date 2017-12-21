@@ -1,6 +1,15 @@
-const payload = {};
+const payload = {},
+      platform = require('./platform');
 
-function QuickReplies (options) {
+module.exports = {
+  sendQuickReplies,
+  sendText,
+  sendAttachment,
+  sendTemplate,
+  sendSenderAction
+}
+
+function sendQuickReplies (options) {  
   if (typeof options.quick_replies !== 'Array' || options.quick_replies.length === 0) {
 
     let error = '"quick_replies" must be a non-empty array';
@@ -26,7 +35,7 @@ function QuickReplies (options) {
   }
 
   if (!options.text && !options.attachment) {
-    console.error('"text" or "attachment" required');
+    console.error('"text" or "attachment" property required');
     return;
   }
 
@@ -41,17 +50,38 @@ function QuickReplies (options) {
   }
 }
 
-function TextMessage (options) {
+function sendText (text, options) {
+  if (!options.text) {
+    console.error('"text" property required')
+    return;
+  }
+
+
 
 }
 
-function Attachment (options) {
+function sendAttachment (options) {
+  if (!options.attachment) {
+    console.error('"attachment" property required')
+    return
+  }
+  if (!options.attachment.type || !options.attachment.payload) {
+    console.error('"type" and "payload" properties required')
+    return 
+  }
+}
+
+function sendTemplate (type, options) {
 
 }
 
-function Template (type, options) {
+
+function sendSenderAction (options) {
 
 }
+
+
+
 
 function GenericTemplate (options) {
 
@@ -93,6 +123,3 @@ function AirlineFlightUpdateTemplate (options) {
 
 }
 
-function SenderAction (options) {
-
-}
