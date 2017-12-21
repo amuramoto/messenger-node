@@ -3,9 +3,7 @@ const send_api = require('./send-api'),
 
 function Client (options) {
   
-  const base_url = 'https://graph.facebook.com/';
-  
-  this.graph_url = base_url;
+  this.graph_url = 'https://graph.facebook.com/';
 
   this.graph_api_version = options.version || '';
 
