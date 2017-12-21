@@ -10,7 +10,7 @@ const Webhook = new Messenger.Webhook({'verify_token':'<YOUR VERIFY TOKEN>'});
 ## Subscribing to events
 
 ```js
-Webhook.event.on('<EVENT NAME>', (event, sender, webhook_event) => {
+Webhook.on('<EVENT NAME>', (event, sender, webhook_event) => {
   // do something
 });
 ```
