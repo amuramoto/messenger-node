@@ -1,24 +1,33 @@
 const express = require('express'),
       body_parser = require('body-parser'),      
-      util = require('./util'),      
-      env = require('../env');
+      util = require('./util');
 
 function Webhook (options) {
-  // verify_token required
-  if (!env.VERIFY_TOKEN && !options.verify_token) throw 'VERIFY_TOKEN required to create webhook!';
+  let app,
+      server,
+      port = options.port || process.env.PORT,
+      endpoint = options.endpoint || process.env.ENDPOINT || '/webhook',
+      verify_token = options.verify_token || process.env.VERIFY_TOKEN;
   
-  let app = express().use(body_parser.json());        
-  addWebhookEndpoint(options, app);
-  addVerifyEndpoint(options.verify_token, app);
-  app.listen(options.port || process.env.PORT, () => {    
-    console.log('webhook is listening')
+  if (!verify_token) throw 'VERIFY_TOKEN required to create webhook!';
+  if (endpoint.indexOf('/') !== 0) endpoint = '/' + endpoint;
+
+  app = express().use(body_parser.json());  
+  addWebhookEndpoint(endpoint, app);
+  addVerifyEndpoint(verify_token, endpoint, app);
+  
+  server = app.listen(port, () => {    
+    console.log('webhook is listening on port ' + port);
   });
 
-  return app;
+  this.on = app.on;    
+  this.emit = app.emit;
+  this.getInstance = () => { return app };
+  this.stopInstance = () => server.close();
 }
 
-function addVerifyEndpoint (verify_token, app) {
-  app.get('/webhook', (req, res) => {
+function addVerifyEndpoint (verify_token, endpoint, app) {
+  app.get(endpoint, (req, res) => {
     // Parse params from the verification request
     let verification = util.verifyWebhook(verify_token, req.query);
     if (!verification) {
@@ -30,13 +39,9 @@ function addVerifyEndpoint (verify_token, app) {
   return;
 }
 
-function addWebhookEndpoint (options, app) {
-  let endpoint = options.endpoint || '/webhook',
-      port = options.port || process.env.PORT,        
-      logging = options.logging;
+function addWebhookEndpoint (endpoint, app) {
   // Accepts POST requests at /webhook endpoint
-  app.post('/webhook', (req, res) => {  
-
+  app.post(endpoint, (req, res) => {  
     let body = req.body;
     // Check the webhook event is from a Page subscription
     if (body.object === 'page' && body.entry) {
