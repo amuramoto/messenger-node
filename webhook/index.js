@@ -40,14 +40,11 @@ function addVerifyEndpoint (verify_token, endpoint, app) {
 }
 
 function addWebhookEndpoint (endpoint, app) {
-  // Accepts POST requests at /webhook endpoint
+  
   app.post(endpoint, (req, res) => {  
     let body = req.body;
     // Check the webhook event is from a Page subscription
     if (body.object === 'page' && body.entry) {
-
-      // Return a '200 OK' response to all events
-      res.status(200).send('EVENT_RECEIVED');
 
       body.entry.forEach(entry => {
         let webhook_event = entry.messaging[0];        
@@ -58,6 +55,9 @@ function addWebhookEndpoint (endpoint, app) {
         
         app.emit(event_type, sender, webhook_event)
       });
+
+      // Return a '200 OK' response to all events
+      res.status(200).send('EVENT_RECEIVED');
       
     } else {
       // Return a '404 Not Found' if event is not from a page subscription
