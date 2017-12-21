@@ -1,14 +1,6 @@
 const payload = {},
       platform = require('./platform');
 
-module.exports = {
-  sendQuickReplies,
-  sendText,
-  sendAttachment,
-  sendTemplate,
-  sendSenderAction
-}
-
 function sendQuickReplies (options) {  
   if (typeof options.quick_replies !== 'Array' || options.quick_replies.length === 0) {
 
@@ -123,3 +115,10 @@ function AirlineFlightUpdateTemplate (options) {
 
 }
 
+module.exports = {
+  sendQuickReplies,
+  sendText,
+  sendAttachment,
+  sendTemplate,
+  sendSenderAction
+}

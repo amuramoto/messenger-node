@@ -1,7 +1,3 @@
-module.exports = {
-  send
-}
-
 function send (path, payload, callback) {
   let promise;
   const method = payload ? 'POST' : 'GET',
@@ -41,3 +37,7 @@ function send (path, payload, callback) {
   })
   return promise;
 };
+
+module.exports = {
+  send
+}

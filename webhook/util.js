@@ -1,9 +1,3 @@
-module.exports = {
-  verifyWebhook,
-  parseSenderId,
-  parseEventType
-}
-
 function verifyWebhook(verify_token, qs) {
   const mode = qs['hub.mode'],
         token = qs['hub.verify_token'],
@@ -91,4 +85,10 @@ function parseEventType (webhook_event) {
   }
 
   return event;
+}
+
+module.exports = {
+  verifyWebhook,
+  parseSenderId,
+  parseEventType
 }
