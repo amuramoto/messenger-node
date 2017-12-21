@@ -1,3 +1,5 @@
+const request = require('request');
+
 function send (path, payload, callback) {
   let promise;
   const method = payload ? 'POST' : 'GET',

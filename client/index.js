@@ -1,24 +1,22 @@
-const request = require('request'),
-      send_api = require('./send-api'),
-      platform = require('./platform'),
-      env = require('../env');
+const send_api = require('./send-api'),
+      platform = require('./platform');
 
-module.exports = Client;
-
-function Client (version, token) {
+function Client (options) {
   
   const base_url = 'https://graph.facebook.com/';
-  
-  let page_token = token,
-      graph_api_version = version || '2.11',
-      graph_url = base_url + graph_api_version;
-  
-  if (!page_token) {
+  let graph_url = base_url,
+      graph_api_version = options.version || '';
+
+  if (!options.token) {
     console.error('PAGE TOKEN REQUIRED!');
     return
   }
 
-  this.setPageToken = (token) => {
+  if (graph_api_version) {
+    this.setApiVersion(graph_api_version);
+  }
+
+  this.setPageToken = token => {
     page_token = token;
     return page_token;
   }
@@ -27,5 +25,22 @@ function Client (version, token) {
     return page_token;
   }
 
-  Object.assign(this, platform, send_api);
+  this.setApiVersion = version => {
+    if (typeof version !== 'string' || version.indexOf('v') !== 0) {
+      graph_api_version = 'v' + version;
+    }
+    graph_url += graph_api_version + '/';
+    return graph_api_version;
+  }
+
+  this.getApiVersion = () => {
+    return graph_api_version;
+  }
+
+  this.send = platform.send;
+
+  Object.assign(this, send_api);
+  // console.log(this)
 }
+
+module.exports = Client;
