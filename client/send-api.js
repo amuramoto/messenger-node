@@ -1,6 +1,25 @@
 const payload = {},
       platform = require('./platform');
 
+function SendApiPayload (options) {
+  if (!options.recipient || !options.recipient.id || !options.recipient.type) {
+    console.error('Invalid message recipient');
+    return;
+  }
+
+  if (!options.messaging_type && new Date().getTime() >= 1525676400000) {
+    console.error('messaging_type required');
+    return;
+  } else if (options.messaging_type) {
+    this.messaging_type = options.messaging_type;   
+  }
+
+  this.message = {};
+  this.recipient = {};
+  this.recipient[options.recipient.type] = options.recipient.id;
+  
+}
+
 function sendQuickReplies (options) {  
   if (typeof options.quick_replies !== 'Array' || options.quick_replies.length === 0) {
 
@@ -42,13 +61,18 @@ function sendQuickReplies (options) {
   }
 }
 
-function sendText (text, options) {
+function sendText (options, callback) {
+
+  let payload = new SendApiPayload(options);
+
   if (!options.text) {
     console.error('"text" property required')
     return;
   }
 
+  payload.message.text = options.text;
 
+  return this.send('/messages', payload);
 
 }
 

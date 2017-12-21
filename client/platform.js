@@ -1,13 +1,12 @@
 const request = require('request');
 
 function send (path, payload, callback) {
+
   let promise;
   const method = payload ? 'POST' : 'GET',
-        access_token = process.env.MESSENGER_PAGE_ACCESS_TOKEN || env.MESSENGER_PAGE_ACCESS_TOKEN,
-        graph_url = process.env.GRAPH_URL || env.GRAPH_URL || 'https://graph.facebook.com',
         request_options = {
-          uri: graph_url + path,
-          qs: {'access_token': access_token},
+          uri: this.graph_url + path,
+          qs: {'access_token': this.page_token},
           method: method
         };
 
@@ -16,17 +15,17 @@ function send (path, payload, callback) {
     return;
   }
 
-  if (!accessToken) {
-    console.error('No Messenger Page access token configured!');
-    return;
+  if (!payload || typeof payload !== 'object') {
+    console.error('Invalid request payload');
+    return; 
   }
 
-  if (payload) request_options.json = payload;
+  request_options.json = payload;
 
   promise = new Promise((resolve, reject) => {
     request(request_options, (error, response, body) => {
       if (callback) {
-        callback(body);
+        callback(error, response, body);
         return;  
       }
 
@@ -36,7 +35,7 @@ function send (path, payload, callback) {
 
       resolve(body);
     });
-  })
+  })    
   return promise;
 };
 
