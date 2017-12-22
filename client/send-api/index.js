@@ -64,10 +64,13 @@ function sendSenderAction (options) {
 }
 
 /* API Request */
-function callSendApi (message_props, options) {
-  let payload = new SendApiPayload(options);
-  Object.assign(payload.message, message_props);
-  return this.send('/me/messages', payload);
+function callSendApi (message_props, options) {  
+  let options = {
+    'path': '/me/messages',
+    'payload': new SendApiPayload(options)
+  }
+  Object.assign(options.payload.message, message_props);
+  return this.send(options);
 }
 
 /* Request Payload Constructor */
