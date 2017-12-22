@@ -20,60 +20,40 @@ function SendApiPayload (options) {
   
 }
 
-function sendQuickReplies (options) {  
-  if (typeof options.quick_replies !== 'Array' || options.quick_replies.length === 0) {
-
-    let error = '"quick_replies" must be a non-empty array';
-
-    for (let qr of quick_replies) {
-      if (typeof qr !== 'Object') {
-        error += ' of Objects';
-        break;
-      }
-    }
-    console.error(error);
-    return;
-  }
-
-  if (!options.content_type) {
-    console.error('"content_type" required');
-    return;
-  }
-
-  if (['text', 'location'].indexOf(options.content_type) == -1) {
-    console.error('Invalid "content_type"');
-    return;
-  }
-
-  if (!options.text && !options.attachment) {
-    console.error('"text" or "attachment" property required');
-    return;
-  }
-
-  if (options.content_type === 'text') {
-    let error = ' required when "content_type" is "text"';
-    if (!options.title) {
-      console.error('"title"' + error);      
-    } else if (!options.payload) {
-      console.error('"payload"' + error);      
-    }
-    return; 
-  }
+function callSendApi (message_props, options) {
+  let payload = new SendApiPayload(options);
+  Object.assign(payload.message, message_props);
+  return this.send('/messages', payload);
 }
 
 function sendText (options, callback) {
-
-  let payload = new SendApiPayload(options);
 
   if (!options.text) {
     console.error('"text" property required')
     return;
   }
 
-  payload.message.text = options.text;
+  let message_props = {
+    'text': options.text
+  }
 
-  return this.send('/messages', payload);
+  return this.callSendApi(message_props, options);
+}
 
+function sendQuickReplies (options) {  
+  if (!options.quick_replies) {
+    console.error('"quick_replies" property required');
+    return;
+  }
+
+  let message_props = {
+    'quick_replies': options.quick_replies
+  };
+
+  if (options.text) messsage_props.text = options.text;
+  if (options.attachment) messsage_props.attachment = options.attachment;
+  
+  return this.callSendApi(message_props, options);
 }
 
 function sendAttachment (options) {
@@ -81,13 +61,74 @@ function sendAttachment (options) {
     console.error('"attachment" property required')
     return
   }
-  if (!options.attachment.type || !options.attachment.payload) {
-    console.error('"type" and "payload" properties required')
-    return 
-  }
+  
+  let message_props = {
+    'attachment': options.attachment
+  };
+
+  return this.callSendApi(message_props, options);
 }
 
-function sendTemplate (type, options) {
+function sendTemplate (options) {
+  let payload;
+  let message_props = {
+    'attachment': {
+      'type': 'template'
+    }
+  };
+
+  if (!options.template_type) {
+    console.error('Valid "template_type" property required');  
+    return;
+  }
+
+  switch (options.template_type) {
+    case 'generic':
+      message_props.attachment.payload = new GenericTemplate(options);
+      break;
+
+    case 'list':
+      message_props.attachment.payload = new ListTemplate(options);
+      break;
+
+    case 'button':
+      message_props.attachment.payload = new ButtonTemplate(options);
+      break;
+
+    case 'media':
+      message_props.attachment.payload = new MediaTemplate(options);
+      break;
+
+    case 'open_graph':
+      message_props.attachment.payload = new OpenGraphTemplate(options);
+      break;
+
+    case 'receipt':
+      message_props.attachment.payload = new ReceiptTemplate(options);
+      break;
+
+    case 'airline_boarding_pass':
+      message_props.attachment.payload = new AirlineBoardingPassTemplate(options);
+      break;
+
+    case 'airline_itinerary':
+      message_props.attachment.payload = new AirlineItineraryTemplate(options);
+      break;
+
+    case 'airline_checkin':
+      message_props.attachment.payload = new AirlineCheckinTemplate(options);
+      break;
+
+    case 'airline_flight_update':
+      message_props.attachment.payload = new AirlineFlightUpdateTemplate(options);
+      break;
+
+    default: 
+      console.error('Invalid "template_type"')    ;
+      return;
+  }
+
+  return this.callSendApi(message_props, options)
 
 }
 
@@ -96,47 +137,117 @@ function sendSenderAction (options) {
 
 }
 
-
-
-
+/* TEMPLATE CONSTRUCTORS */
 function GenericTemplate (options) {
-
+  let required_props = ['elements'];
+  let template_properties = parseTemplateProperties(options, required_props);
+  this.template_type = 'generic';
+  for (let name in template_properties) {
+    this[name] = template_properties[name];
+  }
 }
 
 function MediaTemplate (options) {
-
+  let required_props = ['elements'];
+  let template_properties = parseTemplateProperties(options, required_props);
+  this.template_type = 'media';
+  for (let name in template_properties) {
+    this[name] = template_properties[name];
+  }
 }
 
 function ListTemplate (options) {
-
+  let required_props = ['elements'];
+  let optional_props = ['button', 'top_element_style'];
+  let template_properties = parseTemplateProperties(options, required_props, optional_props);
+  
+  this.template_type = 'list';
+  for (let name in template_properties) {
+    this[name] = template_properties[name];
+  }
+  
 }
 
 function ButtonTemplate (options) {
+  let required_props = ['buttons', 'text'];
+  let template_properties = parseTemplateProperties(options, required_props);
 
+  this.template_type = 'button';
+  for (let name in template_properties) {
+    this[name] = template_properties[name];
+  }
 }
 
-function OpenGraphTemplate (options) {
-
+function OpenGraphTemplate (options) {  
+  let required_props = ['elements'];
+  let template_properties = parseTemplateProperties(options, required_props);
+  this.template_type = 'open_graph';
+  for (let name in template_properties) {
+    this[name] = template_properties[name];
+  }
 }
 
 function ReceiptTemplate (options) {
+  let required_props = [
+    'recipient_name',
+    'order_number',
+    'currency',
+    'payment_method',
+    'summary'
+  ]
 
+  let optional_props = [
+    'sharable',
+    'merchant_name',
+    'timestamp',
+    'elements',
+    'address',
+    'adjustments'
+  ]
+  let template_properties = parseTemplateProperties(options, required_props, optional_props);
+
+  this.template_type = 'receipt';
+  
+  for (let name in template_properties) {
+    this[name] = template_properties[name];
+  }
+  
 }
 
-function AirlineBoardingPassTemplate (options) {
 
+function AirlineBoardingPassTemplate (options) {
+  this.template_type = '';
 }
 
 function AirlineItineraryTemplate (options) {
-
+  this.template_type = '';
 }
 
 function AirlineCheckinTemplate (options) {
-
+  this.template_type = '';
 }
 
 function AirlineFlightUpdateTemplate (options) {
+  this.template_type = '';
+}
 
+function parseTemplateProperties (options, required_props, optional_props) {
+  let properties = {};
+  required_props.forEach(prop => {
+    if (options[prop]) {
+      console.error(`Valid ${prop} property required`);     
+      return;
+    }
+    properties[prop] = options[prop];
+  });
+
+  if (optional_props) {
+    optional_props.forEach(prop => {
+      if (options[prop]) properties[prop] = options[prop];
+    })
+  }
+
+  return properties;
 }
 
 module.exports = {
@@ -144,5 +255,6 @@ module.exports = {
   sendText,
   sendAttachment,
   sendTemplate,
-  sendSenderAction
+  sendSenderAction,
+  callSendApi
 }
