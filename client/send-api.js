@@ -2,31 +2,6 @@ const payload = {},
       platform = require('./platform'),
       templates = require('./templates');
 
-function SendApiPayload (options) {
-  if (!options.recipient || !options.recipient.id || !options.recipient.type) {
-    console.error('Invalid message recipient');
-    return;
-  }
-
-  if (!options.messaging_type && new Date().getTime() >= 1525676400000) {
-    console.error('messaging_type required');
-    return;
-  } else if (options.messaging_type) {
-    this.messaging_type = options.messaging_type;   
-  }
-
-  this.message = {};
-  this.recipient = {};
-  this.recipient[options.recipient.type] = options.recipient.id;
-  
-}
-
-function callSendApi (message_props, options) {
-  let payload = new SendApiPayload(options);
-  Object.assign(payload.message, message_props);
-  return this.send('/messages', payload);
-}
-
 function sendText (options, callback) {
 
   if (!options.text) {
@@ -77,16 +52,44 @@ function sendTemplate (options) {
       'payload': templates.getProperties(options)
     }
   };
+
+  return this.callSendApi(message_props, options)
+}
+
+function sendSenderAction (options) {
+  let message_props = {
+    'sender_action': options.sender_action
+  };
   
   return this.callSendApi(message_props, options)
 }
 
-
-function sendSenderAction (options) {
-
+/* API Request */
+function callSendApi (message_props, options) {
+  let payload = new SendApiPayload(options);
+  Object.assign(payload.message, message_props);
+  return this.send('/messages', payload);
 }
 
+/* Request Payload Constructor */
+function SendApiPayload (options) {
+  if (!options.recipient || !options.recipient.id || !options.recipient.type) {
+    console.error('Invalid message recipient');
+    return;
+  }
 
+  if (!options.messaging_type && new Date().getTime() >= 1525676400000) {
+    console.error('messaging_type required');
+    return;
+  } else if (options.messaging_type) {
+    this.messaging_type = options.messaging_type;   
+  }
+
+  this.message = {};
+  this.recipient = {};
+  this.recipient[options.recipient.type] = options.recipient.id;
+  
+}
 
 module.exports = {
   sendQuickReplies,
