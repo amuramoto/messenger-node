@@ -1,5 +1,4 @@
 const payload = {},
-      platform = require('./platform'),
       templates = require('./templates');
 
 function sendText (options, callback) {
@@ -52,7 +51,7 @@ function sendTemplate (options) {
       'payload': templates.getProperties(options)
     }
   };
-
+console.log(message_props.attachment.payload)
   return this.callSendApi(message_props, options)
 }
 
@@ -68,7 +67,7 @@ function sendSenderAction (options) {
 function callSendApi (message_props, options) {
   let payload = new SendApiPayload(options);
   Object.assign(payload.message, message_props);
-  return this.send('/messages', payload);
+  return this.send('/me/messages', payload);
 }
 
 /* Request Payload Constructor */

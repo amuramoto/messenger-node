@@ -1,5 +1,6 @@
 const send_api = require('./send-api'),
-      platform = require('./platform');
+      platform = require('./platform'),
+      MessengerProfile = require('./messenger-profile-api');
 
 function Client (options) {
   
@@ -38,6 +39,9 @@ function Client (options) {
   if (this.graph_api_version) {
     this.setApiVersion(this.graph_api_version);
   }
+
+  this.MessengerProfile = new MessengerProfile();
+
 
   Object.assign(this, platform, send_api);
 
