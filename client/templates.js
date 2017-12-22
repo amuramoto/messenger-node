@@ -68,18 +68,65 @@ function getProperties (options) {
       ]
       break;
 
-    case 'airline_boarding_pass':
+    case 'airline_boardingpass':
+      required_props = [
+        'intro_message',
+        'locale',
+        'boarding_pass'
+      ]
+
+      optional_props = [
+       'theme_color'
+      ]
       break;
 
     case 'airline_itinerary':
+      required_props = [
+        'intro_message',
+        'locale',
+        'pnr_number',
+        'passenger_info',
+        'flight_info',
+        'passenger_segment_info',
+        'total_price',
+        'currency'
+      ]
+
+      optional_props = [
+        'theme_color',
+        'price_info',
+        'base_price',
+        'tax'
+      ]
       break;
 
     case 'airline_checkin':
+      required_props = [
+        'intro_message',
+        'locale',
+        'checkin_url',
+        'flight_info'
+      ]
+
+      optional_props = [
+        'pnr_number'
+      ]
       break;
 
     case 'airline_flight_update':
+      required_props = [
+        'intro_message',
+        'update_type',
+        'locale',
+        'update_flight_info'
+      ]
+
+      optional_props = [
+        'theme_color',
+        'pnr_number'
+      ]
       break;
-      
+
     default: 
       console.error('Invalid "template_type"')    ;
       return;
