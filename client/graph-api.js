@@ -10,10 +10,16 @@ function GraphRequest(options) {
   this.graph_url = 'https://graph.facebook.com/';
   this.graph_api_version = options.graph_api_version || process.env.GRAPH_API_VERSION || '';
   this.page_token = options.page_token;
+  this.app_token = options.app_token;
 
   this.setPageToken = token => {
     this.page_token = token;
     return this.page_token;
+  }
+
+  this.setAppToken = token => {
+    this.app_token = token;
+    return this.app_token;
   }
 
   this.setApiVersion = version => {
@@ -42,8 +48,11 @@ function sendGraphRequest (options, callback) {
           method: method
         };
 
-  request_options.qs.access_token = this.page_token;
-
+  // default to page access token
+  if (!qs.access_token) {
+    request_options.qs.access_token = this.page_token;  
+  }
+  
   if (!options.path) {
     console.error('No endpoint specified on Messenger send!');
     return;
