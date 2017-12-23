@@ -9,7 +9,7 @@ function GraphRequest(options) {
 
   var page_token = options.page_token,
       app_token = options.app_token,
-      graph_url = 'https://graph.facebook.com/',
+      graph_url = 'https://graph.facebook.com',
       graph_api_version = options.graph_api_version || process.env.GRAPH_API_VERSION || '';
   
 
@@ -30,10 +30,10 @@ function GraphRequest(options) {
   this.getAppToken = () => {return app_token;}
 
   this.setApiVersion = version => {
-    if (typeof version !== 'string' || version.indexOf('v') !== 0) {
-      graph_api_version = 'v' + version;
-    }
-    graph_url += this.graph_api_version + '/';
+    return formatApiVersion(version);
+  }
+
+  this.getApiVersion = version => {
     return graph_api_version;
   }
 
@@ -44,26 +44,43 @@ function GraphRequest(options) {
   this.sendGraphRequest = sendGraphRequest;
 }
 
+function formatApiVersion (version) {
+  let graph_api_version;
+  if (typeof version !== 'string' || version.indexOf('v') !== 0) {
+    graph_api_version = 'v' + version;
+  }
+  return graph_api_version;
+}
+
 function sendGraphRequest (options, callback) {
 
   let promise;
-  const method = options.payload ? 'POST' : 'GET';
+  const graph_url = this.getGraphUrl(),
+        api_version = options.api_version || this.getApiVersion(),
+        method = options.payload ? 'POST' : 'GET',
         qs = options.qs || {},
         request_options = {
-          uri: this.getGraphUrl() + options.path,
+          uri: graph_url,
           qs: qs,
           method: method
         };
+
+  if (!options.path) {
+    console.error('Valid "path" property required');
+    return;
+  }
 
   // default to page access token
   if (!qs.access_token) {
     request_options.qs.access_token = this.getPageToken();  
   }
-  
-  if (!options.path) {
-    console.error('No endpoint specified on Messenger send!');
-    return;
+
+  // override default version set on GraphRequest
+  if (api_version) {    
+    request_options.uri += `/${api_version}`; 
   }
+    
+  request_options.uri += `/${options.path}`;
 
   if (method === 'POST') {
     if (!options.payload || typeof options.payload !== 'object') {
