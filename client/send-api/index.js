@@ -63,16 +63,6 @@ function sendSenderAction (options) {
   return this.callSendApi(message_props, options)
 }
 
-/* API Request */
-function callSendApi (message_props, options) {  
-  let options = {
-    'path': '/me/messages',
-    'payload': new SendApiPayload(options)
-  }
-  Object.assign(options.payload.message, message_props);
-  return this.send(options);
-}
-
 /* Request Payload Constructor */
 function SendApiPayload (options) {
   if (!options.recipient || !options.recipient.id || !options.recipient.type) {
@@ -91,6 +81,16 @@ function SendApiPayload (options) {
   this.recipient = {};
   this.recipient[options.recipient.type] = options.recipient.id;
   
+}
+
+/* API Request */
+function callSendApi (message_props, options) {  
+  let request_options = {
+    'path': '/me/messages',
+    'payload': new SendApiPayload(options)
+  }
+  Object.assign(request_options.payload.message, message_props);
+  return this.send(request_options);
 }
 
 module.exports = {

@@ -1,50 +1,34 @@
-const platform = require('../platform')
-
-
-function MessengerProfile () {
-  let profile_fields = [
-    'whitelisted_domains',
-    'persistent_menu',
-    'get_started',
-    'greeting',
-    'payment_settings',
-    'home_url',
-    'account_linking_url',
-    'target_audience'
-  ]
-
-  let current_field_values = getFields().data;
-
-  for (let field in current_field_values) {
-    this[field] = current_field_values[field];
-  }
-
-  this.set = setFields;
-  this.delete = deleteFields;
-}
-
-function setFields (fields) {
+function setMessengerProfile (fields) {
   if (!fields) {
     console.error('Valid "fields" object required')
     return;
   }
+
+  return this.callMessengerProfileApi(fields);
 }
 
-function getFields (fields) {
-  
+function getMessengerProfile (fields) {
+  if (!fields) {
+    console.error('Valid "fields" array required')
+    return;
+  }
+  fields = fields.join(',');
+  return  this.callMessengerProfileApi(fields);
 }
 
-function deleteFields (fields) {
+function deleteMessengerProfile (fields) {
   if (!fields) {
     console.error('Valid "fields" array required')
     return;
   }
 
   fields = fields.join(',');
-
+  
+  return this.callMessengerProfileApi(fields);
 }
 
 function callMessengerProfileApi(fields) {
+
   let options = {
     'path': '/me/messenger_profile'
   }
@@ -55,11 +39,13 @@ function callMessengerProfileApi(fields) {
     options.payload = fields;
   }
 
-  this.platform.call(options);
+  return this.send(options);
 
 }
 
 module.exports = {
-  Profile: MessengerProfile,
-  callMessengerProfileApi: callMessengerProfileApi
+  setMessengerProfile,
+  getMessengerProfile,
+  deleteMessengerProfile,
+  callMessengerProfileApi
 };
