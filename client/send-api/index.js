@@ -11,6 +11,10 @@ function SendApi (GraphRequest) {
 }
 
 function sendText (options, callback) {
+  if (!options) {
+    console.error('Options object required');
+    return;
+  }
 
   if (!options.text) {
     console.error('"text" property required')
@@ -25,6 +29,11 @@ function sendText (options, callback) {
 }
 
 function sendQuickReplies (options) {  
+  if (!options) {
+    console.error('Options object required');
+    return;
+  }
+
   if (!options.quick_replies) {
     console.error('"quick_replies" property required');
     return;
@@ -41,6 +50,11 @@ function sendQuickReplies (options) {
 }
 
 function sendAttachment (options) {
+  if (!options) {
+    console.error('Options object required');
+    return;
+  }
+
   if (!options.attachment) {
     console.error('"attachment" property required')
     return
@@ -54,17 +68,27 @@ function sendAttachment (options) {
 }
 
 function sendTemplate (options) {
+  if (!options) {
+    console.error('Options object required');
+    return;
+  }
+
   let message_props = {
     'attachment': {
       'type': 'template',
       'payload': templates.getProperties(options)
     }
   };
-console.log(message_props.attachment.payload)
+
   return this.send(message_props, options)
 }
 
 function sendSenderAction (options) {
+  if (!options) {
+    console.error('Options object required');
+    return;
+  }
+
   let message_props = {
     'sender_action': options.sender_action
   };
@@ -94,6 +118,11 @@ function RequestPayload (options) {
 
 /* API Request */
 function send (message_props, options) {  
+  if (!options) {
+    console.error('Message properties and options object required');
+    return;
+  }
+
   let request_options = {
     'path': '/me/messages',
     'payload': new RequestPayload(options)

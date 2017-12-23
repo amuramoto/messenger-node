@@ -35,6 +35,11 @@ function deleteMessengerProfile (fields) {
 }
 
 function send(fields) {
+  if (!fields) {
+    console.error('Valid "fields" array required')
+    return;
+  }
+  
   let options = {
     'path': '/me/messenger_profile'
   }
