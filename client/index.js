@@ -11,8 +11,6 @@ function Client (options) {
 
   this.Message = new SendApi(this.GraphRequest);
   this.MessengerProfile = new MessengerProfile(this.GraphRequest)
-
-
 }
 
 module.exports = Client;
