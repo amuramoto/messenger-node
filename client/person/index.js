@@ -37,8 +37,8 @@ function send (options) {
   if (options.id_type === 'asid') {
     request_options.qs.access_token = this.getAppToken();
   }
-console.log(request_options)
-  // return this.sendGraphRequest(request_options);  
+
+  return this.sendGraphRequest(request_options);  
 }
 
 module.exports = Person;
