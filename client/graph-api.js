@@ -7,26 +7,33 @@ function GraphRequest(options) {
     return
   }
 
-  this.graph_url = 'https://graph.facebook.com/';
-  this.graph_api_version = options.graph_api_version || process.env.GRAPH_API_VERSION || '';
-  this.page_token = options.page_token;
-  this.app_token = options.app_token;
+  var page_token = options.page_token,
+      app_token = options.app_token,
+      graph_url = 'https://graph.facebook.com/',
+      graph_api_version = options.graph_api_version || process.env.GRAPH_API_VERSION || '';
+  
+
+  this.getGraphUrl = () => {return graph_url;}
 
   this.setPageToken = token => {
-    this.page_token = token;
+    page_token = token;
     return this.page_token;
   }
+
+  this.getPageToken = () => {return page_token;}
 
   this.setAppToken = token => {
     this.app_token = token;
     return this.app_token;
   }
 
+  this.getAppToken = () => {return app_token;}
+
   this.setApiVersion = version => {
     if (typeof version !== 'string' || version.indexOf('v') !== 0) {
-      this.graph_api_version = 'v' + version;
+      graph_api_version = 'v' + version;
     }
-    this.graph_url += this.graph_api_version + '/';
+    graph_url += this.graph_api_version + '/';
     return graph_api_version;
   }
 
@@ -43,14 +50,14 @@ function sendGraphRequest (options, callback) {
   const method = options.payload ? 'POST' : 'GET';
         qs = options.qs || {},
         request_options = {
-          uri: this.graph_url + options.path,
+          uri: this.getGraphUrl() + options.path,
           qs: qs,
           method: method
         };
 
   // default to page access token
   if (!qs.access_token) {
-    request_options.qs.access_token = this.page_token;  
+    request_options.qs.access_token = this.getPageToken();  
   }
   
   if (!options.path) {
