@@ -57,7 +57,7 @@ function sendGraphRequest (options, callback) {
   let promise;
   const graph_url = this.getGraphUrl(),
         api_version = options.api_version || this.getApiVersion(),
-        method = options.payload ? 'POST' : 'GET',
+        method = options.method || options.payload ? 'POST' : 'GET',
         qs = options.qs || {},
         request_options = {
           uri: graph_url,
@@ -79,7 +79,7 @@ function sendGraphRequest (options, callback) {
   if (api_version) {    
     request_options.uri += `/${api_version}`; 
   }
-    
+
   request_options.uri += `/${options.path}`;
 
   if (method === 'POST') {

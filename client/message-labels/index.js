@@ -6,18 +6,18 @@ function Labels (GraphRequest) {
   this.delete = deleteLabel;
   this.removePsid = removePsid;
   this.addPsid = addPsid;
-  this.send = send.bind(GraphRequest);
+  // this.send = send.bind(GraphRequest);
 }
 
-function createLabel () {
-
-}
-
-function getLabel () {
+function createLabel (name) {
 
 }
 
-function getByPsid () {
+function getLabel (label_id) {
+
+}
+
+function getByPsid (psid) {
 
 }
 
@@ -25,20 +25,16 @@ function getAllLabels () {
 
 }
 
-function deleteLabel () {
+function deleteLabel (label_id) {
 
 }
 
-function removePsid () {
+function removePsid (psid, label_id) {
 
 }
 
-function addPsid () {
+function addPsid (psid, label_id) {
 
-}
-
-function send () {
-  
 }
 
 module.exports = Labels;
