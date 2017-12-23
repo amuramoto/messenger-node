@@ -16,8 +16,10 @@ function createLabel (name) {
     console.error('name required');
     return;
   }
-  let payload = {'name': name};
-  this.send(payload);
+  let options = {
+    'payload': {'name': name}
+  };
+  return this.send(options);
 }
 
 function getLabel (label_id, fields) {
@@ -25,6 +27,11 @@ function getLabel (label_id, fields) {
     console.error('label_id and fields required');
     return;
   }
+  let options = {
+    'id': label_id,
+    'qs': {'fields': fields}
+  }
+  return this.send(options);
 }
 
 function getByPsid (psid) {
@@ -32,10 +39,23 @@ function getByPsid (psid) {
     console.error('PSID required');
     return;
   }
+
+  let options = {
+    'id': `${psid}/label`
+  }
+
+  return this.send(options);
 }
 
-function getAllLabels () {
-
+function getAllLabels (fields) {
+  if (!fields) {
+    console.error('Fields required');
+    return;
+  }
+  let options = {
+    'qs': {'fields': fields}
+  }
+  return this.send(options);
 }
 
 function deleteLabel (label_id) {
@@ -43,13 +63,12 @@ function deleteLabel (label_id) {
     console.error('label_id required');
     return;
   }
-}
-
-function removePsid (psid, label_id) {
-  if (!psid || !label_id) {
-    console.error('PSID and label_id required');
-    return;
+  let options = {
+    'method': 'DELETE',
+    'id': 'label_id'
   }
+
+  return this.send(options);
 }
 
 function addPsid (psid, label_id) {
@@ -57,12 +76,30 @@ function addPsid (psid, label_id) {
     console.error('PSID and label_id required');
     return;
   }
+  let options = {
+    'id': `${label_id}/label`,
+    'payload': {'user': psid}
+  }
+  return this.send(options);
+}
+
+function removePsid (psid, label_id) {
+  if (!psid || !label_id) {
+    console.error('PSID and label_id required');
+    return;
+  }
+  let options = {
+    'method': 'DELETE',
+    'id': `${label_id}/label`,
+    'payload': {'user': psid}
+  }
+  return this.send(options);
 }
 
 function send (options) {
   let request_options = {'api_version': 'v2.11'};
   
-  if (!options.id) {
+  if (options.id) {
     request_options.path = `/${options.id}`
   } else {
     request_options.path = '/me/custom_labels'
