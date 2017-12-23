@@ -23,13 +23,17 @@ function createLabel (name) {
 }
 
 function getLabel (label_id, fields) {
-  if (!label_id || !fields) {
-    console.error('label_id and fields required');
+  if (!label_id) {
+    console.error('label_id required');
     return;
   }
   let options = {
-    'id': label_id,
-    'qs': {'fields': fields}
+    'endpoint': label_id    
+  }
+
+  if (fields) {
+    fields = fields.join(',');
+    options.qs = {'fields': fields};
   }
   return this.send(options);
 }
@@ -41,19 +45,19 @@ function getByPsid (psid) {
   }
 
   let options = {
-    'id': `${psid}/label`
+    'endpoint': `${psid}/custom_labels`
   }
 
   return this.send(options);
 }
 
 function getAllLabels (fields) {
-  if (!fields) {
-    console.error('Fields required');
-    return;
-  }
-  let options = {
-    'qs': {'fields': fields}
+  let options = {};
+  if (fields) {
+    fields = fields.join(',');
+    options = {
+      'qs': {'fields': fields}
+    }
   }
   return this.send(options);
 }
@@ -65,7 +69,7 @@ function deleteLabel (label_id) {
   }
   let options = {
     'method': 'DELETE',
-    'id': 'label_id'
+    'endpoint': label_id
   }
 
   return this.send(options);
@@ -77,7 +81,7 @@ function addPsid (psid, label_id) {
     return;
   }
   let options = {
-    'id': `${label_id}/label`,
+    'endpoint': `${label_id}/label`,
     'payload': {'user': psid}
   }
   return this.send(options);
@@ -90,7 +94,7 @@ function removePsid (psid, label_id) {
   }
   let options = {
     'method': 'DELETE',
-    'id': `${label_id}/label`,
+    'endpoint': `${label_id}/label`,
     'payload': {'user': psid}
   }
   return this.send(options);
@@ -99,17 +103,17 @@ function removePsid (psid, label_id) {
 function send (options) {
   let request_options = {'api_version': 'v2.11'};
   
-  if (options.id) {
-    request_options.path = `/${options.id}`
+  if (options.endpoint) {
+    request_options.path = `/${options.endpoint}`;
   } else {
-    request_options.path = '/me/custom_labels'
+    request_options.path = '/me/custom_labels';
   }
 
   if (options.method) request_options.method = options.method;
 
   if (options.payload) request_options.payload = options.payload;
-
-  this.sendGraphRequest(request_options);
+  
+  return this.sendGraphRequest(request_options);
 }
 
 module.exports = Labels;
