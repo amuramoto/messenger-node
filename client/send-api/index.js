@@ -1,6 +1,15 @@
 const payload = {},
       templates = require('./templates');
 
+function SendApi (GraphRequest) {
+  this.sendQuickReplies = sendQuickReplies;
+  this.sendText = sendText;
+  this.sendAttachment = sendAttachment;
+  this.sendTemplate = sendTemplate;
+  this.sendSenderAction = sendSenderAction;
+  this.send = send.bind(GraphRequest);
+}
+
 function sendText (options, callback) {
 
   if (!options.text) {
@@ -12,7 +21,7 @@ function sendText (options, callback) {
     'text': options.text
   }
 
-  return this.callSendApi(message_props, options);
+  return this.send(message_props, options);
 }
 
 function sendQuickReplies (options) {  
@@ -28,7 +37,7 @@ function sendQuickReplies (options) {
   if (options.text) messsage_props.text = options.text;
   if (options.attachment) messsage_props.attachment = options.attachment;
   
-  return this.callSendApi(message_props, options);
+  return this.send(message_props, options);
 }
 
 function sendAttachment (options) {
@@ -41,7 +50,7 @@ function sendAttachment (options) {
     'attachment': options.attachment
   };
 
-  return this.callSendApi(message_props, options);
+  return this.send(message_props, options);
 }
 
 function sendTemplate (options) {
@@ -52,7 +61,7 @@ function sendTemplate (options) {
     }
   };
 console.log(message_props.attachment.payload)
-  return this.callSendApi(message_props, options)
+  return this.send(message_props, options)
 }
 
 function sendSenderAction (options) {
@@ -60,11 +69,11 @@ function sendSenderAction (options) {
     'sender_action': options.sender_action
   };
   
-  return this.callSendApi(message_props, options)
+  return this.send(message_props, options)
 }
 
 /* Request Payload Constructor */
-function SendApiPayload (options) {
+function RequestPayload (options) {
   if (!options.recipient || !options.recipient.id || !options.recipient.type) {
     console.error('Invalid message recipient');
     return;
@@ -84,20 +93,13 @@ function SendApiPayload (options) {
 }
 
 /* API Request */
-function callSendApi (message_props, options) {  
+function send (message_props, options) {  
   let request_options = {
     'path': '/me/messages',
-    'payload': new SendApiPayload(options)
+    'payload': new RequestPayload(options)
   }
   Object.assign(request_options.payload.message, message_props);
-  return this.send(request_options);
+  return this.sendGraphRequest(request_options);
 }
 
-module.exports = {
-  sendQuickReplies,
-  sendText,
-  sendAttachment,
-  sendTemplate,
-  sendSenderAction,
-  callSendApi
-}
+module.exports = SendApi;

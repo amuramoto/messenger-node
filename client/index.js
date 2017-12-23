@@ -1,12 +1,17 @@
-const send_api = require('./send-api'),
+const SendApi = require('./send-api'),
       GraphRequest = require('./graph-api'),
-      messenger_profile_api = require('./messenger-profile-api');
+      MessengerProfile = require('./messenger-profile-api');
 
 function Client (options) {
-  
+  this.GraphRequest = new GraphRequest(options);
+  this.setPageToken = this.GraphRequest.setPageToken;
+  this.getPageToken = this.GraphRequest.page_token;
+  this.setApiVersion = this.GraphRequest.setApiVersion;
+  this.getApiVersion = this.GraphRequest.graphApiVersion;
 
-  let Graph = new GraphRequest(options);
-  Object.assign(this, Graph, send_api, messenger_profile_api);
+  this.Message = new SendApi(this.GraphRequest);
+  this.MessengerProfile = new MessengerProfile(this.GraphRequest)
+
 
 }
 

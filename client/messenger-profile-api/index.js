@@ -1,10 +1,17 @@
+function MessengerProfile (GraphRequest) {
+  this.send = send.bind(GraphRequest);
+  this.get = getMessengerProfile;
+  this.set = setMessengerProfile;
+  this.delete = deleteMessengerProfile;
+}
+
 function setMessengerProfile (fields) {
   if (!fields) {
     console.error('Valid "fields" object required')
     return;
   }
 
-  return this.callMessengerProfileApi(fields);
+  return this.send(fields);
 }
 
 function getMessengerProfile (fields) {
@@ -13,7 +20,7 @@ function getMessengerProfile (fields) {
     return;
   }
   fields = fields.join(',');
-  return  this.callMessengerProfileApi(fields);
+  return  this.send(fields);
 }
 
 function deleteMessengerProfile (fields) {
@@ -24,11 +31,10 @@ function deleteMessengerProfile (fields) {
 
   fields = fields.join(',');
   
-  return this.callMessengerProfileApi(fields);
+  return this.send(fields);
 }
 
-function callMessengerProfileApi(fields) {
-
+function send(fields) {
   let options = {
     'path': '/me/messenger_profile'
   }
@@ -39,13 +45,8 @@ function callMessengerProfileApi(fields) {
     options.payload = fields;
   }
 
-  return this.send(options);
+  return this.sendGraphRequest(options);
 
 }
 
-module.exports = {
-  setMessengerProfile,
-  getMessengerProfile,
-  deleteMessengerProfile,
-  callMessengerProfileApi
-};
+module.exports = MessengerProfile;
