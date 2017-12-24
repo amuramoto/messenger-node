@@ -28,7 +28,7 @@ function getLabel (label_id, fields) {
     return;
   }
   let options = {
-    'endpoint': label_id    
+    'path': label_id    
   }
 
   if (fields) {
@@ -45,7 +45,7 @@ function getByPsid (psid) {
   }
 
   let options = {
-    'endpoint': `${psid}/custom_labels`
+    'path': `${psid}/custom_labels`
   }
 
   return this.send(options);
@@ -69,7 +69,7 @@ function deleteLabel (label_id) {
   }
   let options = {
     'method': 'DELETE',
-    'endpoint': label_id
+    'path': label_id
   }
 
   return this.send(options);
@@ -81,7 +81,7 @@ function addPsid (psid, label_id) {
     return;
   }
   let options = {
-    'endpoint': `${label_id}/label`,
+    'path': `${label_id}/label`,
     'payload': {'user': psid}
   }
   return this.send(options);
@@ -94,7 +94,7 @@ function removePsid (psid, label_id) {
   }
   let options = {
     'method': 'DELETE',
-    'endpoint': `${label_id}/label`,
+    'path': `${label_id}/label`,
     'payload': {'user': psid}
   }
   return this.send(options);
@@ -103,8 +103,8 @@ function removePsid (psid, label_id) {
 function send (options) {
   let request_options = {'api_version': 'v2.11'};
   
-  if (options.endpoint) {
-    request_options.path = `/${options.endpoint}`;
+  if (options.path) {
+    request_options.path = `/${options.path}`;
   } else {
     request_options.path = '/me/custom_labels';
   }
