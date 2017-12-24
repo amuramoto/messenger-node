@@ -1,4 +1,4 @@
-const Message = require('../send-api');
+const util = require('../send-api/util');
 
 function Broadcast (GraphRequest) {
   this.send = send.bind(GraphRequest);
@@ -6,7 +6,6 @@ function Broadcast (GraphRequest) {
   this.getReachEstimation = getReachEstimation;
   this.sendBroadcast = sendBroadcast;
   this.createMessageCreative = createMessageCreative;
-
 }
 
 function createMessageCreative (message) {
@@ -15,27 +14,24 @@ function createMessageCreative (message) {
     return;
   }
   let options = {'message': message};
-  return this.sendGraphRequest(options);
+  return this.send(options);
 }
 
-/*TODO: VALIDATE MESSAGE PAYLOAD*/
 function sendBroadcast (options) {
   if (!options.message_creative_id) {
     console.error('Valid message_creative_id propertu required');
     return;
   }
-  return this.sendGraphRequest(options);
+  console.log(options)
+  return this.send(options);
 }
 
 function startReachEstimation (label_id) {
-  let options = {};
-  if (label_id) {
-    options = {
-      'custom_label_id': label_id
-    }
+  let options = {
+    'custom_label_id': label_id || true
   }
   
-  return this.sendGraphRequest(options);
+  return this.send(options);
 }
 
 function getReachEstimation (reach_estimation_id) {
@@ -46,20 +42,28 @@ function getReachEstimation (reach_estimation_id) {
   let options = {
     'reach_estimation_id': reach_estimation_id
   }
-  return this.sendGraphRequest(options);
+  return this.send(options);
 }
 
 function send (options) {
-  let request_options = {};
+  let request_options = {'api_version': 'v2.11'};
 
   if (options.message_creative_id) {
-    this.request_options.path = '/me/broadcast_messages';
-  } else if (options.message) {
-    this.request_options.path = '/me/message_creatives'
+    request_options.path = '/me/broadcast_messages';
+    request_options.payload = options;
+  } else if (options.message) {    
+    request_options.path = '/me/message_creatives'
+    request_options.payload = {
+      'messages': [util.parseMessageProps(options.message)]
+    }    
   } else if (options.custom_label_id) {
-    this.request_options.path = '/me/broadcast_reach_estimations';
+    request_options.path = '/me/broadcast_reach_estimations';
+    request_options.payload = {};
+    if (typeof options.custom_label_id === 'string') {
+      request_options.payload = options;        
+    }
   } else if (options.reach_estimation_id) {
-    this.request_options.path = `/${options.reach_estimation_id}`;
+    request_options.path = `/${options.reach_estimation_id}`;
   }
 
   return this.sendGraphRequest(request_options);
