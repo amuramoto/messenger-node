@@ -1,5 +1,3 @@
-
-
 function Labels (GraphRequest) {
   this.create = createLabel;
   this.get = getLabel;

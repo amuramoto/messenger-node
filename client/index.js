@@ -2,8 +2,9 @@ const SendApi = require('./send-api'),
       GraphRequest = require('./graph-api'),
       MessengerProfile = require('./messenger-profile'),
       Person = require('./person'),
-      Labels = require('./message-labels'),
+      Labels = require('./custom-labels'),
       Broadcast = require('./broadcast-api');
+      
 function Client (options) {
   this.GraphRequest = new GraphRequest(options);
   this.setPageToken = this.GraphRequest.setPageToken;
