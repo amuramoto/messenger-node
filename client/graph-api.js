@@ -83,7 +83,7 @@ function sendGraphRequest (options, callback) {
   request_options.uri += `/${options.path}`;
 
   if (method === 'POST') {
-    if (!options.payload || typeof options.payload !== 'object') {
+    if (typeof options.payload !== 'object') {
       console.error('Invalid request payload');
       return; 
     }

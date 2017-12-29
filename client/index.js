@@ -5,7 +5,8 @@ const SendApi = require('./send-api'),
       Labels = require('./custom-labels'),
       Broadcast = require('./broadcast-api'),
       MessengerCode = require('./messenger-code-api'),
-      MessagingInsights = require('./messaging-insights-api');
+      MessagingInsights = require('./messaging-insights-api'),
+      Attachment = require('./attachment-upload-api');
 
 function Client (options) {
   this.GraphRequest = new GraphRequest(options);
@@ -21,6 +22,7 @@ function Client (options) {
   this.Broadcast = new Broadcast(this.GraphRequest);
   this.MessengerCode = new MessengerCode(this.GraphRequest);
   this.MessagingInsights = new MessagingInsights(this.GraphRequest);
+  this.Attachment = new Attachment(this.GraphRequest);
 }
 
 module.exports = Client;
