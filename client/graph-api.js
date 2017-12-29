@@ -80,7 +80,7 @@ function sendGraphRequest (options, callback) {
     request_options.uri += `/${api_version}`; 
   }
 
-  request_options.uri += `/${options.path}`;
+  request_options.uri += `${options.path}`;
 
   if (options.payload || options.formData) request_options.method = 'POST';    
 
@@ -100,7 +100,7 @@ function sendGraphRequest (options, callback) {
     options.formData.filedata = fs.createReadStream(options.formData.filedata);       
     request_options.formData = options.formData;
   }
-
+console.log(request_options)
   
   promise = new Promise((resolve, reject) => {
     request(request_options, (error, response, body) => {

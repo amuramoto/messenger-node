@@ -6,8 +6,9 @@ const SendApi = require('./send-api'),
       Broadcast = require('./broadcast-api'),
       MessengerCode = require('./messenger-code-api'),
       MessagingInsights = require('./messaging-insights-api'),
-      Attachment = require('./attachment-upload-api');
-
+      Attachment = require('./attachment-upload-api'),
+      MessageCreative = require('./message-creative');
+/*TODO: Create Message Class and wrap send, broadcast and sponsored in it*/
 function Client (options) {
   this.GraphRequest = new GraphRequest(options);
   this.setPageToken = this.GraphRequest.setPageToken;
@@ -23,6 +24,7 @@ function Client (options) {
   this.MessengerCode = new MessengerCode(this.GraphRequest);
   this.MessagingInsights = new MessagingInsights(this.GraphRequest);
   this.Attachment = new Attachment(this.GraphRequest);
+  this.MessageCreative = new MessageCreative(this.GraphRequest);
 }
 
 module.exports = Client;
