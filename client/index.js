@@ -4,7 +4,9 @@ const SendApi = require('./send-api'),
       Person = require('./person'),
       Labels = require('./custom-labels'),
       Broadcast = require('./broadcast-api'),
-      MessengerCode = require('./messenger-code-api');
+      MessengerCode = require('./messenger-code-api'),
+      MessagingInsights = require('./messaging-insights-api');
+
 function Client (options) {
   this.GraphRequest = new GraphRequest(options);
   this.setPageToken = this.GraphRequest.setPageToken;
@@ -18,6 +20,7 @@ function Client (options) {
   this.Labels = new Labels(this.GraphRequest);
   this.Broadcast = new Broadcast(this.GraphRequest);
   this.MessengerCode = new MessengerCode(this.GraphRequest);
+  this.MessagingInsights = new MessagingInsights(this.GraphRequest);
 }
 
 module.exports = Client;
