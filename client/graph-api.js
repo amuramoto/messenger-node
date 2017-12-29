@@ -1,4 +1,5 @@
-const request = require('request');
+const request = require('request'),
+      fs = require('fs');
 
 function GraphRequest(options) {  
 
@@ -57,12 +58,11 @@ function sendGraphRequest (options, callback) {
   let promise;
   const graph_url = this.getGraphUrl(),
         api_version = options.api_version || this.getApiVersion(),
-        method = options.method || options.payload ? 'POST' : 'GET',
         qs = options.qs || {},
         request_options = {
           uri: graph_url,
           qs: qs,
-          method: method
+          method: options.method || 'GET'
         };
 
   if (!options.path) {
@@ -82,14 +82,25 @@ function sendGraphRequest (options, callback) {
 
   request_options.uri += `/${options.path}`;
 
-  if (method === 'POST') {
+  if (options.payload || options.formData) request_options.method = 'POST';    
+
+  if (options.payload) {
     if (typeof options.payload !== 'object') {
       console.error('Invalid request payload');
       return; 
     }
-
-    request_options.json = options.payload;  
+    request_options.json = options.payload;
   }
+
+  if (options.formData) {
+    if (typeof options.formData !== 'object') {
+      console.error('Invalid formData');
+      return;
+    }
+    options.formData.filedata = fs.createReadStream(options.formData.filedata);       
+    request_options.formData = options.formData;
+  }
+
   
   promise = new Promise((resolve, reject) => {
     request(request_options, (error, response, body) => {

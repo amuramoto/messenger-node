@@ -1,32 +1,46 @@
 function Attachment (GraphRequest) {
-  this.uploadFile = uploadFile.bind(GraphRequest);
-  this.uploadUrl = uploadUrl.bind(GraphRequest)
+  this.upload = upload.bind(GraphRequest);  
 }
 
-function uploadFile(options) {
-
-  return this.sendGraphRequest(request_options);
-}
-
-function uploadUrl(options) {
-  if (!options.type || !options.url) {
-    console.error('Valid type and url required');
-    return
+function upload(options) {
+  if (!options.type) {
+    console.error('Valid type property required');
+    return;
   }
 
+  if (!options.file && !options.url) {
+    console.error('Valid file or url property required');
+    return;
+  }
+
+  let formData = {};
+
   let request_options = {
-    'path': '/me/message_attachments',
-    'payload': {
-      'message': {
-        'attachment': {
-          'type': options.type,
-          'payload': {
-            'url': options.url,
-            'is_reusable': options.is_reusable || true
-          }
+    'path': '/me/message_attachments'
+  }
+
+  let payload = {
+    'message': {
+      'attachment': {
+        'type': options.type,
+        'payload': {             
+          'is_reusable': true
         }
       }
     }
+  }
+
+  if (options.url) {
+    payload.message.attachment.payload.url = options.url;
+    request_options.payload = payload;
+  } else if (options.file) {
+    if (!options.file) {
+      console.error('Valid file property required');
+      return;
+    }
+    formData.message = JSON.stringify(payload.message);
+    formData.filedata = `${options.file}`
+    request_options.formData = formData;
   }
 
   return this.sendGraphRequest(request_options);
