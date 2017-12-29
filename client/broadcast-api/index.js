@@ -8,22 +8,33 @@ function Broadcast (GraphRequest) {
   this.createMessageCreative = createMessageCreative;
 }
 
-function createMessageCreative (message) {
+async function createMessageCreative (message) {
   if (!message) {
     console.error('Valid message object required');
     return;
   }
-  let options = {'message': message};
-  return this.send(options);
+  return this.send({'message': message});
 }
 
-function sendBroadcast (options) {
-  if (!options.message_creative_id) {
-    console.error('Valid message_creative_id propertu required');
+async function sendBroadcast (options) {
+  if (!options.message_creative_id && !options.message) {
+    console.error('Valid message_creative_id or message property required');
     return;
   }
-  console.log(options)
-  return this.send(options);
+
+  let message_creative,
+      request_options = {};
+
+  if (options.message) {
+    message_creative = await this.createMessageCreative(options.message);
+    request_options.message_creative_id = message_creative.message_creative_id;
+    if (options.tag) request_options.tag = options.tag;
+    if (options.notification_type) request_options.notification_type = options.notification_type;
+  } else {
+    request_options = options;
+  }
+  
+  return this.send(request_options);
 }
 
 function startReachEstimation (label_id) {
@@ -47,7 +58,7 @@ function getReachEstimation (reach_estimation_id) {
 
 function send (options) {
   let request_options = {'api_version': 'v2.11'};
-
+console.log(options)
   if (options.message_creative_id) {
     request_options.path = '/me/broadcast_messages';
     request_options.payload = options;
