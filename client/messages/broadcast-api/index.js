@@ -1,9 +1,9 @@
-function Broadcast (GraphRequest) {
-  this.send = send.bind(GraphRequest);
-  this.startReachEstimation = startReachEstimation;
-  this.getReachEstimation = getReachEstimation;
-  this.sendBroadcast = sendBroadcast;
-}
+// function Broadcast (GraphRequest) {
+//   this.send = send.bind(GraphRequest);
+//   this.startReachEstimation = startReachEstimation;
+//   this.getReachEstimation = getReachEstimation;
+//   this.sendBroadcast = sendBroadcast;
+// }
 
 function sendBroadcast (options) {
   if (!options.message_creative_id) {
@@ -13,18 +13,18 @@ function sendBroadcast (options) {
 
   let request_options = options;
   
-  return this.send(request_options);
+  return this.callBroadcastApi(request_options);
 }
 
-function startReachEstimation (label_id) {
+function startBroadcastReachEstimation (label_id) {
   let options = {
     'custom_label_id': label_id || true
   }
   
-  return this.send(options);
+  return this.callBroadcastApi(options);
 }
 
-function getReachEstimation (reach_estimation_id) {
+function getBroadcastReachEstimation (reach_estimation_id) {
   if (!reach_estimation_id) {
     console.error('Valid reach_estimation_id required');
     return;
@@ -32,10 +32,10 @@ function getReachEstimation (reach_estimation_id) {
   let options = {
     'reach_estimation_id': reach_estimation_id
   }
-  return this.send(options);
+  return this.callBroadcastApi(options);
 }
 
-function send (options) {
+function callBroadcastApi (options) {
   let request_options = {'api_version': 'v2.11'};
 
   if (options.message_creative_id) {
@@ -54,4 +54,8 @@ function send (options) {
   return this.sendGraphRequest(request_options);
 }
 
-module.exports = Broadcast;
+module.exports = {
+  sendBroadcast,
+  startBroadcastReachEstimation,
+  getBroadcastReachEstimation
+};

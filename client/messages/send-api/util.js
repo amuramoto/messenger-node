@@ -17,7 +17,7 @@ function RequestPayload (options) {
   this.message = {};
   this.recipient = {};
   this.recipient[options.recipient.type] = options.recipient.id;
-  
+ console.log(this) 
 }
 
 function parseMessageProps (options) {

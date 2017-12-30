@@ -1,10 +1,10 @@
 const util = require('../send-api/util');
 
-function MessageCreative (GraphRequest) {
-  this.create = create.bind(GraphRequest);
-}
+// function MessageCreative (GraphRequest) {
+//   this.create = create.bind(GraphRequest);
+// }
 
-async function create (message) {
+async function createMessageCreative (message) {
   if (!message) {
     console.error('Valid message object required');
     return;
@@ -21,4 +21,6 @@ async function create (message) {
   return this.sendGraphRequest(request_options);
 }
 
-module.exports = MessageCreative;
+module.exports = {
+  createMessageCreative
+};

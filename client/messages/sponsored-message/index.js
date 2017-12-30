@@ -1,8 +1,8 @@
-function SponsoredMessage (GraphRequest) {
-  this.send = send.bind(GraphRequest);
-}
+// function SponsoredMessage (GraphRequest) {
+//   this.send = send.bind(GraphRequest);
+// }
 
-function send (options) {
+function sendSponsoredMessage (options) {
   let required = [
     'message_creative_id',
     'daily_budget',
@@ -25,4 +25,8 @@ function send (options) {
   delete options.ad_account_id;
 
   this.sendGraphRequest({'formData': options});
+}
+
+module.exports = {
+  sendSponsoredMessage
 }

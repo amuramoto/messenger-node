@@ -1,15 +1,15 @@
-function Labels (GraphRequest) {
-  this.create = createLabel;
-  this.get = getLabel;
-  this.getByPsid = getByPsid;
-  this.getAll = getAllLabels;
-  this.delete = deleteLabel;
-  this.removePsid = removePsid;
-  this.addPsid = addPsid;
-  this.send = send.bind(GraphRequest);
-}
+// function Labels (GraphRequest) {
+//   this.create = createLabel;
+//   this.get = getLabel;
+//   this.getByPsid = getByPsid;
+//   this.getAll = getAllLabels;
+//   this.delete = deleteLabel;
+//   this.removePsid = removePsid;
+//   this.addPsid = addPsid;
+//   this.send = send.bind(GraphRequest);
+// }
 
-function createLabel (name) {
+function createCustomLabel (name) {
   if (!name) {
     console.error('name required');
     return;
@@ -17,10 +17,10 @@ function createLabel (name) {
   let options = {
     'payload': {'name': name}
   };
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function getLabel (label_id, fields) {
+function getCustomLabel (label_id, fields) {
   if (!label_id) {
     console.error('label_id required');
     return;
@@ -33,10 +33,10 @@ function getLabel (label_id, fields) {
     fields = fields.join(',');
     options.qs = {'fields': fields};
   }
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function getByPsid (psid) {
+function getCustomLabelsByPsid (psid) {
   if (!psid) {
     console.error('PSID required');
     return;
@@ -46,10 +46,10 @@ function getByPsid (psid) {
     'path': `${psid}/custom_labels`
   }
 
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function getAllLabels (fields) {
+function getAllCustomLabels (fields) {
   let options = {};
   if (fields) {
     fields = fields.join(',');
@@ -57,10 +57,10 @@ function getAllLabels (fields) {
       'qs': {'fields': fields}
     }
   }
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function deleteLabel (label_id) {
+function deleteCustomLabel (label_id) {
   if (!label_id) {
     console.error('label_id required');
     return;
@@ -70,10 +70,10 @@ function deleteLabel (label_id) {
     'path': label_id
   }
 
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function addPsid (psid, label_id) {
+function addPsidtoCustomLabel (psid, label_id) {
   if (!psid || !label_id) {
     console.error('PSID and label_id required');
     return;
@@ -82,10 +82,10 @@ function addPsid (psid, label_id) {
     'path': `${label_id}/label`,
     'payload': {'user': psid}
   }
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function removePsid (psid, label_id) {
+function removePsidfromCustomLabel (psid, label_id) {
   if (!psid || !label_id) {
     console.error('PSID and label_id required');
     return;
@@ -95,10 +95,10 @@ function removePsid (psid, label_id) {
     'path': `${label_id}/label`,
     'payload': {'user': psid}
   }
-  return this.send(options);
+  return this.callCustomLabelsApi(options);
 }
 
-function send (options) {
+function callCustomLabelsApi (options) {
   let request_options = {'api_version': 'v2.11'};
   
   if (options.path) {
@@ -114,4 +114,13 @@ function send (options) {
   return this.sendGraphRequest(request_options);
 }
 
-module.exports = Labels;
+module.exports = {
+  createCustomLabel,
+  getCustomLabel,
+  getCustomLabelsByPsid,
+  getAllCustomLabels,
+  deleteCustomLabel,
+  addPsidtoCustomLabel,
+  removePsidfromCustomLabel,
+  callCustomLabelsApi
+};

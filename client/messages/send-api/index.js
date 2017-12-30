@@ -1,18 +1,7 @@
 const util = require('./util'),
       payload = {};
 
-function SendApi (GraphRequest) {
-  this.sendQuickReplies = sendQuickReplies;
-  this.sendText = sendText;
-  this.sendAttachment = sendAttachment;
-  this.sendTemplate = sendTemplate;
-  this.sendSenderAction = sendSenderAction;
-  this.send = send.bind(GraphRequest);
-}
-
-
-
-function sendText (options, callback) {
+function sendText (options) {
   if (!options) {
     console.error('Options object required');
     return;
@@ -23,7 +12,7 @@ function sendText (options, callback) {
     return;
   }
 
-  return this.send(options);
+  return this.callSendApi(options);
 }
 
 function sendQuickReplies (options) {  
@@ -37,7 +26,7 @@ function sendQuickReplies (options) {
     return;
   }
 
-  return this.send(options);
+  return this.callSendApi(options);
 }
 
 function sendAttachment (options) {
@@ -51,7 +40,7 @@ function sendAttachment (options) {
     return
   }
   
-  return this.send(options);
+  return this.callSendApi(options);
 }
 
 function sendTemplate (options) {
@@ -60,7 +49,7 @@ function sendTemplate (options) {
     return;
   }
 
-  return this.send(options);
+  return this.callSendApi(options);
 }
 
 function sendSenderAction (options) {
@@ -69,11 +58,11 @@ function sendSenderAction (options) {
     return;
   }
 
-  return this.send(options);
+  return this.callSendApi(options);
 }
 
 /* API Request */
-function send (options) {  
+function callSendApi (options) {  
   if (!options) {
     console.error('Message properties and options object required');
     return;
@@ -87,8 +76,15 @@ function send (options) {
   let message_props = util.parseMessageProps(options);
   
   Object.assign(request_options.payload.message, message_props);
-  
-  return this.sendGraphRequest(request_options);
+  // console.log(this.sendGraphRequest)
+  return this.send(request_options);
 }
 
-module.exports = SendApi;
+module.exports = {
+  sendQuickReplies,
+  sendText,
+  sendAttachment,
+  sendTemplate,
+  sendSenderAction,
+  callSendApi  
+};
