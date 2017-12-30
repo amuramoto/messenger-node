@@ -33,8 +33,8 @@ const GraphRequest = require('./graph-api'),
       Messages = require('./messages'),
       MessengerProfile = require('./messenger-profile'),
       Person = require('./person'),
-      MessengerCode = require('./messenger-code-api'),
-      MessagingInsights = require('./messaging-insights-api'),
+      MessengerCode = require('./messenger-codes'),
+      MessagingInsights = require('./messaging-insights'),
       Attachment = require('./attachment-upload-api');      
 
 function Client (options) {

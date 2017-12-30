@@ -100,7 +100,6 @@ function sendGraphRequest (options, callback) {
     options.formData.filedata = fs.createReadStream(options.formData.filedata);       
     request_options.formData = options.formData;
   }
-console.log(request_options)
   
   promise = new Promise((resolve, reject) => {
     request(request_options, (error, response, body) => {

@@ -7,7 +7,6 @@ const BroadcastApi = require('./broadcast-api'),
 function Messages (GraphRequest) {
   Object.assign(this, SendApi, BroadcastApi, MessageCreative, CustomLabels, SponsoredMessagesApi);
   this.send = send.bind(GraphRequest);  
-  console.log(this)
 }
 
 function send (request_options) {

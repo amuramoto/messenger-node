@@ -76,7 +76,7 @@ function callSendApi (options) {
   let message_props = util.parseMessageProps(options);
   
   Object.assign(request_options.payload.message, message_props);
-  // console.log(this.sendGraphRequest)
+  
   return this.send(request_options);
 }
 
