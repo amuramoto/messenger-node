@@ -1,11 +1,11 @@
-const BroadcastApi = require('./broadcast-api'),
+const Broadcast = require('./broadcast'),
       SendApi = require('./send-api'),
       MessageCreative = require('./message-creative'),
       CustomLabels = require('./custom-labels'),
-      SponsoredMessagesApi = require('./sponsored-message');
+      SponsoredMessages = require('./sponsored-message');
 
 function Messages (GraphRequest) {
-  Object.assign(this, SendApi, BroadcastApi, MessageCreative, CustomLabels, SponsoredMessagesApi);
+  Object.assign(this, SendApi, Broadcast, MessageCreative, CustomLabels, SponsoredMessages);
   this.send = send.bind(GraphRequest);  
 }
 

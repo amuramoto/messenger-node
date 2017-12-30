@@ -35,7 +35,7 @@ const GraphRequest = require('./graph-api'),
       Person = require('./person'),
       MessengerCode = require('./messenger-codes'),
       MessagingInsights = require('./messaging-insights'),
-      Attachment = require('./attachment-upload-api');      
+      Attachment = require('./attachment-upload');      
 
 function Client (options) {
   this.GraphRequest = new GraphRequest(options);
