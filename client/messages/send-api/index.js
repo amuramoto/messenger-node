@@ -2,63 +2,70 @@ const util = require('./util'),
       payload = {};
 
 function sendText (options) {
-  if (!options) {
-    console.error('Options object required');
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!options) {
+      reject('Options object required');
+    }
 
-  if (!options.text) {
-    console.error('"text" property required')
-    return;
-  }
-
-  return this.callSendApi(options);
+    if (!options.text) {
+      reject('"text" property required');
+    }
+    let response = await this.callSendApi(options);
+    resolve(response);
+  });
 }
 
 function sendQuickReplies (options) {  
-  if (!options) {
-    console.error('Options object required');
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!options) {
+      reject('Options object required');    
+    }
 
-  if (!options.quick_replies) {
-    console.error('"quick_replies" property required');
-    return;
-  }
+    if (!options.quick_replies) {
+      reject('"quick_replies" property required');    
+    }
 
-  return this.callSendApi(options);
+    let response = await this.callSendApi(options);
+    resolve(response);
+  });
 }
 
 function sendAttachment (options) {
-  if (!options) {
-    console.error('Options object required');
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!options) {
+      reject('Options object required');      
+    }
 
-  if (!options.attachment) {
-    console.error('"attachment" property required')
-    return
-  }
-  
-  return this.callSendApi(options);
+    if (!options.attachment) {
+      reject('"attachment" property required');      
+    }
+    
+    let response = this.callSendApi(options);
+    resolve(response);
+  });
 }
 
 function sendTemplate (options) {
-  if (!options) {
-    console.error('Options object required');
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!options) {
+      reject('Options object required');
+      return;
+    }
 
-  return this.callSendApi(options);
+    let response = this.callSendApi(options);
+    resolve(response);
+  });
 }
 
 function sendSenderAction (options) {
-  if (!options) {
-    console.error('Options object required');
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!options) {
+      reject('Options object required');      
+    }
 
-  return this.callSendApi(options);
+    let response = this.callSendApi(options);
+    resolve(response);
+  });
 }
 
 /* API Request */
@@ -77,7 +84,7 @@ function callSendApi (options) {
   
   Object.assign(request_options.payload.message, message_props);
   
-  return this.send(request_options);
+  return this.send(request_options);  
 }
 
 module.exports = {
