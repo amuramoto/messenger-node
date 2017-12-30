@@ -1,14 +1,3 @@
-// function Labels (GraphRequest) {
-//   this.create = createLabel;
-//   this.get = getLabel;
-//   this.getByPsid = getByPsid;
-//   this.getAll = getAllLabels;
-//   this.delete = deleteLabel;
-//   this.removePsid = removePsid;
-//   this.addPsid = addPsid;
-//   this.send = send.bind(GraphRequest);
-// }
-
 function createCustomLabel (name) {
   if (!name) {
     console.error('name required');

@@ -1,7 +1,3 @@
-// function SponsoredMessage (GraphRequest) {
-//   this.send = send.bind(GraphRequest);
-// }
-
 function sendSponsoredMessage (options) {
   let required = [
     'message_creative_id',

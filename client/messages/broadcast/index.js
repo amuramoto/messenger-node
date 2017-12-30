@@ -1,10 +1,3 @@
-// function Broadcast (GraphRequest) {
-//   this.send = send.bind(GraphRequest);
-//   this.startReachEstimation = startReachEstimation;
-//   this.getReachEstimation = getReachEstimation;
-//   this.sendBroadcast = sendBroadcast;
-// }
-
 function sendBroadcast (options) {
   if (!options.message_creative_id) {
     console.error('Valid message_creative_id required');
