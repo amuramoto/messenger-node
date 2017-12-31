@@ -6,7 +6,7 @@ function createCustomLabel (name) {
     let options = {
       'payload': {'name': name}
     };
-    let response = this.callCustomLabelsApi(options);
+    let response = await  this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -24,7 +24,7 @@ function getCustomLabel (label_id, fields) {
       fields = fields.join(',');
       options.qs = {'fields': fields};
     }
-    let response = this.callCustomLabelsApi(options);
+    let response = await  this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -39,7 +39,7 @@ function getCustomLabelsByPsid (psid) {
       'path': `${psid}/custom_labels`
     }
 
-    let response = this.callCustomLabelsApi(options);
+    let response = await  this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -53,7 +53,7 @@ function getAllCustomLabels (fields) {
         'qs': {'fields': fields}
       }
     }
-    let response = this.callCustomLabelsApi(options);
+    let response = await this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -69,7 +69,7 @@ function deleteCustomLabel (label_id) {
       'path': label_id
     }
 
-    let response = this.callCustomLabelsApi(options);
+    let response = await this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -84,7 +84,7 @@ function addPsidtoCustomLabel (psid, label_id) {
       'path': `${label_id}/label`,
       'payload': {'user': psid}
     }
-    let response = this.callCustomLabelsApi(options);
+    let response = await this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -100,7 +100,7 @@ function removePsidfromCustomLabel (psid, label_id) {
       'path': `${label_id}/label`,
       'payload': {'user': psid}
     }
-    let response = this.callCustomLabelsApi(options);
+    let response = await this.callCustomLabelsApi(options);
     resolve(response);
   });
 }
@@ -119,7 +119,7 @@ function callCustomLabelsApi (options) {
 
     if (options.payload) request_options.payload = options.payload;
     
-    let response = this.sendGraphRequest(request_options);
+    let response = await this.sendGraphRequest(request_options);
     resolve(response);
   });
 }

@@ -40,7 +40,7 @@ function sendAttachment (options) {
       reject('"attachment" property required');      
     }
     
-    let response = this.callSendApi(options);
+    let response = await this.callSendApi(options);
     resolve(response);
   });
 }
@@ -52,7 +52,7 @@ function sendTemplate (options) {
       return;
     }
 
-    let response = this.callSendApi(options);
+    let response = await this.callSendApi(options);
     resolve(response);
   });
 }
@@ -63,7 +63,7 @@ function sendSenderAction (options) {
       reject('Options object required');      
     }
 
-    let response = this.callSendApi(options);
+    let response = await this.callSendApi(options);
     resolve(response);
   });
 }

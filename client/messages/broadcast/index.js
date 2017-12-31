@@ -6,7 +6,7 @@ function sendBroadcast (options) {
     }
 
     let request_options = options;    
-    let response = this.callBroadcastApi(options);
+    let response = await this.callBroadcastApi(options);
     resolve(response);
   });
 }
@@ -16,7 +16,7 @@ function startBroadcastReachEstimation (label_id) {
     let options = {
       'custom_label_id': label_id || true
     }    
-    let response = this.callBroadcastApi(options);
+    let response = await this.callBroadcastApi(options);
     resolve(response);
   });
 }
@@ -30,7 +30,7 @@ function getBroadcastReachEstimation (reach_estimation_id) {
     let options = {
       'reach_estimation_id': reach_estimation_id
     }
-    let response = this.callBroadcastApi(options);
+    let response = await this.callBroadcastApi(options);
     resolve(response);
   });
 }
