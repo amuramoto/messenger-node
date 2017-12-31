@@ -6,8 +6,12 @@ function createCustomLabel (name) {
     let options = {
       'payload': {'name': name}
     };
-    let response = await  this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -24,8 +28,12 @@ function getCustomLabel (label_id, fields) {
       fields = fields.join(',');
       options.qs = {'fields': fields};
     }
-    let response = await  this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -39,8 +47,12 @@ function getCustomLabelsByPsid (psid) {
       'path': `${psid}/custom_labels`
     }
 
-    let response = await  this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -53,8 +65,12 @@ function getAllCustomLabels (fields) {
         'qs': {'fields': fields}
       }
     }
-    let response = await this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -69,8 +85,12 @@ function deleteCustomLabel (label_id) {
       'path': label_id
     }
 
-    let response = await this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -84,8 +104,12 @@ function addPsidtoCustomLabel (psid, label_id) {
       'path': `${label_id}/label`,
       'payload': {'user': psid}
     }
-    let response = await this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -100,8 +124,12 @@ function removePsidfromCustomLabel (psid, label_id) {
       'path': `${label_id}/label`,
       'payload': {'user': psid}
     }
-    let response = await this.callCustomLabelsApi(options);
-    resolve(response);
+    try {
+      let response = await  this.callCustomLabelsApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -119,8 +147,12 @@ function callCustomLabelsApi (options) {
 
     if (options.payload) request_options.payload = options.payload;
     
-    let response = await this.sendGraphRequest(request_options);
-    resolve(response);
+    try {
+      let response = await this.sendGraphRequest(request_options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 

@@ -6,52 +6,76 @@ function MessengerProfile (GraphRequest) {
 }
 
 function setMessengerProfile (fields) {
-  if (!fields) {
-    console.error('Valid "fields" object required')
-    return;
-  }
-
-  return this.send(fields);
+  return new Promise (async (resolve, reject) => {
+    if (!fields) {
+      reject('Valid "fields" object required');
+    }
+    
+    try {
+      let response = await this.send(fields);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 function getMessengerProfile (fields) {
-  if (!fields) {
-    console.error('Valid "fields" array required')
-    return;
-  }
-  fields = fields.join(',');
-  return  this.send(fields);
+  return new Promise (async (resolve, reject) => {
+    if (!fields) {
+      reject('Valid "fields" array required');
+    }
+    fields = fields.join(',');
+    
+    try {
+      let response = await this.send(fields);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 function deleteMessengerProfile (fields) {
-  if (!fields) {
-    console.error('Valid "fields" array required')
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!fields) {
+      reject('Valid "fields" array required');
+    }
 
-  fields = fields.join(',');
-  
-  return this.send(fields);
+    fields = fields.join(',');
+    
+    try {
+      let response = await this.send(fields);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 function send(fields) {
-  if (!fields) {
-    console.error('Valid "fields" array required')
-    return;
-  }
-  
-  let options = {
-    'path': '/me/messenger_profile'
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!fields) {
+      reject('Valid "fields" array required');
+    }
+    
+    let options = {
+      'path': '/me/messenger_profile'
+    }
 
-  if (typeof fields === 'string') {
-    options.qs = {'fields': fields};
-  } else if (typeof fields === 'object') {
-    options.payload = fields;
-  }
+    if (typeof fields === 'string') {
+      options.qs = {'fields': fields};
+    } else if (typeof fields === 'object') {
+      options.payload = fields;
+    }
 
-  return this.sendGraphRequest(options);
-
+    try {
+      let response = await this.sendGraphRequest(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 module.exports = MessengerProfile;

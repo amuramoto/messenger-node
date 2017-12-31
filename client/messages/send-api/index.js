@@ -10,8 +10,13 @@ function sendText (options) {
     if (!options.text) {
       reject('"text" property required');
     }
-    let response = await this.callSendApi(options);
-    resolve(response);
+    
+    try {
+      let response = await this.callSendApi(options);  
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -25,8 +30,12 @@ function sendQuickReplies (options) {
       reject('"quick_replies" property required');    
     }
 
-    let response = await this.callSendApi(options);
-    resolve(response);
+    try {
+      let response = await this.callSendApi(options);  
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -40,8 +49,12 @@ function sendAttachment (options) {
       reject('"attachment" property required');      
     }
     
-    let response = await this.callSendApi(options);
-    resolve(response);
+    try {
+      let response = await this.callSendApi(options);  
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -52,8 +65,12 @@ function sendTemplate (options) {
       return;
     }
 
-    let response = await this.callSendApi(options);
-    resolve(response);
+    try {
+      let response = await this.callSendApi(options);  
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -63,8 +80,12 @@ function sendSenderAction (options) {
       reject('Options object required');      
     }
 
-    let response = await this.callSendApi(options);
-    resolve(response);
+    try {
+      let response = await this.callSendApi(options);  
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -84,8 +105,12 @@ function callSendApi (options) {
     
     Object.assign(request_options.payload.message, message_props);
     
-    let response = await this.send(request_options);  
-    resolve(response);
+    try {
+      let response = await this.send(request_options);  
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 

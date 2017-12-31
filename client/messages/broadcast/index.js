@@ -6,8 +6,13 @@ function sendBroadcast (options) {
     }
 
     let request_options = options;    
-    let response = await this.callBroadcastApi(options);
-    resolve(response);
+    
+    try {
+      let response = await this.callBroadcastApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }    
   });
 }
 
@@ -16,8 +21,12 @@ function startBroadcastReachEstimation (label_id) {
     let options = {
       'custom_label_id': label_id || true
     }    
-    let response = await this.callBroadcastApi(options);
-    resolve(response);
+    try {
+      let response = await this.callBroadcastApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -30,8 +39,12 @@ function getBroadcastReachEstimation (reach_estimation_id) {
     let options = {
       'reach_estimation_id': reach_estimation_id
     }
-    let response = await this.callBroadcastApi(options);
-    resolve(response);
+    try {
+      let response = await this.callBroadcastApi(options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -52,8 +65,12 @@ async function callBroadcastApi (options) {
       request_options.path = `/${options.reach_estimation_id}`;
     }
 
-    let response = await this.sendGraphRequest(request_options);
-    return response;
+    try {
+      let response = await this.sendGraphRequest(request_options);
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
