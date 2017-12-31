@@ -70,21 +70,23 @@ function sendSenderAction (options) {
 
 /* API Request */
 function callSendApi (options) {  
-  if (!options) {
-    console.error('Message properties and options object required');
-    return;
-  }
+  return new Promise (async (resolve, reject) => {
+    if (!options) {
+      reject('Message properties and options object required');      
+    }
 
-  let request_options = {
-    'path': '/me/messages',
-    'payload': new util.RequestPayload(options)
-  }
-  
-  let message_props = util.parseMessageProps(options);
-  
-  Object.assign(request_options.payload.message, message_props);
-  
-  return this.send(request_options);  
+    let request_options = {
+      'path': '/me/messages',
+      'payload': new util.RequestPayload(options)
+    }
+    
+    let message_props = util.parseMessageProps(options);
+    
+    Object.assign(request_options.payload.message, message_props);
+    
+    let response = await this.send(request_options);  
+    resolve(response);
+  });
 }
 
 module.exports = {
