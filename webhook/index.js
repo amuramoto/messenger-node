@@ -5,7 +5,7 @@ const express = require('express'),
 function Webhook (options) {
   let app,
       server,
-      port = options.port || process.env.PORT,
+      port = options.port || process.env.PORT || 1337,
       endpoint = options.endpoint || process.env.ENDPOINT || '/webhook',
       verify_token = options.verify_token || process.env.VERIFY_TOKEN;
   
