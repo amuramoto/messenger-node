@@ -24,6 +24,9 @@ function Webhook (options) {
   this.emit = app.emit;
   this.getInstance = () => { return app };
   this.stopInstance = (callback) => server.close(callback);
+  this.getPort = () => { return port };
+  this.getEndpoint = () => { return endpoint };
+  this.getVerifyToken = () => { return verify_token };
 }
 
 function addVerifyEndpoint (verify_token, endpoint, app) {
@@ -33,7 +36,7 @@ function addVerifyEndpoint (verify_token, endpoint, app) {
     if (!verification) {
       res.sendStatus(403);
     }
-    res.status(200).send(challenge);
+    res.status(200).send(req.query['hub.challenge']);
   });
 
   return;
