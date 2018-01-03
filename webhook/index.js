@@ -23,7 +23,7 @@ function Webhook (options) {
   this.on = app.on;    
   this.emit = app.emit;
   this.getInstance = () => { return app };
-  this.stopInstance = () => server.close();
+  this.stopInstance = (callback) => server.close(callback);
 }
 
 function addVerifyEndpoint (verify_token, endpoint, app) {
