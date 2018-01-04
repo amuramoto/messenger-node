@@ -20,7 +20,9 @@ function Webhook (options) {
     console.log('webhook is listening on port ' + port);
   });
 
-  this.on = app.on;    
+  this.on = (event_name, callback) => {
+    app.on(event_name, callback);
+  }
   this.emit = app.emit;
   this.getInstance = () => { return app };
   this.stopInstance = (callback) => server.close(callback);
@@ -51,12 +53,9 @@ function addWebhookEndpoint (endpoint, app) {
 
       body.entry.forEach(entry => {
         let webhook_event = entry.messaging[0];        
-        let sender_id = parseSenderId(webhook_event.sender);
+        let sender_id = util.parseSenderId(webhook_event.sender);
         let event_type = util.parseEventType(webhook_event);
-
-        if (logging) console.log('EVENT RECEIVED:\n' + webhook_event);
-        
-        app.emit(event_type, sender_id, webhook_event)
+        app.emit(event_type.type, event_type, sender_id, webhook_event)
       });
 
       // Return a '200 OK' response to all events

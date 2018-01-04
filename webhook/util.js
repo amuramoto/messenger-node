@@ -34,6 +34,7 @@ function parseEventType (webhook_event) {
     'type': '',
     'subtype': ''
   }
+  console.log(webhook_event)
   if (webhook_event.message) {
     if (webhook_event.message.is_echo) {    
       event.type = 'messaging_echoes';               
@@ -69,7 +70,7 @@ function parseEventType (webhook_event) {
     } else if (webhook_event.app_roles) {
       event.subtype = 'app_roles';
     }
-  } else if (webhook_event.policy-enforcement) {
+  } else if (webhook_event['policy-enforcement']) {
     event.type = 'messaging_policy_enforcement';
   } else if (webhook_event.payment) {
     event.type = 'messaging_payments';
@@ -83,7 +84,6 @@ function parseEventType (webhook_event) {
     console.error("Webhook received unknown messagingEvent: ", webhook_event);
     event.type = 'unknown';
   }
-
   return event;
 }
 
