@@ -18,20 +18,21 @@ function GraphRequest(options) {
 
   this.setPageToken = token => {
     page_token = token;
-    return this.page_token;
+    return page_token;
   }
 
   this.getPageToken = () => {return page_token;}
 
   this.setAppToken = token => {
-    this.app_token = token;
-    return this.app_token;
+    app_token = token;
+    return app_token;
   }
 
   this.getAppToken = () => {return app_token;}
 
   this.setApiVersion = version => {
-    return formatApiVersion(version);
+    graph_api_version = formatApiVersion(version);
+    return graph_api_version;
   }
 
   this.getApiVersion = version => {
@@ -39,7 +40,7 @@ function GraphRequest(options) {
   }
 
   if (this.graph_api_version) {
-    this.setApiVersion(this.graph_api_version);
+    this.setApiVersion(graph_api_version);
   }
 
   this.sendGraphRequest = sendGraphRequest;
@@ -47,6 +48,9 @@ function GraphRequest(options) {
 
 function formatApiVersion (version) {
   let graph_api_version;
+
+  if (!version) { return };
+
   if (typeof version !== 'string' || version.indexOf('v') !== 0) {
     graph_api_version = 'v' + version;
   }
