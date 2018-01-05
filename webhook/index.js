@@ -19,10 +19,9 @@ function Webhook (options) {
   server = app.listen(port, () => {    
     console.log('webhook is listening on port ' + port);
   });
-
-  this.on = (event_name, callback) => {
-     app.on(event_name, callback);
-  }
+console.log(this)
+  this.on = app.on.bind(app);
+  this.once = app.once.bind(app);
   this.emit = app.emit;
   this.getInstance = () => { return app };
   this.stopInstance = (callback) => server.close(callback);
