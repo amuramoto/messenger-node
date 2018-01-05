@@ -34,7 +34,7 @@ function parseEventType (webhook_event) {
     'type': '',
     'subtype': ''
   }
-  console.log(webhook_event)
+
   if (webhook_event.message) {
     if (webhook_event.message.is_echo) {    
       event.type = 'messaging_echoes';               
@@ -42,6 +42,8 @@ function parseEventType (webhook_event) {
       event.type = 'messages';     
       if (webhook_event.message.quick_reply) {
         event.subtype = 'quick_reply';
+      } else if (webhook_event.message.attachments) {
+        event.subtype = 'attachment'      
       } else {
         event.subtype = 'text';
       } 
@@ -51,9 +53,9 @@ function parseEventType (webhook_event) {
   } else if (webhook_event.standby) {
     event.type = 'standby';
   } else if (webhook_event.delivery) {
-    event.type = 'messaging_deliveries';
+    event.type = 'message_deliveries';
   } else if (webhook_event.read) {
-    event.type = 'messaging_reads';    
+    event.type = 'message_reads';    
   } else if (webhook_event.account_linking) {
     event.type = 'messaging_account_linking';
   } else if (webhook_event.optin) {
@@ -61,7 +63,7 @@ function parseEventType (webhook_event) {
   } else if (webhook_event.referral) {
     event.type = 'messaging_referrals';
     event.subtype = webhook_event.referral.source;
-  } else if (webhook_event.pass_thread_control || webhook_event.take_thread_control) {
+  } else if (webhook_event.pass_thread_control || webhook_event.take_thread_control || webhook_event.app_roles) {
     event.type = 'messaging_handovers';
     if (webhook_event.pass_thread_control) {
       event.subtype = 'pass_thread_control';

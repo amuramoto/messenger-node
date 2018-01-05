@@ -21,7 +21,7 @@ function Webhook (options) {
   });
 
   this.on = (event_name, callback) => {
-    app.on(event_name, callback);
+     app.on(event_name, callback);
   }
   this.emit = app.emit;
   this.getInstance = () => { return app };
