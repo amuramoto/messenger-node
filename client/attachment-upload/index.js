@@ -31,7 +31,7 @@ function upload(options) {
 
     if (options.url) {
       payload.message.attachment.payload.url = options.url;
-      request_options.payload = payload;
+      request_options.payload = payload;      
     } else if (options.file) {
       formData.message = JSON.stringify(payload.message);
       formData.filedata = `${options.file}`
@@ -39,7 +39,8 @@ function upload(options) {
     }
 
     try {
-      let response = await this.sendGraphRequest(request_options);
+      let response = await this.sendGraphRequest(request_options);      
+      if (options.file) response = JSON.parse(response);
       resolve(response);
     } catch (e) {
       reject(e);
