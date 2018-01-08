@@ -59,13 +59,11 @@ describe('Attachment Upload API', () => {
     {'type': 'file', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.pdf' }
   ];
 
-
-  
   attachments.forEach(attachment => {
     let source = attachment.file ? 'file':'url'; 
     test(`Upload ${attachment.type} from ${source}`, done => {
       jest.setTimeout(10000);
-      Client.Attachment.upload(attachment).then((res, rej) => {
+      Client.Attachment.upload(attachment).then(res => {
         expect(res).toHaveProperty('attachment_id');
         expect(res.attachment_id).toEqual(expect.any(String));
         done();
@@ -75,9 +73,112 @@ describe('Attachment Upload API', () => {
 });
 
 
-// test('', () => {
+/* SEND API TESTS */ 
+describe.only('Send API', () => {
 
-// });
+  let recipient = {'id': PSID};
+  
+  test('Send text message', done => {    
+    Client.Message.sendText(recipient, 'test').then(res => {
+      expect(res).toHaveProperty('recipient_id');
+      expect(res).toHaveProperty('message_id');
+      done();
+    });
+  });
+
+  test('Send template message', done => {
+    
+    let options = {
+      template_type: 'generic',
+      elements: [
+        {
+          "title":"This is a generic template",
+          "subtitle":"Plus a subtitle!",
+          "image_url":"https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.jpg",
+          "buttons":[
+            {
+            "type":"postback",
+            "title":"Postback Button",
+            "payload":"<POSTBACK_PAYLOAD>"
+            },
+            {
+            "type": "web_url",
+            "title": "URL Button",
+            "url": "https://messenger.fb.com/"
+            }
+          ]      
+        }
+      ]
+    }
+    
+    Client.Message.sendTemplate(recipient, options).then(res => {
+      expect(res).toHaveProperty('recipient_id');
+      expect(res).toHaveProperty('message_id');
+      done();
+    });
+  });
+
+  test('Send attachment', done => {
+    let options = {
+      "type":"image", 
+      "payload":{
+        "url":"https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png", 
+        "is_reusable":true
+      }    
+    }
+    Client.Message.sendAttachment(recipient, options).then(res => {
+      expect(res).toHaveProperty('recipient_id');
+      expect(res).toHaveProperty('message_id');
+      expect(res).toHaveProperty('attachment_id');
+      done();
+    });
+  });
+
+  test('Send sender actions', done => {
+    let sender_actions = ['mark_seen', 'typing_on', 'typing_off'];
+    let promises = [];
+    sender_actions.forEach(action => {      
+      promises.push(Client.Message.sendSenderAction(recipient, action));
+    })
+    
+    Promise.all(promises).then(responses => {
+      responses.forEach(res => {
+        expect(res).toHaveProperty('recipient_id');
+      });
+      done();
+    });
+    
+  });
+
+  test('Send quick replies', done => {
+    let text = 'These are quick replies!';
+    let quick_replies = [
+      {
+        "content_type":"text",
+        "title":"Quick Reply 1",
+        "image_url":"https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png",
+        "payload":"payload1"
+      },
+      {
+        "content_type":"text",
+        "title":"Quick Reply 2",
+        "payload":"payload2"
+      },
+      {
+        "content_type":"location"
+      }
+    ]
+    
+
+    Client.Message.sendQuickReplies(recipient, quick_replies, text).then(res => {
+      expect(res).toHaveProperty('recipient_id');
+      expect(res).toHaveProperty('message_id');
+      done();
+    });
+  });
+
+});
+
 
 // test('', () => {
 
