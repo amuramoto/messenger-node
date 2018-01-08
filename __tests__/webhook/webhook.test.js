@@ -1,7 +1,7 @@
 'use strict';
 
-const Messenger = require('../index.js'),
-      constructor = require('../webhook'), 
+const Messenger = require('../../index.js'),
+      constructor = require('../../webhook'), 
       request = require('request'),
       webhook_mocks = require('./webhook-event-mocks'),
       webhook_settings = {
