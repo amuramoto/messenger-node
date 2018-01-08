@@ -44,7 +44,7 @@ function upload(options) {
     } catch (e) {
       reject(e);
     }
-  }
+  });
 }
 
 module.exports = Attachment;
