@@ -198,8 +198,21 @@ test('Get insights metrics', done => {
     expect(res).toHaveProperty('paging');    
     done();
   })
-})
+});
 
+
+/* Messenger Codes API */
+
+test.only('Get Messenger Code', done => {
+  let options = {
+    'ref': 'referral_ref',
+    'image_size': 500
+  }
+  Client.MessengerCode.generate(options).then(res => {        
+    expect(res).toHaveProperty('uri');    
+    done();
+  })
+})
 
 // test('', () => {
 
