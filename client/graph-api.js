@@ -65,8 +65,7 @@ function sendGraphRequest (options, callback) {
         qs = options.qs || {},
         request_options = {
           uri: graph_url,
-          qs: qs,
-          method: options.method || 'GET'
+          qs: qs
         };
 
   if (!options.path) {
@@ -86,7 +85,13 @@ function sendGraphRequest (options, callback) {
 
   request_options.uri += `${options.path}`;
 
-  if (options.payload || options.formData) request_options.method = 'POST';    
+  if (options.method) {
+    request_options.method = options.method;
+  } else if (options.payload || options.formData) {
+    request_options.method = 'POST';    
+  } else {
+    request_options.method = 'GET';
+  }
 
   if (options.payload) {
     if (typeof options.payload !== 'object') {

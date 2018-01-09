@@ -113,7 +113,7 @@ function getProperties (options) {
       ]
       break;
 
-    case 'airline_flight_update':
+    case 'airline_update':
       required_props = [
         'intro_message',
         'update_type',

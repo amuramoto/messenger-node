@@ -3,6 +3,7 @@
 const Messenger = require('../../index.js'),
       constructor = require('../../client'), 
       request = require('request'),
+      template_mocks = require('./template_mocks'),
       PAGE_TOKEN = process.env.TEST_PAGE_TOKEN,
       APP_TOKEN = process.env.TEST_APP_TOKEN,
       PSID = process.env.TEST_PSID;
@@ -145,38 +146,17 @@ describe.only('Send API', () => {
     });
   });
 
-  describe('Send Templates', () => {
-    test('Send template message', done => {
-    
-      let options = {
-        template_type: 'generic',
-        elements: [
-          {
-            'title':'This is a generic template',
-            'subtitle':'Plus a subtitle!',
-            'image_url':'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.jpg',
-            'buttons':[
-              {
-              'type':'postback',
-              'title':'Postback Button',
-              'payload':'<POSTBACK_PAYLOAD>'
-              },
-              {
-              'type': 'web_url',
-              'title': 'URL Button',
-              'url': 'https://messenger.fb.com/'
-              }
-            ]      
-          }
-        ]
-      }
-      
-      Client.Message.sendTemplate(recipient, options).then(res => {
-        expect(res).toHaveProperty('recipient_id');
-        expect(res).toHaveProperty('message_id');
-        done();
-      });
-    });
+  describe.only('Send Templates', () => {
+    template_mocks.forEach(options => {      
+      test(`Send ${options.template_type} template`, done => {    
+        jest.setTimeout(15000);
+        Client.Message.sendTemplate(recipient, options).then(res => {
+          expect(res).toHaveProperty('recipient_id');
+          expect(res).toHaveProperty('message_id');
+          done();
+        });
+      });  
+    });    
   });
 
 });

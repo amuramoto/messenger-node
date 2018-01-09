@@ -4,7 +4,6 @@ const templates = require('./templates');
 function RequestPayload (recipient, payload) {  
   
   if (payload.sender_action) {      
-    console.log('ok')
     this.sender_action = payload.sender_action;
   } else {
     this.message = parseMessageProps(payload);
