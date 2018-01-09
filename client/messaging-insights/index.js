@@ -4,8 +4,19 @@ function MessagingInsights (GraphRequest) {
 
 function get(options) {
   return new Promise (async (resolve, reject) => {
-    if (!options.metrics) {
-      reject('Valid metrics array required');      
+    let metrics = options.metrics;
+
+    if (metrics && !Array.isArray(metrics)) {
+      reject('metrics must be an array');
+    }
+
+    if (!metrics) {
+      metrics = [
+        'page_messages_active_threads_unique',
+        'page_messages_blocked_conversations_unique',
+        'page_messages_reported_conversations_unique',
+        'page_messages_reported_conversations_by_report_type_unique'
+      ]
     }
 
     let request_options = {
@@ -18,7 +29,7 @@ function get(options) {
 
     try {
       let response = await this.sendGraphRequest(request_options);
-      resolve(response);
+      resolve(JSON.parse(response));
     } catch (e) {
       reject(e);
     }    
