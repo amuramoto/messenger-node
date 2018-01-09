@@ -1,5 +1,5 @@
 function MessengerProfile (GraphRequest) {
-  this.send = send.bind(GraphRequest);
+  this.callMessengerProfileApi = callMessengerProfileApi.bind(GraphRequest);
   this.get = getMessengerProfile;
   this.set = setMessengerProfile;
   this.delete = deleteMessengerProfile;
@@ -8,11 +8,11 @@ function MessengerProfile (GraphRequest) {
 function setMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
     if (!fields) {
-      reject('Valid "fields" object required');
+      reject('fields must be an array');
     }
     
     try {
-      let response = await this.send(fields);
+      let response = await this.callMessengerProfileApi(fields);
       resolve(response);
     } catch (e) {
       reject(e);
@@ -22,14 +22,28 @@ function setMessengerProfile (fields) {
 
 function getMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
-    if (!fields) {
-      reject('Valid "fields" array required');
+    if (fields && !Array.isArray(fields)) {
+      reject('Valid fields array required');
     }
+
+    if (!fields) {
+      fields = [
+        'account_linking_url',
+        'persistent_menu',
+        'get_started',
+        'greeting',
+        'whitelisted_domains',
+        'payment_settings',
+        'target_audience',
+        'home_url'
+      ]
+    }
+
     fields = fields.join(',');
     
     try {
-      let response = await this.send(fields);
-      resolve(response);
+      let response = await this.callMessengerProfileApi(fields);
+      resolve(JSON.parse(response));
     } catch (e) {
       reject(e);
     }
@@ -38,14 +52,12 @@ function getMessengerProfile (fields) {
 
 function deleteMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
-    if (!fields) {
-      reject('Valid "fields" array required');
+    if (!fields || !Array.isArray(fields)) {
+      reject('Valid fields array required');
     }
 
-    fields = fields.join(',');
-    
     try {
-      let response = await this.send(fields);
+      let response = await this.callMessengerProfileApi({'fields': fields});
       resolve(response);
     } catch (e) {
       reject(e);
@@ -53,7 +65,7 @@ function deleteMessengerProfile (fields) {
   });
 }
 
-function send(fields) {
+function callMessengerProfileApi(fields) {
   return new Promise (async (resolve, reject) => {
     if (!fields) {
       reject('Valid "fields" array required');
@@ -66,7 +78,8 @@ function send(fields) {
     if (typeof fields === 'string') {
       options.qs = {'fields': fields};
     } else if (typeof fields === 'object') {
-      options.payload = fields;
+      options.payload = fields;      
+      if (fields.fields) options.method = 'DELETE';
     }
 
     try {
