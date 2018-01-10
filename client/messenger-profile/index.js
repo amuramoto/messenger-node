@@ -43,7 +43,7 @@ function getMessengerProfile (fields) {
     
     try {
       let response = await this.callMessengerProfileApi(fields);
-      resolve(JSON.parse(response));
+      resolve(response);
     } catch (e) {
       reject(e);
     }
@@ -83,7 +83,7 @@ function callMessengerProfileApi(fields) {
     }
 
     try {
-      let response = await this.sendGraphRequest(options);
+      let response = await this.sendGraphRequest(options);      
       resolve(response);
     } catch (e) {
       reject(e);

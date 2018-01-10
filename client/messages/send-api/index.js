@@ -111,6 +111,10 @@ function callSendApi (recipient, payload) {
       'payload': new util.RequestPayload(recipient, payload)
     }
 
+    if (!request_options.payload) {
+      reject('error creating request payload');
+    }
+
     try {    
       let response = await this.send(request_options);  
       resolve(response);

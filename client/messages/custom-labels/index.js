@@ -15,13 +15,13 @@ function createCustomLabel (name) {
   });
 }
 
-function getCustomLabel (label_id, fields) {
+function getCustomLabelById (label_id, fields) {
   return new Promise (async (resolve, reject) => {
     if (!label_id) {
       reject('label_id required');
     }
     let options = {
-      'path': label_id    
+      'path': '/' + label_id    
     }
 
     if (fields) {
@@ -44,7 +44,7 @@ function getCustomLabelsByPsid (psid) {
     }
 
     let options = {
-      'path': `${psid}/custom_labels`
+      'path': `/${psid}/custom_labels`
     }
 
     try {
@@ -82,7 +82,7 @@ function deleteCustomLabel (label_id) {
     }
     let options = {
       'method': 'DELETE',
-      'path': label_id
+      'path': '/' + label_id
     }
 
     try {
@@ -101,7 +101,7 @@ function addPsidtoCustomLabel (psid, label_id) {
       return;
     }
     let options = {
-      'path': `${label_id}/label`,
+      'path': `/${label_id}/label`,
       'payload': {'user': psid}
     }
     try {
@@ -121,7 +121,7 @@ function removePsidfromCustomLabel (psid, label_id) {
     }
     let options = {
       'method': 'DELETE',
-      'path': `${label_id}/label`,
+      'path': `/${label_id}/label`,
       'payload': {'user': psid}
     }
     try {
@@ -135,20 +135,14 @@ function removePsidfromCustomLabel (psid, label_id) {
 
 function callCustomLabelsApi (options) {
   return new Promise (async (resolve, reject) => {
-    let request_options = {'api_version': 'v2.11'};
+    options.api_version = 'v2.11';
     
-    if (options.path) {
-      request_options.path = `/${options.path}`;
-    } else {
-      request_options.path = '/me/custom_labels';
+    if (!options.path) {
+      options.path = '/me/custom_labels';
     }
-
-    if (options.method) request_options.method = options.method;
-
-    if (options.payload) request_options.payload = options.payload;
     
     try {
-      let response = await this.sendGraphRequest(request_options);
+      let response = await this.send(options);
       resolve(response);
     } catch (e) {
       reject(e);
@@ -158,7 +152,7 @@ function callCustomLabelsApi (options) {
 
 module.exports = {
   createCustomLabel,
-  getCustomLabel,
+  getCustomLabelById,
   getCustomLabelsByPsid,
   getAllCustomLabels,
   deleteCustomLabel,

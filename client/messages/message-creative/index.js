@@ -15,7 +15,7 @@ async function createMessageCreative (message) {
     }
 
     try {
-      let response = await this.sendGraphRequest(request_options);
+      let response = await this.send(request_options);
       resolve(response);
     } catch (e) {
       reject(e);

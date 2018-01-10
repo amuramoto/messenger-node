@@ -40,7 +40,6 @@ function upload(options) {
 
     try {
       let response = await this.sendGraphRequest(request_options);      
-      if (options.file) response = JSON.parse(response);
       resolve(response);
     } catch (e) {
       reject(e);

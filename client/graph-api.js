@@ -120,7 +120,7 @@ function sendGraphRequest (options, callback) {
       if (error) {
         reject(error, body);
       }
-
+      if (typeof body === 'string') body = JSON.parse(body);
       resolve(body);
     });
   })    

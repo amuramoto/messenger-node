@@ -1,11 +1,14 @@
-function sendBroadcast (options) {
+function sendBroadcast (message_creative_id, custom_label_id) {
   return new Promise (async (resolve, reject) => {
-    if (!options.message_creative_id) {
-      reject('Valid message_creative_id required');
-      
+    if (!message_creative_id) {
+      reject('Valid message_creative_id required');      
     }
 
-    let request_options = options;    
+    let options = {
+      'message_creative_id': message_creative_id
+    };    
+
+    if (custom_label_id) options.custom_label_id = custom_label_id;
     
     try {
       let response = await this.callBroadcastApi(options);
@@ -66,7 +69,7 @@ async function callBroadcastApi (options) {
     }
 
     try {
-      let response = await this.sendGraphRequest(request_options);
+      let response = await this.send(request_options);
       resolve(response);
     } catch (e) {
       reject(e);
@@ -77,5 +80,6 @@ async function callBroadcastApi (options) {
 module.exports = {
   sendBroadcast,
   startBroadcastReachEstimation,
-  getBroadcastReachEstimation
+  getBroadcastReachEstimation,
+  callBroadcastApi
 };

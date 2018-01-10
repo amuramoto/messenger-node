@@ -29,7 +29,7 @@ function get(options) {
 
     try {
       let response = await this.sendGraphRequest(request_options);
-      resolve(JSON.parse(response));
+      resolve(response);
     } catch (e) {
       reject(e);
     }    

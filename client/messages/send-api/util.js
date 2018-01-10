@@ -7,6 +7,7 @@ function RequestPayload (recipient, payload) {
     this.sender_action = payload.sender_action;
   } else {
     this.message = parseMessageProps(payload);
+    if (!this.message) { return; }
   }
   this.recipient = recipient;  
 }
@@ -16,7 +17,6 @@ function parseMessageProps (options) {
   if (options.attachment) message_props.attachment = options.attachment;  
   
   if (options.quick_replies) {
-    console.log('ok')
     message_props.quick_replies = options.quick_replies
   }
 
@@ -25,10 +25,17 @@ function parseMessageProps (options) {
   }
 
   if (options.template_type) {
+    let template = templates.getProperties(options);
+
+    if (!template) {
+      console.error('error parsing template');
+      return;
+    }
+
     message_props = {
       'attachment': {
         'type': 'template',
-        'payload': templates.getProperties(options)
+        'payload': template
       }
     };
   }
