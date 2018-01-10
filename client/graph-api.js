@@ -82,8 +82,10 @@ function sendGraphRequest (options) {
       request_options.uri += `/${api_version}`; 
     }
 
+    // set uri path
     request_options.uri += `${options.path}`;
 
+    // set HTTP method
     if (options.method) {
       request_options.method = options.method;
     } else if (options.payload || options.formData) {
@@ -92,6 +94,7 @@ function sendGraphRequest (options) {
       request_options.method = 'GET';
     }
 
+    // add the request payload
     if (options.payload) {
       if (typeof options.payload !== 'object') {
         reject('Invalid request payload'); 
@@ -99,6 +102,7 @@ function sendGraphRequest (options) {
       request_options.json = options.payload;
     }
 
+    // handle form data
     if (options.formData) {
       if (typeof options.formData !== 'object') {
         reject('Invalid formData');
@@ -107,6 +111,7 @@ function sendGraphRequest (options) {
       request_options.formData = options.formData;
     }
 
+    // make the request
     request(request_options, (error, response, body) => {      
       if (error) {
         reject(error, body);
