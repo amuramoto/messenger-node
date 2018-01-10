@@ -1,22 +1,13 @@
 function IdMatching (GraphRequest) {
-  this.matchPsids = matchPsids;
-  this.matchAsids = matchAsids;
-  this.callIdMatchingApi = callIdMatchingApi.bind(GraphRequest);
+  this.getMatchingPsids = getMatchingPsids;
+  this.getMatchingAsids = getMatchingAsids;
+  this.callIdMatchingApi = callIdMatchingApi.bind(GraphRequest);  
 }
 
-function matchPsids (id_type, id) {
-  return new Promise (async (resolve, reject) => {
-    if (!id_type || !id) {
-      reject('id_type and id required');
-    }  
-    
-    let options = {
-      'endpoint': `/${id}/ids_for_pages`,
-      'qs': {'access_token': 'test'}
-    }
-    
+function getMatchingPsids (id_type, id) {
+  return new Promise (async (resolve, reject) => {        
     try {
-      let response = await this.send(options);
+      let response = await this.callIdMatchingApi(id, id_type, 'psid');
       resolve(response);
     } catch (e) {
       reject(e);
@@ -24,15 +15,10 @@ function matchPsids (id_type, id) {
   });
 }
 
-function matchAsids (id_type, id) {
+function getMatchingAsids (id_type, id) {
   return new Promise (async (resolve, reject) => {
-    if (!id_type || !id) {
-      reject('id_type and id required');
-    }
-    options.endpoint = `/${id}/ids_for_apps`
-    
     try {
-      let response = await this.send(options);
+      let response = await this.callIdMatchingApi(id, id_type, 'asid');
       resolve(response);
     } catch (e) {
       reject(e);
@@ -40,16 +26,27 @@ function matchAsids (id_type, id) {
   });
 }
 
-function callIdMatchingApi (options) {
+function callIdMatchingApi (id, id_type, get_type) {
   return new Promise (async (resolve, reject) => {
-    if (!options) {
-      reject('Options object required');
+    if (!id || !id_type || !get_type) {
+      reject('id, id_type, and get_type required');
     }
-    let path;
-    let request_options = {
-      'qs': options.qs || {}    
-    };
-    
+
+    let options = {};
+
+    switch (get_type) {
+      case 'psid':
+        options.endpoint = `/${id}/ids_for_pages`;
+        break;
+      case 'asid':
+        options.endpoint = `/${id}/ids_for_apps`;
+        break;
+    }
+
+    if (id_type === 'asid') {
+      options.qs = {'access_token': this.getAppToken()};
+    }
+
     try {
       let response = await this.sendGraphRequest(request_options);
       resolve(response);
