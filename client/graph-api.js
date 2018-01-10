@@ -57,9 +57,8 @@ function formatApiVersion (version) {
   return graph_api_version;
 }
 
-function sendGraphRequest (options, callback) {
+function sendGraphRequest (options) {
 
-  let promise;
   const graph_url = this.getGraphUrl(),
         api_version = options.api_version || this.getApiVersion(),
         qs = options.qs || {},
@@ -68,55 +67,47 @@ function sendGraphRequest (options, callback) {
           qs: qs
         };
 
-  if (!options.path) {
-    console.error('Valid "path" property required');
-    return;
-  }
-
-  // default to page access token
-  if (!qs.access_token) {
-    request_options.qs.access_token = this.getPageToken();  
-  }
-
-  // override default version set on GraphRequest
-  if (api_version) {    
-    request_options.uri += `/${api_version}`; 
-  }
-
-  request_options.uri += `${options.path}`;
-
-  if (options.method) {
-    request_options.method = options.method;
-  } else if (options.payload || options.formData) {
-    request_options.method = 'POST';    
-  } else {
-    request_options.method = 'GET';
-  }
-
-  if (options.payload) {
-    if (typeof options.payload !== 'object') {
-      console.error('Invalid request payload');
-      return; 
+  return new Promise((resolve, reject) => {
+    if (!options.path) {
+      reject ('Valid "path" property required');      
     }
-    request_options.json = options.payload;
-  }
 
-  if (options.formData) {
-    if (typeof options.formData !== 'object') {
-      console.error('Invalid formData');
-      return;
+    // default to page access token
+    if (!qs.access_token) {
+      request_options.qs.access_token = this.getPageToken();  
     }
-    options.formData.filedata = fs.createReadStream(options.formData.filedata);       
-    request_options.formData = options.formData;
-  }
-  
-  promise = new Promise((resolve, reject) => {
-    request(request_options, (error, response, body) => {
-      if (callback) {
-        callback(error, response, body);
-        return;  
+
+    // override default version set on GraphRequest
+    if (api_version) {    
+      request_options.uri += `/${api_version}`; 
+    }
+
+    request_options.uri += `${options.path}`;
+
+    if (options.method) {
+      request_options.method = options.method;
+    } else if (options.payload || options.formData) {
+      request_options.method = 'POST';    
+    } else {
+      request_options.method = 'GET';
+    }
+
+    if (options.payload) {
+      if (typeof options.payload !== 'object') {
+        reject('Invalid request payload'); 
       }
+      request_options.json = options.payload;
+    }
 
+    if (options.formData) {
+      if (typeof options.formData !== 'object') {
+        reject('Invalid formData');
+      }
+      options.formData.filedata = fs.createReadStream(options.formData.filedata);       
+      request_options.formData = options.formData;
+    }
+
+    request(request_options, (error, response, body) => {      
       if (error) {
         reject(error, body);
       }
@@ -124,7 +115,6 @@ function sendGraphRequest (options, callback) {
       resolve(body);
     });
   })    
-  return promise;
 };
 
 module.exports = GraphRequest;
