@@ -1,28 +1,7 @@
-function Person (GraphRequest) {
-  // this.getProfile = getProfile;  
-  // this.getMatchingPsids = getMatchingPsids;
-  // this.getMatchingAsids = getMatchingAsids;
-  // this.send = send.bind(GraphRequest);
-}
-
-function getProfile (psid, fields) {
-  return new Promise (async (resolve, reject) => {
-    if (!psid || !fields) {
-      reject('PSID and fields required');
-    }
-    fields = fields.join(',');
-    let options = {
-      'endpoint': '/' + psid,
-      'qs': {'fields': fields}
-    }
-
-    try {
-      let response = await this.send(options);
-      resolve(response);
-    } catch (e) {
-      reject(e);
-    }
-  });
+function IdMatching (GraphRequest) {
+  this.getMatchingPsids = getMatchingPsids;
+  this.getMatchingAsids = getMatchingAsids;
+  this.callIdMatchingApi = callIdMatchingApi.bind(GraphRequest);
 }
 
 function matchPsids (id_type, id) {
@@ -33,7 +12,7 @@ function matchPsids (id_type, id) {
     
     let options = {
       'endpoint': `/${id}/ids_for_pages`,
-      'qs': {'access_token': 'test'}
+      'qs': {'access_token':}
     }
     
     try {
@@ -61,7 +40,7 @@ function matchAsids (id_type, id) {
   });
 }
 
-function send (options) {
+function callIdMatchingApi (options) {
   return new Promise (async (resolve, reject) => {
     if (!options) {
       reject('Options object required');
@@ -71,12 +50,6 @@ function send (options) {
       'qs': options.qs || {}    
     };
     
-    if (options.endpoint) request_options.path += options.endpoint;
-
-    if (options.id_type === 'asid') {
-      request_options.qs.access_token = this.getAppToken();
-    }
-
     try {
       let response = await this.sendGraphRequest(request_options);
       resolve(response);
