@@ -1,3 +1,14 @@
+function CustomLabels (GraphRequest) {
+  this.createCustomLabel = createCustomLabel;
+  this.getCustomLabelById = getCustomLabelById;
+  this.getCustomLabelsByPsid = getCustomLabelsByPsid;
+  this.getAllCustomLabels = getAllCustomLabels;
+  this.deleteCustomLabel = deleteCustomLabel;
+  this.addPsidtoCustomLabel = addPsidtoCustomLabel;
+  this.removePsidfromCustomLabel = removePsidfromCustomLabel;
+  this.callCustomLabelsApi = callCustomLabelsApi.bind(GraphRequest);
+};
+
 function createCustomLabel (name) {
   return new Promise (async (resolve, reject) => {
     if (!name) {
@@ -142,7 +153,7 @@ function callCustomLabelsApi (options) {
     }
     
     try {
-      let response = await this.send(options);
+      let response = await this.sendGraphRequest(options);
       resolve(response);
     } catch (e) {
       reject(e);
@@ -150,13 +161,4 @@ function callCustomLabelsApi (options) {
   });
 }
 
-module.exports = {
-  createCustomLabel,
-  getCustomLabelById,
-  getCustomLabelsByPsid,
-  getAllCustomLabels,
-  deleteCustomLabel,
-  addPsidtoCustomLabel,
-  removePsidfromCustomLabel,
-  callCustomLabelsApi
-};
+module.exports = CustomLabels

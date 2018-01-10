@@ -1,6 +1,10 @@
 const util = require('../send-api/util');
 
-async function createMessageCreative (message) {
+function MessageCreative(GraphRequest) {
+  this.createMessageCreative = createMessageCreative.bind(GraphRequest);
+}
+
+function createMessageCreative (message) {
   return new Promise (async (resolve, reject) => {
     if (!message) {
       reject('Valid message object required');      
@@ -15,7 +19,7 @@ async function createMessageCreative (message) {
     }
 
     try {
-      let response = await this.send(request_options);
+      let response = await this.sendGraphRequest(request_options);
       resolve(response);
     } catch (e) {
       reject(e);
@@ -23,6 +27,4 @@ async function createMessageCreative (message) {
   });
 }
 
-module.exports = {
-  createMessageCreative
-};
+module.exports = MessageCreative;

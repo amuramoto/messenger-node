@@ -1,3 +1,7 @@
+function SponsoredMessage (GraphRequest) {
+  this.sendSponsoredMessage = sendSponsoredMessage.bind(GraphRequest)
+}
+
 function sendSponsoredMessage (options) {
   return new Promise (async (resolve, reject) => {
     let required = [
@@ -29,6 +33,4 @@ function sendSponsoredMessage (options) {
   });
 }
 
-module.exports = {
-  sendSponsoredMessage
-}
+module.exports = SponsoredMessage;

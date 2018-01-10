@@ -1,6 +1,15 @@
 const util = require('./util'),
       payload = {};
 
+function SendAPI (GraphRequest) {
+  this.sendQuickReplies = sendQuickReplies;
+  this.sendText = sendText;
+  this.sendAttachment = sendAttachment;
+  this.sendTemplate = sendTemplate;
+  this.sendSenderAction = sendSenderAction;
+  this.callSendApi = callSendApi.bind(GraphRequest);
+}
+
 function sendText (recipient, text) {
   return new Promise (async (resolve, reject) => {
     if (!text) {
@@ -116,7 +125,7 @@ function callSendApi (recipient, payload) {
     }
 
     try {    
-      let response = await this.send(request_options);  
+      let response = await this.sendGraphRequest(request_options);  
       resolve(response);
     } catch (e) {
       reject(e);
@@ -124,11 +133,4 @@ function callSendApi (recipient, payload) {
   });
 }
 
-module.exports = {
-  sendQuickReplies,
-  sendText,
-  sendAttachment,
-  sendTemplate,
-  sendSenderAction,
-  callSendApi  
-};
+module.exports = SendAPI;

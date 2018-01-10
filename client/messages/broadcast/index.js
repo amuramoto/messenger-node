@@ -1,3 +1,10 @@
+function Broadcast (GraphRequest) {
+  this.sendBroadcast = sendBroadcast;
+  this.startBroadcastReachEstimation = startBroadcastReachEstimation;
+  this.getBroadcastReachEstimation = getBroadcastReachEstimation;
+  this.callBroadcastApi = callBroadcastApi.bind(GraphRequest);
+}
+
 function sendBroadcast (message_creative_id, custom_label_id) {
   return new Promise (async (resolve, reject) => {
     if (!message_creative_id) {
@@ -69,7 +76,7 @@ async function callBroadcastApi (options) {
     }
 
     try {
-      let response = await this.send(request_options);
+      let response = await this.sendGraphRequest(request_options);
       resolve(response);
     } catch (e) {
       reject(e);
@@ -77,9 +84,4 @@ async function callBroadcastApi (options) {
   });
 }
 
-module.exports = {
-  sendBroadcast,
-  startBroadcastReachEstimation,
-  getBroadcastReachEstimation,
-  callBroadcastApi
-};
+module.exports = Broadcast;
