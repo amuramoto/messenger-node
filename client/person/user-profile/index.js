@@ -1,16 +1,20 @@
-function Person (GraphRequest) {
+function UserProfile (GraphRequest) {
   this.getProfile = getProfile.bind(GraphRequest);  
 }
 
 function getProfile (psid, fields) {
   return new Promise (async (resolve, reject) => {
-    if (!psid || !fields) {
-      reject('PSID and fields required');
+    if (!psid) {
+      reject('PSID required');
     }
-    fields = fields.join(',');
+
+    if (!Array.isArray(fields)) {
+      reject('fields must be an array');
+    }
+
     let request_options = {
       'endpoint': '/' + psid,
-      'qs': {'fields': fields}
+      'qs': {'fields': fields.join(',')}
     }
 
     try {
@@ -22,4 +26,4 @@ function getProfile (psid, fields) {
   });
 }
 
-module.exports = Person;
+module.exports = UserProfile;

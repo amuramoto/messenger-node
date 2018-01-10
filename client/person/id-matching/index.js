@@ -1,6 +1,6 @@
 function IdMatching (GraphRequest) {
-  this.getMatchingPsids = getMatchingPsids;
-  this.getMatchingAsids = getMatchingAsids;
+  this.matchPsids = matchPsids;
+  this.matchAsids = matchAsids;
   this.callIdMatchingApi = callIdMatchingApi.bind(GraphRequest);
 }
 
@@ -12,7 +12,7 @@ function matchPsids (id_type, id) {
     
     let options = {
       'endpoint': `/${id}/ids_for_pages`,
-      'qs': {'access_token':}
+      'qs': {'access_token': 'test'}
     }
     
     try {
@@ -59,4 +59,4 @@ function callIdMatchingApi (options) {
   });
 }
 
-module.exports = Person;
+module.exports = IdMatching;
