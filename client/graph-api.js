@@ -107,7 +107,9 @@ function sendGraphRequest (options) {
       if (typeof options.formData !== 'object') {
         reject('Invalid formData');
       }
-      options.formData.filedata = fs.createReadStream(options.formData.filedata);       
+      if (options.formData.filedata) {
+        options.formData.filedata = fs.createReadStream(options.formData.filedata);       
+      }
       request_options.formData = options.formData;
     }
 
@@ -116,7 +118,13 @@ function sendGraphRequest (options) {
       if (error) {
         reject(error, body);
       }
+
       if (typeof body === 'string') body = JSON.parse(body);
+
+      if (body.error) {
+        reject(body);
+      }
+
       resolve(body);
     });
   })    

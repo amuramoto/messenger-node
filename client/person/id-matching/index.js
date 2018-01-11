@@ -32,19 +32,19 @@ function callIdMatchingApi (id, id_type, get_type) {
       reject('id, id_type, and get_type required');
     }
 
-    let options = {};
+    let request_options = {};
 
     switch (get_type) {
       case 'psid':
-        options.endpoint = `/${id}/ids_for_pages`;
+        request_options.path = `/${id}/ids_for_pages`;
         break;
       case 'asid':
-        options.endpoint = `/${id}/ids_for_apps`;
+        request_options.path = `/${id}/ids_for_apps`;
         break;
     }
 
-    if (id_type === 'asid') {
-      options.qs = {'access_token': this.getAppToken()};
+    if (id_type.toLowerCase() === 'asid') {
+      request_options.qs = {'access_token': this.getAppToken()};
     }
 
     try {

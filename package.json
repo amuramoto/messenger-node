@@ -17,6 +17,10 @@
     "jest": "^22.0.5"
   },
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "collectCoverageFrom": [
+      "client/**",
+      "webhook/**"
+    ]
   }
 }

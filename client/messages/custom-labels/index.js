@@ -128,7 +128,6 @@ function removePsidfromCustomLabel (psid, label_id) {
   return new Promise (async (resolve, reject) => {
     if (!psid || !label_id) {
       reject('PSID and label_id required');
-      return;
     }
     let options = {
       'method': 'DELETE',

@@ -13,12 +13,12 @@ function getProfile (psid, fields) {
     }
 
     let request_options = {
-      'endpoint': '/' + psid,
+      'path': '/' + psid,
       'qs': {'fields': fields.join(',')}
     }
 
     try {
-      let response = await this.sendGraphRequest(options);
+      let response = await this.sendGraphRequest(request_options);
       resolve(response);
     } catch (e) {
       reject(e);

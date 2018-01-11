@@ -2,30 +2,33 @@ function SponsoredMessage (GraphRequest) {
   this.sendSponsoredMessage = sendSponsoredMessage.bind(GraphRequest)
 }
 
-function sendSponsoredMessage (options) {
+function sendSponsoredMessage (ad_account_id, formData) {
   return new Promise (async (resolve, reject) => {
     let required = [
       'message_creative_id',
       'daily_budget',
       'bid_amount',
-      'targeting',
-      'ad_account_id'
+      'targeting'
     ]
 
+    let request_options = {};
+
     required.forEach(prop => {
-      if (!options[prop]) {
+      if (!formData[prop]) {
         reject('Valid ' + prop + ' property required');        
       }
-    })
+    });
 
-    options.access_token = this.getPageToken();
-    options.path = '/act_' + options.ad_account_id + '/sponsored_message_ads';
-    options.api_version = 'v2.11';
+    if (!ad_account_id) reject('ad_account_id required');
 
-    delete options.ad_account_id;
+    formData.access_token = this.getPageToken();    
+
+    request_options.path = '/act_' + ad_account_id + '/sponsored_message_ads';
+    request_options.api_version = 'v2.11';
+    request_options.formData = formData;
     
     try {
-      let response = await this.sendGraphRequest({'formData': options});
+      let response = await this.sendGraphRequest(request_options);
       resolve(response);
     } catch (e) {
       reject(e);
