@@ -34,6 +34,10 @@ function Webhook (options) {
     return app_secret;
   };
   this.validateSignedRequest = (signed_request) => {
+    if (!app_secret) {
+      console.error('Cannot validate signed request: app_secret not set');
+      return;
+    }
     return util.validateSignedRequest(app_secret, signed_request);
   }
 }
