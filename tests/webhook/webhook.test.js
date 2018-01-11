@@ -2,11 +2,12 @@
 
 const Messenger = require('../../index.js'),
       constructor = require('../../webhook'), 
+      app_secret = process.env.TEST_APP_SECRET,
       request = require('request'),
       webhook_mocks = require('./webhook-event-mocks'),
       webhook_settings = {
         'verify_token': 'token',
-        'app_secret': process.env.TEST_APP_SECRET,
+        'app_secret': app_secret,
       };
 
 let Webhook;
@@ -42,6 +43,11 @@ describe('Webhook creation', () => {
     let instance = Webhook.getInstance();  
     expect(instance).toBeInstanceOf(Object);
   });
+
+  test('Set app secret', () => {
+    let result = Webhook.setAppSecret(app_secret);
+    expect(result).toEqual(app_secret);
+  })
 });
 
 describe('Webhook verification', () => {
