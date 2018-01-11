@@ -8,8 +8,7 @@ const GraphRequest = require('./graph-api'),
 
 /**
  * @constructor
- * @class Class for making Messenger Platform API requests
- * @type {Client}
+ * @class Client
  * @param {Object} options  
  * @param {string} options.page_token
  * @param {string} options.app_token

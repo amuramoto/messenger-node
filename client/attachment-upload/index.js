@@ -1,22 +1,18 @@
-/**
- * @namespace Client.Attachment
- */
 function Attachment (GraphRequest) {
   /**
    * Uploads media using the Attachment Upload API
-   * @instance
+   * @param {Object} options The attachment details
+   * @param {String} options.source_type The source of the attachment. Must be `url` or `file`.
+   * 
+   * @memberof Client#
    */
   this.uploadAttachment = upload.bind(GraphRequest);  
 }
 
-function upload(options) {
+function upload(type, source) {
   return new Promise (async (resolve, reject) => {
-    if (!options.type) {
-      reject('Valid type property required');
-    }
-
-    if (!options.file && !options.url) {
-      reject('Valid file or url property required');
+    if (!type || !source) {
+      reject('Valid attachment type and source required');
     }
 
     let formData = {};
@@ -25,10 +21,12 @@ function upload(options) {
       'path': '/me/message_attachments'
     }
 
+    let source_type = source.indexOf('http') >= 0 ? 'url':'file'
+
     let payload = {
       'message': {
         'attachment': {
-          'type': options.type,
+          'type': type,
           'payload': {             
             'is_reusable': true
           }
@@ -36,13 +34,16 @@ function upload(options) {
       }
     }
 
-    if (options.url) {
-      payload.message.attachment.payload.url = options.url;
-      request_options.payload = payload;      
-    } else if (options.file) {
-      formData.message = JSON.stringify(payload.message);
-      formData.filedata = `${options.file}`
-      request_options.formData = formData;
+    switch (source_type) {
+      case 'url':
+        payload.message.attachment.payload.url = source;
+        request_options.payload = payload;      
+        break;
+      case 'file':
+        formData.message = JSON.stringify(payload.message);
+        formData.filedata = `${source}`
+        request_options.formData = formData;
+        break;
     }
 
     try {

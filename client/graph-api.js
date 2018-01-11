@@ -1,11 +1,6 @@
 const request = require('request'),
       fs = require('fs');
 
-/**
- * Sends HTTP requests to the Graph API. 
- * @constructor
- * @param {options}
- */
 function GraphRequest(options) {  
 
   if (!options.page_token) {
