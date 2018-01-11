@@ -1,5 +1,12 @@
+/**
+ * @namespace Client.Attachment
+ */
 function Attachment (GraphRequest) {
-  this.upload = upload.bind(GraphRequest);  
+  /**
+   * Uploads media using the Attachment Upload API
+   * @instance
+   */
+  this.uploadAttachment = upload.bind(GraphRequest);  
 }
 
 function upload(options) {

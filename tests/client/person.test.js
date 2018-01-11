@@ -18,7 +18,7 @@ describe('Person', () => {
         'gender',
         'last_ad_referral'
       ]
-      Client.Person.getProfile(PSID, fields).then(res => {
+      Client.getUserProfile(PSID, fields).then(res => {
         for (let field in res) {
           expect(fields.includes(field)).toBeTruthy();
         }
@@ -35,7 +35,7 @@ describe('Person', () => {
 
     ids.forEach(id => {
       test(`Get PSIDs from ${id.type}`, done => {
-        Client.Person.getMatchingPsids(id.type, id.id).then(res => {
+        Client.getMatchingPsids(id.type, id.id).then(res => {
           expect(res).toHaveProperty('data');
           expect(res).toHaveProperty('paging');    
           done();
@@ -43,7 +43,7 @@ describe('Person', () => {
       });
       
       test(`Get ASIDs from ${id.type}`, done => {
-        Client.Person.getMatchingAsids(id.type, id.id).then(res => {
+        Client.getMatchingAsids(id.type, id.id).then(res => {
           expect(res).toHaveProperty('data');
           expect(res).toHaveProperty('paging');    
           done();

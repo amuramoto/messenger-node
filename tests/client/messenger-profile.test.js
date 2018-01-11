@@ -30,7 +30,7 @@ describe('Messenger Profile API', () => {
   let fields_arr = Object.keys(fields);
 
   test('Set profile fields', done => {
-    Client.MessengerProfile.set(fields).then(res => {
+    Client.setMessengerProfile(fields).then(res => {
       expect(res).toHaveProperty('result');
       expect(res.result).toEqual('success');
       done()
@@ -39,7 +39,7 @@ describe('Messenger Profile API', () => {
 
   test('Get profile fields', done => {      
     [null, fields_arr].forEach(field_list => {
-      Client.MessengerProfile.get(field_list).then(res => {
+      Client.getMessengerProfile(field_list).then(res => {
         let keys = Object.keys(res.data[0]);
         expect(res).toHaveProperty('data');
         expect.arrayContaining(fields_arr);        
@@ -49,7 +49,7 @@ describe('Messenger Profile API', () => {
   });
 
   test('Delete profile fields', done => {
-    Client.MessengerProfile.delete(fields_arr).then(res => {
+    Client.deleteMessengerProfile(fields_arr).then(res => {
       expect(res).toHaveProperty('result');
       expect(res.result).toEqual('success');
       done();

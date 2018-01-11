@@ -20,8 +20,8 @@ describe('Attachment Upload API', () => {
   attachments.forEach(attachment => {
     let source = attachment.file ? 'file':'url'; 
     test(`Upload ${attachment.type} from ${source}`, done => {
-      jest.setTimeout(15000);
-      Client.Attachment.upload(attachment).then(res => {
+      jest.setTimeout(20000);
+      Client.uploadAttachment(attachment).then(res => {
         expect(res).toHaveProperty('attachment_id');
         expect(res.attachment_id).toEqual(expect.any(String));
         done();

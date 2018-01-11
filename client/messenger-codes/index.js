@@ -1,5 +1,5 @@
 function MessengerCode (GraphRequest) {
-  this.generate = generate.bind(GraphRequest);
+  this.generateMessengerCode = generate.bind(GraphRequest);
 }
 
 function generate(options) {

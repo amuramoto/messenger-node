@@ -16,7 +16,7 @@ describe('Broadcast Message', () => {
 
   describe('Custom labels - creation', () => {
     test('Create label', done => {
-      Client.Message.createCustomLabel('sdk_test_label').then(res => {
+      Client.createCustomLabel('sdk_test_label').then(res => {
         expect(res).toHaveProperty('id');
         custom_label = res.id;
         done(); 
@@ -24,7 +24,7 @@ describe('Broadcast Message', () => {
     });
 
     test('Get label by ID', done => {
-      Client.Message.getCustomLabelById(custom_label, ['name','id']).then(res => {
+      Client.getCustomLabelById(custom_label, ['name','id']).then(res => {
         expect(res).toHaveProperty('id');
         expect(res).toHaveProperty('name');
         expect(res.id).toEqual(custom_label);
@@ -34,7 +34,7 @@ describe('Broadcast Message', () => {
     });
 
     test('Get all labels', done => {
-      Client.Message.getAllCustomLabels(['name', 'id']).then(res => {
+      Client.getAllCustomLabels(['name', 'id']).then(res => {
         expect(res).toHaveProperty('data');
         expect(res).toHaveProperty('paging');        
         done();
@@ -42,7 +42,7 @@ describe('Broadcast Message', () => {
     });
 
     test('Associate label to PSID', done => {
-      Client.Message.addPsidtoCustomLabel(PSID, custom_label).then(res => {
+      Client.addPsidtoCustomLabel(PSID, custom_label).then(res => {
         expect(res).toHaveProperty('success');
         expect(res.success).toEqual(true);        
         done();
@@ -50,7 +50,7 @@ describe('Broadcast Message', () => {
     });
 
     test('Get custom labels by PSID', done => {
-      Client.Message.getCustomLabelsByPsid(PSID).then(res => {
+      Client.getCustomLabelsByPsid(PSID).then(res => {
         expect(res).toHaveProperty('data');
         expect(res).toHaveProperty('paging');        
         done();
@@ -62,7 +62,7 @@ describe('Broadcast Message', () => {
     messages.forEach(message => {
       let message_type = message.text ? 'text': `${message.template_type} template`;
       test(`Create ${message_type} message creative`, done => {        
-          Client.Message.createMessageCreative(message).then(res => {
+          Client.createMessageCreative(message).then(res => {
             expect(res).toHaveProperty('message_creative_id');
             message_creatives.push({'type': message_type, 'id': res.message_creative_id});  
             done();
@@ -77,7 +77,7 @@ describe('Broadcast Message', () => {
       let test_type = i === 0 ? 'all broadcasts' : 'targetted broadcast'
       test(`Start reach estimation for ${test_type}`, done => {
         let label = i === 0 ? null : custom_label;
-        Client.Message.startBroadcastReachEstimation(label).then(res => {
+        Client.startBroadcastReachEstimation(label).then(res => {
           expect(res).toHaveProperty('reach_estimation_id');                  
           reach_estimation_id = res.reach_estimation_id;
           done();
@@ -86,7 +86,7 @@ describe('Broadcast Message', () => {
     };
 
     test(`Get reach estimation`, done => {
-      Client.Message.getBroadcastReachEstimation(reach_estimation_id).then(res => {
+      Client.getBroadcastReachEstimation(reach_estimation_id).then(res => {
         expect(res).toHaveProperty('id');          
         expect(res).toHaveProperty('reach_estimation');
         done();
@@ -98,7 +98,7 @@ describe('Broadcast Message', () => {
       test(`Send Broadcast to ${target}`, done => {
         let label;
         if (i === 1) label = custom_label
-        Client.Message.sendBroadcast(message_creatives[i].id, custom_label).then(res => {
+        Client.sendBroadcast(message_creatives[i].id, custom_label).then(res => {
           expect(res).toHaveProperty('broadcast_id');
           done();
         })
@@ -108,7 +108,7 @@ describe('Broadcast Message', () => {
 
   describe('Custom labels - deletion', () => {
     test('Remove label from PSID', done => {
-      Client.Message.removePsidfromCustomLabel(PSID, custom_label).then(res => {
+      Client.removePsidfromCustomLabel(PSID, custom_label).then(res => {
         expect(res).toHaveProperty('success');
         expect(res.success).toEqual(true);        
         done();
@@ -116,7 +116,7 @@ describe('Broadcast Message', () => {
     });
 
     test('Delete label', done => {
-      Client.Message.deleteCustomLabel(custom_label).then(res => {
+      Client.deleteCustomLabel(custom_label).then(res => {
         expect(res).toHaveProperty('success');
         expect(res.success).toEqual(true);        
         done();

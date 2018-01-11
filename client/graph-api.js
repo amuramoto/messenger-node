@@ -1,6 +1,11 @@
 const request = require('request'),
       fs = require('fs');
 
+/**
+ * Sends HTTP requests to the Graph API. 
+ * @constructor
+ * @param {options}
+ */
 function GraphRequest(options) {  
 
   if (!options.page_token) {
@@ -13,7 +18,6 @@ function GraphRequest(options) {
       graph_url = 'https://graph.facebook.com',
       graph_api_version = options.graph_api_version || process.env.GRAPH_API_VERSION || '';
   
-
   this.getGraphUrl = () => {return graph_url;}
 
   this.setPageToken = token => {
@@ -119,12 +123,11 @@ function sendGraphRequest (options) {
         reject(error, body);
       }
 
-      if (typeof body === 'string') body = JSON.parse(body);
-
       if (body.error) {
         reject(body);
       }
 
+      if (typeof body === 'string') body = JSON.parse(body);
       resolve(body);
     });
   })    

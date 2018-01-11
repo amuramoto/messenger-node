@@ -1,5 +1,5 @@
 function UserProfile (GraphRequest) {
-  this.getProfile = getProfile.bind(GraphRequest);  
+  this.getUserProfile = getProfile.bind(GraphRequest);  
 }
 
 function getProfile (psid, fields) {

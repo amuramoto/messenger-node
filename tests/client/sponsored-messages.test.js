@@ -25,7 +25,7 @@ test('Sponsored Message', done => {
     'targeting': 'test',
     'ad_account_id': 'test' 
   }
-  Client.Message.sendSponsoredMessage('test', options).then(res => {
+  Client.sendSponsoredMessage('test', options).then(res => {
     done();
   })
 });

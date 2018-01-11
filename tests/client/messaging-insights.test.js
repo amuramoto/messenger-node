@@ -14,7 +14,7 @@ test('Get insights metrics', done => {
     'since': today - 864000,
     'until': today
   }
-  Client.MessagingInsights.get(options).then(res => {    
+  Client.getMessagingInsights(options).then(res => {    
     expect(res).toHaveProperty('data');
     expect(res).toHaveProperty('paging');    
     done();

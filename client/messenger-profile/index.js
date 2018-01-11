@@ -1,8 +1,8 @@
-function MessengerProfile (GraphRequest) {
+function MessengerProfile (GraphRequest) {  
+  this.getMessengerProfile = getMessengerProfile;
+  this.setMessengerProfile = setMessengerProfile;
+  this.deleteMessengerProfile = deleteMessengerProfile;
   this.callMessengerProfileApi = callMessengerProfileApi.bind(GraphRequest);
-  this.get = getMessengerProfile;
-  this.set = setMessengerProfile;
-  this.delete = deleteMessengerProfile;
 }
 
 function setMessengerProfile (fields) {

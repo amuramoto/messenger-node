@@ -1,5 +1,5 @@
 function MessagingInsights (GraphRequest) {
-  this.get = get.bind(GraphRequest);
+  this.getMessagingInsights = get.bind(GraphRequest);
 }
 
 function get(options) {

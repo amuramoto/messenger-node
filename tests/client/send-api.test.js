@@ -10,7 +10,7 @@ describe('Send API', () => {
   let recipient = {'id': PSID};
   
   test('Send text message', done => {    
-    Client.Message.sendText(recipient, 'test').then(res => {
+    Client.sendText(recipient, 'test').then(res => {
       expect(res).toHaveProperty('recipient_id');
       expect(res).toHaveProperty('message_id');
       done();
@@ -25,7 +25,7 @@ describe('Send API', () => {
         'is_reusable':true
       }    
     }
-    Client.Message.sendAttachment(recipient, options).then(res => {
+    Client.sendAttachment(recipient, options).then(res => {
       expect(res).toHaveProperty('recipient_id');
       expect(res).toHaveProperty('message_id');
       expect(res).toHaveProperty('attachment_id');
@@ -37,7 +37,7 @@ describe('Send API', () => {
     let sender_actions = ['mark_seen', 'typing_on', 'typing_off'];
     let promises = [];
     sender_actions.forEach(action => {      
-      promises.push(Client.Message.sendSenderAction(recipient, action));
+      promises.push(Client.sendSenderAction(recipient, action));
     })
     
     Promise.all(promises).then(responses => {
@@ -69,7 +69,7 @@ describe('Send API', () => {
     ]
     
 
-    Client.Message.sendQuickReplies(recipient, quick_replies, text).then(res => {
+    Client.sendQuickReplies(recipient, quick_replies, text).then(res => {
       expect(res).toHaveProperty('recipient_id');
       expect(res).toHaveProperty('message_id');
       done();
@@ -80,7 +80,7 @@ describe('Send API', () => {
     template_mocks.forEach(options => {      
       test(`Send ${options.template_type} template`, done => {    
         jest.setTimeout(15000);
-        Client.Message.sendTemplate(recipient, options).then(res => {
+        Client.sendTemplate(recipient, options).then(res => {
           expect(res).toHaveProperty('recipient_id');
           expect(res).toHaveProperty('message_id');
           done();

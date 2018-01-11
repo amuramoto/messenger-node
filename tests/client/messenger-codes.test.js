@@ -8,7 +8,7 @@ describe('Messenger Codes API', () => {
       'ref': 'referral_ref',
       'image_size': 500
     }
-    Client.MessengerCode.generate(options).then(res => {        
+    Client.generateMessengerCode(options).then(res => {        
       expect(res).toHaveProperty('uri');    
       done();
     })
