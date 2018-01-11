@@ -144,20 +144,13 @@ function removePsidfromCustomLabel (psid, label_id) {
 }
 
 function callCustomLabelsApi (options) {
-  return new Promise (async (resolve, reject) => {
-    options.api_version = 'v2.11';
-    
-    if (!options.path) {
-      options.path = '/me/custom_labels';
-    }
-    
-    try {
-      let response = await this.sendGraphRequest(options);
-      resolve(response);
-    } catch (e) {
-      reject(e);
-    }
-  });
+  options.api_version = 'v2.11';
+  
+  if (!options.path) {
+    options.path = '/me/custom_labels';
+  }
+  
+  return this.sendGraphRequest(options);        
 }
 
 module.exports = CustomLabels

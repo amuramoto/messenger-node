@@ -59,29 +59,22 @@ function getBroadcastReachEstimation (reach_estimation_id) {
 }
 
 async function callBroadcastApi (options) {
-  return new Promise (async (resolve, reject) => {
-    let request_options = {'api_version': 'v2.11'};
+  let request_options = {'api_version': 'v2.11'};
 
-    if (options.message_creative_id) {
-      request_options.path = '/me/broadcast_messages';
-      request_options.payload = options;
-    } else if (options.custom_label_id) {
-      request_options.path = '/me/broadcast_reach_estimations';
-      request_options.payload = {};
-      if (typeof options.custom_label_id === 'string') {
-        request_options.payload = options;        
-      }
-    } else if (options.reach_estimation_id) {
-      request_options.path = `/${options.reach_estimation_id}`;
+  if (options.message_creative_id) {
+    request_options.path = '/me/broadcast_messages';
+    request_options.payload = options;
+  } else if (options.custom_label_id) {
+    request_options.path = '/me/broadcast_reach_estimations';
+    request_options.payload = {};
+    if (typeof options.custom_label_id === 'string') {
+      request_options.payload = options;        
     }
+  } else if (options.reach_estimation_id) {
+    request_options.path = `/${options.reach_estimation_id}`;
+  }
 
-    try {
-      let response = await this.sendGraphRequest(request_options);
-      resolve(response);
-    } catch (e) {
-      reject(e);
-    }
-  });
+  return this.sendGraphRequest(request_options);
 }
 
 module.exports = Broadcast;

@@ -7,8 +7,8 @@ function MessengerProfile (GraphRequest) {
 
 function setMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
-    if (!fields) {
-      reject('fields must be an array');
+    if (!fields || typeof fields !== 'object') {
+      reject('valid fields object required');
     }
     
     try {
@@ -22,10 +22,6 @@ function setMessengerProfile (fields) {
 
 function getMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
-    if (fields && !Array.isArray(fields)) {
-      reject('Valid fields array required');
-    }
-
     if (!fields) {
       fields = [
         'account_linking_url',
@@ -67,10 +63,6 @@ function deleteMessengerProfile (fields) {
 
 function callMessengerProfileApi(fields) {
   return new Promise (async (resolve, reject) => {
-    if (!fields) {
-      reject('Valid "fields" array required');
-    }
-    
     let options = {
       'path': '/me/messenger_profile'
     }
