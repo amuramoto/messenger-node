@@ -99,7 +99,7 @@ function validateSignedRequest (app_secret, signed_request) {
   
   // Confirm the signature
   if (signature !== expected_signature) {
-    console.error('Bad Signed JSON signature!');
+    console.error('Cannot validate signed request: signature does not match');
     return null;
   }
 
