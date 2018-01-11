@@ -11,10 +11,10 @@ describe('Attachment Upload API', () => {
     {'type': 'video', 'file': __dirname + '/assets/dog.mov'},
     {'type': 'image', 'file': __dirname + '/assets/dog.jpg'},
     {'type': 'file', 'file': __dirname + '/assets/dog.pdf'},
-    {'type': 'audio', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/radio.mp3' }, 
-    {'type': 'video', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.mov' },
-    {'type': 'image', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.jpg' },
-    {'type': 'file', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.pdf' }
+    {'type': 'audio', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/tests/client/assets/radio.mp3' }, 
+    {'type': 'video', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/tests/client/assets/dog.mov' },
+    {'type': 'image', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/tests/client/assets/dog.jpg' },
+    {'type': 'file', 'url': 'https://github.com/amuramoto/messenger-node/raw/master/tests/client/assets/dog.pdf' }
   ];
 
   attachments.forEach(attachment => {
@@ -25,7 +25,7 @@ describe('Attachment Upload API', () => {
         expect(res).toHaveProperty('attachment_id');
         expect(res.attachment_id).toEqual(expect.any(String));
         done();
-      });    
+      });
     });
   });
 });
