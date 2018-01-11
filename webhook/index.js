@@ -7,6 +7,7 @@ function Webhook (options) {
       server,
       port = options.port || process.env.PORT || 1337,
       endpoint = options.endpoint || process.env.ENDPOINT || '/webhook',
+      app_secret = process.env.APP_SECRET,
       verify_token = options.verify_token || process.env.VERIFY_TOKEN;
   
   if (!verify_token) throw 'VERIFY_TOKEN required to create webhook!';
@@ -28,6 +29,13 @@ function Webhook (options) {
   this.getPort = () => { return port };
   this.getEndpoint = () => { return endpoint };
   this.getVerifyToken = () => { return verify_token };
+  this.setAppSecret = (secret) => { 
+    app_secret = secret;
+    return app_secret;
+  };
+  this.validateSignedRequest = (signed_request) => {
+    return util.validateSignedRequest(app_secret, signed_request);
+  }
 }
 
 function addVerifyEndpoint (verify_token, endpoint, app) {

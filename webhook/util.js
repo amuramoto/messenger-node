@@ -89,8 +89,26 @@ function parseEventType (webhook_event) {
   return event;
 }
 
+function validateSignedRequest (app_secret, signed_request) {
+  let request = signed_request.split('.');
+  let signature = Buffer.from(request[0].replace('-','+').replace('_', '/'), 'base64').toString('hex');  
+  let payload = Buffer.from(request[1], 'base64').toString('ascii');
+  let expected_signature = crypto.createHmac('sha256', app_secret)
+                                  .update(request[1])
+                                  .digest('hex');
+  
+  // Confirm the signature
+  if (signature !== expected_signature) {
+    console.error('Bad Signed JSON signature!');
+    return null;
+  }
+
+  return payload;
+}
+
 module.exports = {
   verifyWebhook,
   parseSenderId,
-  parseEventType
+  parseEventType,
+  validateSignedRequest
 }
