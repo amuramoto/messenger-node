@@ -5,7 +5,8 @@ const Messenger = require('../../index.js'),
       request = require('request'),
       webhook_mocks = require('./webhook-event-mocks'),
       webhook_settings = {
-        'verify_token': 'token'
+        'verify_token': 'token',
+        'app_secret': process.env.TEST_APP_SECRET,
       };
 
 let Webhook;
@@ -31,13 +32,16 @@ beforeAll(() => {
   Webhook = new Messenger.Webhook(webhook_settings);  
 })
 
-test('Create new webhook', () => {
-  expect(Webhook).toEqual(expect.any(Messenger.Webhook));
-});
 
-test('Get webhook instance', () => {
-  let instance = Webhook.getInstance();  
-  expect(instance).toBeInstanceOf(Object);
+describe('Webhook creation', () => {
+  test('Create new webhook', () => {
+    expect(Webhook).toEqual(expect.any(Messenger.Webhook));
+  });
+
+  test('Get webhook instance', () => {
+    let instance = Webhook.getInstance();  
+    expect(instance).toBeInstanceOf(Object);
+  });
 });
 
 describe('Webhook verification', () => {
@@ -103,8 +107,26 @@ describe('Emit events', () => {
 
 });
 
+test('Validate signed request', () => {
+  let request = {
+    'tid': '1254459154682919',
+    'thread_type': 'USER_TO_PAGE', 
+    'psid': '1254459154682919',
+    'signed_request': 'QDTuYBidQ7pbpxIbPwgsb__nHty2-KuVPfxAFb9P49k.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTUxNTY0NjM5MiwibWV0YWRhdGEiOm51bGwsInBhZ2VfaWQiOjY4MjQ5ODE3MTk0MzE2NSwicHNpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkiLCJ0aHJlYWRfdHlwZSI6IlVTRVJfVE9fUEFHRSIsInRpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkifQ'
+  }
+  let result = Webhook.validateSignedRequest(request.signed_request);
+  expect(result).toEqual({ 
+    'algorithm': 'HMAC-SHA256',
+    'issued_at': 1515646392,
+    'metadata': null,
+    'page_id': 682498171943165,
+    'psid': '1254459154682919',
+    'thread_type': 'USER_TO_PAGE',
+    'tid': '1254459154682919' 
+  });  
+});
 
-test('Stop webhook', () => {
+test('Stop webhook instance', () => {
   let server = Webhook.stopInstance((err) => {
     expect(err).toEqual(undefined);
   });  

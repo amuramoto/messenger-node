@@ -10,8 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "request": "^2.83.0",
-    "rxjs": "^5.5.5"
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "jest": "^22.0.5"
