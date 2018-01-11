@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 function verifyWebhook(verify_token, qs) {
   const mode = qs['hub.mode'],
         token = qs['hub.verify_token'],
@@ -89,21 +91,21 @@ function parseEventType (webhook_event) {
   return event;
 }
 
-function validateSignedRequest (app_secret, signed_request) {
-  let request = signed_request.split('.');
-  let signature = Buffer.from(request[0].replace('-','+').replace('_', '/'), 'base64').toString('hex');  
-  let payload = Buffer.from(request[1], 'base64').toString('ascii');
+function validateSignedRequest (app_secret, hash) {
+  let signed_request = hash.split('.');
+  let signature = Buffer.from(signed_request[0].replace('-','+').replace('_', '/'), 'base64').toString('hex');  
+  let payload = Buffer.from(signed_request[1], 'base64').toString('ascii')
+
   let expected_signature = crypto.createHmac('sha256', app_secret)
-                                  .update(request[1])
+                                  .update(signed_request[1])
                                   .digest('hex');
-  
   // Confirm the signature
   if (signature !== expected_signature) {
-    console.error('Cannot validate signed request: signature does not match');
+    console.error('Cannot validate signed request: invalid request signature');
     return null;
   }
 
-  return payload;
+  return JSON.parse(payload);
 }
 
 module.exports = {

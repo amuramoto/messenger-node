@@ -7,7 +7,7 @@ function Webhook (options) {
       server,
       port = options.port || process.env.PORT || 1337,
       endpoint = options.endpoint || process.env.ENDPOINT || '/webhook',
-      app_secret = process.env.APP_SECRET,
+      app_secret = options.app_secret || process.env.APP_SECRET,
       verify_token = options.verify_token || process.env.VERIFY_TOKEN;
   
   if (!verify_token) throw 'VERIFY_TOKEN required to create webhook!';
