@@ -32,33 +32,104 @@ function Webhook (options) {
     console.log('webhook is listening on port ' + port);
   });
 
+/**
+ * Adds an event listener. Implements Node.js EventEmitter's [`emitter.on`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener).
+ * @param {Object} signed_request  The signed request.
+ * @returns {Object} The decrypted signed request.
+ * @function on
+ * @memberof  Webhook
+ */
   this.on = app.on.bind(app);
+  
+/**
+ * Adds a one-time event listener that will be removed after it is called once. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener).
+ * @param {Object} signed_request  The signed request.
+ * @returns {Object} The decrypted signed request.
+ * @function once
+ * @memberof  Webhook
+ */
   this.once = app.once.bind(app);
+
+  /**
+   * Emits an event from the Webhook instance. Event listeners can be set with `Webhook.on()` and `Webhook.once()`. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_emit_eventname_args).
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function emit
+   * @memberof  Webhook
+   */
   this.emit = app.emit;
+
+  /**
+   * Retrieves the current Webhook instance. This is the express.js [`app`](http://expressjs.com/en/4x/api.html#app) instance.
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function getInstance
+   * @memberof  Webhook
+   */
   this.getInstance = () => { return app };
+
+  /**
+   * Stops the Webhook instance
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function stopInstance
+   * @memberof  Webhook
+   */
   this.stopInstance = (callback) => server.close(callback);
+
+  /**
+   * Retrieves the port the webhook is running on
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function getPort
+   * @memberof  Webhook
+   */
   this.getPort = () => { return port };
+
+  /**
+   * Retrieves the current endpoint of the webhook
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function getEndpoint
+   * @memberof  Webhook
+   */
   this.getEndpoint = () => { return endpoint };
+
+  /**
+   * Retrieves the current verify token of the webhook
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function getVerifyToken
+   * @memberof  Webhook
+   */
   this.getVerifyToken = () => { return verify_token };
+
+  /**
+   * Sets the app secret used for validating signed requests
+   * @param {String} app_secret  Your app secret.
+   * @returns {Object} The decrypted signed request.
+   * @function setAppSecret
+   * @memberof  Webhook
+   */
   this.setAppSecret = (secret) => { 
     app_secret = secret;
     return app_secret;
   };
-  this.validateSignedRequest = validateSignedRequest;
-}
-
-/**
- * Verifies a signed request received by calling [`getcontext()`](https://developers.facebook.com/docs/messenger-platform/webview/context) in the Messenger webview.
- * @param {Object} signed_request  The signed request.
- * @returns {Object} The decrypted signed request.
- * @memberof  Webhook
- */
-function validateSignedRequest (signed_request) {
-  if (!app_secret) {
-    console.error('Cannot validate signed request: app_secret not set');
-    return;
+  
+  /**
+   * Verifies a signed request received by calling [`getcontext()`](https://developers.facebook.com/docs/messenger-platform/webview/context) in the Messenger webview.
+   * @param {Object} signed_request  The signed request.
+   * @returns {Object} The decrypted signed request.
+   * @function  validateSignedRequest
+   * @memberof  Webhook
+   */
+  this.validateSignedRequest = (signed_request) => {
+    if (!app_secret) {
+      console.error('Cannot validate signed request: app_secret not set');
+      return;
+    }
+    return util.validateSignedRequest(app_secret, signed_request);
   }
-  return util.validateSignedRequest(app_secret, signed_request);
 }
 
 function addVerifyEndpoint (verify_token, endpoint, app) {
