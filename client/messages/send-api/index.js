@@ -10,6 +10,13 @@ function SendAPI (GraphRequest) {
   this.callSendApi = callSendApi.bind(GraphRequest);
 }
 
+/**
+ * Sends a text message
+ * @param  {Object}  recipient
+ * @param  {String}  text
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function sendText (recipient, text) {
   return new Promise (async (resolve, reject) => {
     if (!text) {
@@ -27,6 +34,14 @@ function sendText (recipient, text) {
   });
 }
 
+/**
+ * Sends a text message
+ * @param  {Object}  recipient
+ * @param  {Object}  quick_replies
+ * @param  {String}  text   _Optional._
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function sendQuickReplies (recipient, quick_replies, text) {  
   return new Promise (async (resolve, reject) => {
     if (!quick_replies || !Array.isArray(quick_replies)) {
@@ -48,6 +63,13 @@ function sendQuickReplies (recipient, quick_replies, text) {
   });
 }
 
+/**
+ * Sends a standalone attachment, including images, audio, video, and files
+ * @param  {Object}  recipient
+ * @param  {Object}  attachment
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function sendAttachment (recipient, attachment) {
   return new Promise (async (resolve, reject) => {
     if (!attachment) {
@@ -67,6 +89,13 @@ function sendAttachment (recipient, attachment) {
   });
 }
 
+/**
+ * Sends a template message
+ * @param  {Object}  recipient
+ * @param  {Object}  template
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function sendTemplate (recipient, template) {
   return new Promise (async (resolve, reject) => {
     if (!template) {
@@ -85,6 +114,13 @@ function sendTemplate (recipient, template) {
   });
 }
 
+/**
+ * Sends a sender action
+ * @param  {Object}  recipient
+ * @param  {Object}  sender_action
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function sendSenderAction (recipient, sender_action) {
   return new Promise (async (resolve, reject) => {
     if (!sender_action) {

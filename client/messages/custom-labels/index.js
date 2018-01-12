@@ -9,6 +9,12 @@ function CustomLabels (GraphRequest) {
   this.callCustomLabelsApi = callCustomLabelsApi.bind(GraphRequest);
 };
 
+/**
+ * Creates a new custom label
+ * @param  {String}  name
+ * @return {Promise<Object>}
+ * @memberof  Client#
+ */
 function createCustomLabel (name) {
   return new Promise (async (resolve, reject) => {
     if (!name) {
@@ -26,19 +32,22 @@ function createCustomLabel (name) {
   });
 }
 
-function getCustomLabelById (label_id, fields) {
+/**
+ * Retrieves the id and name of a custom label
+ * @param  {Integer}  label_id
+ * @return {Promise<Object>}
+ * @memberof  Client#
+ */
+function getCustomLabelById (label_id) {
   return new Promise (async (resolve, reject) => {
     if (!label_id) {
       reject('label_id required');
     }
     let options = {
-      'path': '/' + label_id    
+      'path': '/' + label_id,
+      'qs': {'fields': 'id,name'};
     }
 
-    if (fields) {
-      fields = fields.join(',');
-      options.qs = {'fields': fields};
-    }
     try {
       let response = await  this.callCustomLabelsApi(options);
       resolve(response);
@@ -48,6 +57,12 @@ function getCustomLabelById (label_id, fields) {
   });
 }
 
+/**
+ * Retrieves the list of custom labels associated with a PSID
+ * @param  {Integer}  psid
+ * @return {Promise<Object>}
+ * @memberof  Client#
+ */
 function getCustomLabelsByPsid (psid) {
   return new Promise (async (resolve, reject) => {
     if (!psid) {
@@ -67,15 +82,17 @@ function getCustomLabelsByPsid (psid) {
   });
 }
 
-function getAllCustomLabels (fields) {
+/**
+ * Retrieves the list of all custom labels
+ * @return {Promise<Object>}
+ * @memberof  Client#
+ */
+function getAllCustomLabels () {
   return new Promise (async (resolve, reject) => {
-    let options = {};
-    if (fields) {
-      fields = fields.join(',');
-      options = {
-        'qs': {'fields': fields}
-      }
-    }
+    let options = {
+      'qs': {'fields': 'id,name'}
+    };
+    
     try {
       let response = await  this.callCustomLabelsApi(options);
       resolve(response);
@@ -85,6 +102,12 @@ function getAllCustomLabels (fields) {
   });
 }
 
+/**
+ * Deletes a custom label
+ * @param  {Integer}  label_id
+ * @return {Promise<Object>}
+ * @memberof  Client#
+ */
 function deleteCustomLabel (label_id) {
   return new Promise (async (resolve, reject) => {
     if (!label_id) {
@@ -105,6 +128,13 @@ function deleteCustomLabel (label_id) {
   });
 }
 
+/**
+ * Associates a user PSID to a custom label
+ * @param  {Integer}  psid
+ * @param  {Integer}  label_id
+ * @return {Promise<Object>}
+ * @memberof  Client#
+ */
 function addPsidtoCustomLabel (psid, label_id) {
   return new Promise (async (resolve, reject) => {
     if (!psid || !label_id) {
@@ -124,6 +154,13 @@ function addPsidtoCustomLabel (psid, label_id) {
   });
 }
 
+/**
+ * Removes a user PSID from a custom label
+ * @param  {Integer}  psid
+ * @param  {Integer}  label_id
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function removePsidfromCustomLabel (psid, label_id) {
   return new Promise (async (resolve, reject) => {
     if (!psid || !label_id) {

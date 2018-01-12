@@ -4,6 +4,12 @@ function MessageCreative(GraphRequest) {
   this.createMessageCreative = createMessageCreative.bind(GraphRequest);
 }
 
+/**
+ * Creates a new message creative
+ * @param  {Object}  message
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
 function createMessageCreative (message) {
   return new Promise (async (resolve, reject) => {
     if (!message) {

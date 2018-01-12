@@ -1,8 +1,15 @@
 function UserProfile (GraphRequest) {
-  this.getUserProfile = getProfile.bind(GraphRequest);  
+  this.getUserProfile = getUserProfile.bind(GraphRequest);  
 }
 
-function getProfile (psid, fields) {
+/**
+ * Retrieves a user's profile
+ * @param  {Integer}  psid
+ * @param  {Integer}  fields  _Optional._
+ * @return {Promise<Object>}  The API response
+ * @memberof Client#
+ */
+function getUserProfile (psid, fields) {
   return new Promise (async (resolve, reject) => {
     if (!psid) {
       reject('PSID required');

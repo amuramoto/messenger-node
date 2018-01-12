@@ -1,15 +1,15 @@
-function Attachment (GraphRequest) {
-  /**
-   * Uploads media using the Attachment Upload API
-   * @param {Object} options The attachment details
-   * @param {String} options.source_type The source of the attachment. Must be `url` or `file`.
-   * 
-   * @memberof Client#
-   */
-  this.uploadAttachment = upload.bind(GraphRequest);  
+function Attachment (GraphRequest) {  
+  this.uploadAttachment = uploadAttachment.bind(GraphRequest);  
 }
 
-function upload(type, source) {
+/**
+ * Uploads media using the Attachment Upload API
+ * @param {Object} options The attachment details
+ * @param {String} options.source_type The source of the attachment. Must be `url` or `file`.
+ * @returns {Promise<Object>} The API response
+ * @memberof Client#
+ */
+function uploadAttachment(type, source) {
   return new Promise (async (resolve, reject) => {
     if (!type || !source) {
       reject('Valid attachment type and source required');

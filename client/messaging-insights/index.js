@@ -1,8 +1,17 @@
 function MessagingInsights (GraphRequest) {
-  this.getMessagingInsights = get.bind(GraphRequest);
+  this.getMessagingInsights = getMessagingInsights.bind(GraphRequest);
 }
 
-function get(options) {
+/**
+ * Retrieves metrics from the Messaging Insights API
+ * @param  {Object}  options
+ * @param  {String}  options.metrics
+ * @param  {String}  options.since
+ * @param  {String}  options.until
+ * @return {Promise<Object>}  The API response
+ * @memberof  Client#
+ */
+function getMessagingInsights(options) {
   return new Promise (async (resolve, reject) => {
     let metrics = options.metrics;
 

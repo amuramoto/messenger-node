@@ -1,8 +1,16 @@
 function MessengerCode (GraphRequest) {
-  this.generateMessengerCode = generate.bind(GraphRequest);
+  this.generateMessengerCode = generateMessengerCode.bind(GraphRequest);
 }
 
-function generate(options) {
+/**
+ * Generate a new static or parametric Messenger Code for your bot
+ * @param  {Object}   options
+ * @param  {Object}   options.ref
+ * @param  {Object}   options.image_size
+ * @return {Promise<Object>}  The API response
+ * @memberof Client#
+ */
+function generateMessengerCode(options) {
   return new Promise (async (resolve, reject) => {
     let request_options = {
       'path': '/me/messenger_codes',

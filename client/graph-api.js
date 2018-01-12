@@ -10,36 +10,62 @@ function GraphRequest(options) {
 
   var page_token = options.page_token,
       app_token = options.app_token,
-      graph_url = 'https://graph.facebook.com',
       graph_api_version = options.graph_api_version || process.env.GRAPH_API_VERSION || '';
   
-  this.getGraphUrl = () => {return graph_url;}
-
+  /**
+   * Sets a new page token to use for all Page-level requests   
+   * @param {string} page_token The new page token
+   * @return {string} Updated page token
+   * @memberof Client#
+   */
   this.setPageToken = token => {
     page_token = token;
     return page_token;
   }
 
+  /**
+   * Gets the current page token being used for page-level requests
+   * @return {string} Current page token
+   * @memberof Client#
+   */
   this.getPageToken = () => {return page_token;}
 
+  /**
+   * Sets a new app token to use for all app-level requests
+   * @param {string} app_token The new app token
+   * @return {string} Updated app token
+   * @memberof Client#
+   */
   this.setAppToken = token => {
     app_token = token;
     return app_token;
   }
 
+  /**
+   * Gets the current app token being used for app-level requests
+   * @return {string} Current app token
+   * @memberof Client#
+   */
   this.getAppToken = () => {return app_token;}
 
+  /**
+   * Sets a new Graph API version to use for all requests
+   * @param {string} version The new version in the format `v2.11`
+   * @return {string} Updated version number
+   * @memberof Client#
+   */
   this.setApiVersion = version => {
     graph_api_version = formatApiVersion(version);
     return graph_api_version;
   }
 
+  /**
+   * Gets the current Graph API version being used for all requests
+   * @return {string} Current Graph API version
+   * @memberof Client#
+   */
   this.getApiVersion = version => {
     return graph_api_version;
-  }
-
-  if (this.graph_api_version) {
-    this.setApiVersion(graph_api_version);
   }
 
   this.sendGraphRequest = sendGraphRequest;
@@ -58,11 +84,10 @@ function formatApiVersion (version) {
 
 function sendGraphRequest (options) {
 
-  const graph_url = this.getGraphUrl(),
-        api_version = options.api_version || this.getApiVersion(),
+  const api_version = options.api_version || this.getApiVersion(),
         qs = options.qs || {},
         request_options = {
-          uri: graph_url,
+          uri: 'https://graph.facebook.com',
           qs: qs
         };
 

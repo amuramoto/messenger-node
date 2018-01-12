@@ -5,6 +5,13 @@ function Broadcast (GraphRequest) {
   this.callBroadcastApi = callBroadcastApi.bind(GraphRequest);
 }
 
+/**
+ * Sends a broadcast message
+ * @param  {Integer}  message_creative_id
+ * @param  {Integer}  custom_label_id   _Optional._
+ * @return {Promise}  The API response
+ * @memberof  Client#
+ */
 function sendBroadcast (message_creative_id, custom_label_id) {
   return new Promise (async (resolve, reject) => {
     if (!message_creative_id) {
@@ -26,10 +33,18 @@ function sendBroadcast (message_creative_id, custom_label_id) {
   });
 }
 
-function startBroadcastReachEstimation (label_id) {
+/**
+ * Start a reach estimation for the number of people that will be 
+ * reached by a broadcast to all users or to users associated with 
+ * a custom label
+ * @param  {Integer}  custom_label_id   _Optional._
+ * @return {Promise<Object>}  The API Response
+ * @memberof  Client#
+ */
+function startBroadcastReachEstimation (custom_label_id) {
   return new Promise (async (resolve, reject) => {
     let options = {
-      'custom_label_id': label_id || true
+      'custom_label_id': custom_label_id || true
     }    
     try {
       let response = await this.callBroadcastApi(options);
@@ -40,6 +55,14 @@ function startBroadcastReachEstimation (label_id) {
   });
 }
 
+/**
+ * Get the current status of a broadcast reach estimation.
+ * `startBroadcastReachEstimation` must be run first to get a
+ * `reach_estimation_id`
+ * @param  {Integer}  reach_estimation_id
+ * @return {Promise<Object>}  The API Response
+ * @memberof  Client#
+ */
 function getBroadcastReachEstimation (reach_estimation_id) {
   return new Promise (async (resolve, reject) => {
     if (!reach_estimation_id) {
@@ -58,7 +81,7 @@ function getBroadcastReachEstimation (reach_estimation_id) {
   });
 }
 
-async function callBroadcastApi (options) {
+function callBroadcastApi (options) {
   let request_options = {'api_version': 'v2.11'};
 
   if (options.message_creative_id) {

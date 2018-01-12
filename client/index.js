@@ -26,52 +26,6 @@ function Client (options) {
   let attachment = new Attachment(graphRequest);  
 
   Object.assign(this, messages, messengerProfile, person, messengerCode, messagingInsights, attachment, graphRequest);
-
-  // /**
-  //  * Sets a new page token to use for all Page-level requests
-  //  * @instance
-  //  * @param {string} page_token The new page token
-  //  * @return {string} Updated page token
-  //  */
-  // this.setPageToken = GraphRequest.setPageToken;
-
-  // /**
-  //  * Gets the current page token being used for page-level requests
-  //  * @instance
-  //  * @return {string} Current page token
-  //  */
-  // this.getPageToken = GraphRequest.getPageToken;
-
-  // /**
-  //  * Sets a new app token to use for all app-level requests
-  //  * @instance
-  //  * @param {string} app_token The new app token
-  //  * @return {string} Updated app token
-  //  */
-  // this.setAppToken = GraphRequest.setAppToken;
-
-  // /**
-  //  * Gets the current app token being used for app-level requests
-  //  * @instance
-  //  * @return {string} Current app token
-  //  */
-  // this.getAppToken = GraphRequest.getAppToken;
-
-  // /**
-  //  * Sets a new Graph API version to use for all requests
-  //  * @instance
-  //  * @param {string} version The new version in the format `v2.11`
-  //  * @return {string} Updated version number
-  //  */
-  // this.setApiVersion = GraphRequest.setApiVersion;
-
-  // /**
-  //  * Gets the current Graph API version being used for all requests
-  //  * @instance
-  //  * @return {string} Current Graph API version
-  //  */
-  // this.getApiVersion = GraphRequest.getApiVersion;
-
 }
 
 module.exports = Client;
