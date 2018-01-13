@@ -11,7 +11,8 @@ function SponsoredMessage (GraphRequest) {
  * @param   {String}   options.bid_amount
  * @param   {String}   options.targeting
  * @return  {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.sendSponsoredMessage
+ * @memberof SendMessages#
  */
 function sendSponsoredMessage (ad_account_id, options) {
   return new Promise (async (resolve, reject) => {

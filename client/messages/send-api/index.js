@@ -1,6 +1,9 @@
 const util = require('./util'),
       payload = {};
 
+/**
+ * @name  SendMessages
+ */
 function SendAPI (GraphRequest) {
   this.sendQuickReplies = sendQuickReplies;
   this.sendText = sendText;
@@ -15,7 +18,8 @@ function SendAPI (GraphRequest) {
  * @param  {Object}  recipient
  * @param  {String}  text
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.sendText
+ * @memberof  SendMessages#
  */
 function sendText (recipient, text) {
   return new Promise (async (resolve, reject) => {
@@ -40,7 +44,8 @@ function sendText (recipient, text) {
  * @param  {Object}  quick_replies
  * @param  {String}  text   _Optional._
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.sendQuickReplies
+ * @memberof  SendMessages#
  */
 function sendQuickReplies (recipient, quick_replies, text) {  
   return new Promise (async (resolve, reject) => {
@@ -68,7 +73,8 @@ function sendQuickReplies (recipient, quick_replies, text) {
  * @param  {Object}  recipient
  * @param  {Object}  attachment
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.sendAttachment
+ * @memberof  SendMessages#
  */
 function sendAttachment (recipient, attachment) {
   return new Promise (async (resolve, reject) => {
@@ -94,7 +100,8 @@ function sendAttachment (recipient, attachment) {
  * @param  {Object}  recipient
  * @param  {Object}  template
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.sendTemplate
+ * @memberof  SendMessages#
  */
 function sendTemplate (recipient, template) {
   return new Promise (async (resolve, reject) => {
@@ -119,7 +126,8 @@ function sendTemplate (recipient, template) {
  * @param  {Object}  recipient
  * @param  {Object}  sender_action
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.sendSenderAction
+ * @memberof  SendMessages#
  */
 function sendSenderAction (recipient, sender_action) {
   return new Promise (async (resolve, reject) => {

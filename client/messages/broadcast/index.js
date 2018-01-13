@@ -1,3 +1,6 @@
+/**
+ * @namespace  Broadcasts
+ */
 function Broadcast (GraphRequest) {
   this.sendBroadcast = sendBroadcast;
   this.startBroadcastReachEstimation = startBroadcastReachEstimation;
@@ -10,7 +13,8 @@ function Broadcast (GraphRequest) {
  * @param  {Integer}  message_creative_id
  * @param  {Integer}  custom_label_id   _Optional._
  * @return {Promise}  The API response
- * @memberof  Client#
+ * @function  Client.sendBroadcast
+ * @memberof  Broadcasts#
  */
 function sendBroadcast (message_creative_id, custom_label_id) {
   return new Promise (async (resolve, reject) => {
@@ -39,7 +43,8 @@ function sendBroadcast (message_creative_id, custom_label_id) {
  * a custom label
  * @param  {Integer}  custom_label_id   _Optional._
  * @return {Promise<Object>}  The API Response
- * @memberof  Client#
+ * @function  Client.startBroadcastReachEstimation
+ * @memberof  Broadcasts#
  */
 function startBroadcastReachEstimation (custom_label_id) {
   return new Promise (async (resolve, reject) => {
@@ -61,7 +66,8 @@ function startBroadcastReachEstimation (custom_label_id) {
  * `reach_estimation_id`
  * @param  {Integer}  reach_estimation_id
  * @return {Promise<Object>}  The API Response
- * @memberof  Client#
+ * @function  Client.getBroadcastReachEstimation
+ * @memberof  Broadcasts#
  */
 function getBroadcastReachEstimation (reach_estimation_id) {
   return new Promise (async (resolve, reject) => {

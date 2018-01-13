@@ -1,5 +1,4 @@
 const util = require('../send-api/util');
-
 function MessageCreative(GraphRequest) {
   this.createMessageCreative = createMessageCreative.bind(GraphRequest);
 }
@@ -8,7 +7,8 @@ function MessageCreative(GraphRequest) {
  * Creates a new message creative
  * @param  {Object}  message
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.createMessageCreative
+ * @memberof  SendMessages#
  */
 function createMessageCreative (message) {
   return new Promise (async (resolve, reject) => {

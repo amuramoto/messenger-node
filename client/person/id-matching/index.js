@@ -1,3 +1,6 @@
+/**
+ * @namespace  IdMatching
+ */
 function IdMatching (GraphRequest) {
   this.getMatchingPsids = getMatchingPsids;
   this.getMatchingAsids = getMatchingAsids;
@@ -11,7 +14,8 @@ function IdMatching (GraphRequest) {
  * @param  {String} id        A valid ASID or PSID
  * @param  {String} id_type   The type of ID provided in the `id` argument: `ASID` or `PSID` 
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.getMatchingPsids
+ * @memberof  IdMatching#
  */
 function getMatchingPsids (id, id_type) {
   return new Promise (async (resolve, reject) => {        
@@ -31,7 +35,8 @@ function getMatchingPsids (id, id_type) {
  * @param  {String} id        A valid ASID or PSID
  * @param  {String} id_type   The type of ID provided in the `id` argument: `ASID` or `PSID` 
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.getMatchingAsids
+ * @memberof  IdMatching#
  */
 function getMatchingAsids (id_type, id) {
   return new Promise (async (resolve, reject) => {

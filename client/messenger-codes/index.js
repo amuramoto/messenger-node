@@ -1,3 +1,6 @@
+/**
+ * @namespace  MessengerCodes
+ */
 function MessengerCode (GraphRequest) {
   this.generateMessengerCode = generateMessengerCode.bind(GraphRequest);
 }
@@ -8,7 +11,8 @@ function MessengerCode (GraphRequest) {
  * @param  {Object}   options.ref
  * @param  {Object}   options.image_size
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.generateMessengerCode
+ * @memberof  MessengerCodes
  */
 function generateMessengerCode(options) {
   return new Promise (async (resolve, reject) => {

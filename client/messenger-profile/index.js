@@ -1,3 +1,6 @@
+/**
+ * @namespace  MessengerProfile
+ */
 function MessengerProfile (GraphRequest) {  
   this.getMessengerProfile = getMessengerProfile;
   this.setMessengerProfile = setMessengerProfile;
@@ -9,7 +12,8 @@ function MessengerProfile (GraphRequest) {
  * Sets one or more properties of your bot's Messenger Profile
  * @param  {Object}  fields 
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.setMessengerProfile
+ * @memberof  MessengerProfile#
  */
 function setMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
@@ -30,7 +34,8 @@ function setMessengerProfile (fields) {
  * Retrieves one or more properties of your bot's Messenger Profile
  * @param  {Array<String>}  fields  _Optional._
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.getMessengerProfile
+ * @memberof  MessengerProfile#
  */
 function getMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
@@ -62,7 +67,8 @@ function getMessengerProfile (fields) {
  * Deletes one or more properties of your bot's Messenger Profile
  * @param  {Array<String>}  fields 
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.deleteMessengerProfile
+ * @memberof  MessengerProfile#
  */
 function deleteMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {

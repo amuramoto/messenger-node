@@ -1,3 +1,6 @@
+/**
+ * @namespace  MessagingInsights
+ */
 function MessagingInsights (GraphRequest) {
   this.getMessagingInsights = getMessagingInsights.bind(GraphRequest);
 }
@@ -9,7 +12,8 @@ function MessagingInsights (GraphRequest) {
  * @param  {String}  options.since
  * @param  {String}  options.until
  * @return {Promise<Object>}  The API response
- * @memberof  Client#
+ * @function  Client.getMessagingInsights
+ * @memberof  MessagingInsights#
  */
 function getMessagingInsights(options) {
   return new Promise (async (resolve, reject) => {

@@ -1,4 +1,8 @@
-function Attachment (GraphRequest) {  
+/**
+ * @namespace Attachments
+ */
+
+function Attachment (GraphRequest) {    
   this.uploadAttachment = uploadAttachment.bind(GraphRequest);  
 }
 
@@ -6,9 +10,9 @@ function Attachment (GraphRequest) {
  * Uploads media using the Attachment Upload API
  * @param {Object} options The attachment details
  * @param {String} options.source_type The source of the attachment. Must be `url` or `file`.
- * @returns {Promise<Object>} The API response
- * @namespace Client.Attachment
- * @memberof Client.Attachment#
+ * @returns {Promise<Object>} The API response 
+ * @function Client.uploadAttachment
+ * @memberof Attachments#
  */
 function uploadAttachment(type, source) {
   return new Promise (async (resolve, reject) => {

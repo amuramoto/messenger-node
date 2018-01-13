@@ -1,3 +1,6 @@
+/**
+ * @namespace  UserProfile
+ */
 function UserProfile (GraphRequest) {
   this.getUserProfile = getUserProfile.bind(GraphRequest);  
 }
@@ -7,7 +10,8 @@ function UserProfile (GraphRequest) {
  * @param  {Integer}  psid
  * @param  {Integer}  fields  _Optional._
  * @return {Promise<Object>}  The API response
- * @memberof Client#
+ * @function  Client.getUserProfile
+ * @memberof  UserProfile#
  */
 function getUserProfile (psid, fields) {
   return new Promise (async (resolve, reject) => {
