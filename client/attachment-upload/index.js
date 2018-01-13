@@ -7,7 +7,8 @@ function Attachment (GraphRequest) {
  * @param {Object} options The attachment details
  * @param {String} options.source_type The source of the attachment. Must be `url` or `file`.
  * @returns {Promise<Object>} The API response
- * @memberof Client#
+ * @namespace Client.Attachment
+ * @memberof Client.Attachment#
  */
 function uploadAttachment(type, source) {
   return new Promise (async (resolve, reject) => {

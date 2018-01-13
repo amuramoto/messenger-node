@@ -34,8 +34,8 @@ function Webhook (options) {
 
 /**
  * Adds an event listener. Implements Node.js EventEmitter's [`emitter.on`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener).
- * @param {Object} signed_request  The signed request.
- * @returns {Object} The decrypted signed request.
+ * @param {String} event_name  The name of the event to listen for.
+ * @param {Function} callback  The callback to execute when the event is received.
  * @function on
  * @memberof  Webhook
  */
@@ -43,8 +43,8 @@ function Webhook (options) {
   
 /**
  * Adds a one-time event listener that will be removed after it is called once. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener).
- * @param {Object} signed_request  The signed request.
- * @returns {Object} The decrypted signed request.
+ * @param {String} event_name  The name of the event to listen for.
+ * @param {Function} callback  The callback to execute when the event is received.
  * @function once
  * @memberof  Webhook
  */
@@ -52,8 +52,8 @@ function Webhook (options) {
 
   /**
    * Emits an event from the Webhook instance. Event listeners can be set with `Webhook.on()` and `Webhook.once()`. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_emit_eventname_args).
-   * @param {Object} signed_request  The signed request.
-   * @returns {Object} The decrypted signed request.
+   * @param {Object} eventName The name of the event to emit.
+   * @returns {Object} ...args  _Optional._ Arguments to pass to the event listener.
    * @function emit
    * @memberof  Webhook
    */
@@ -61,8 +61,7 @@ function Webhook (options) {
 
   /**
    * Retrieves the current Webhook instance. This is the express.js [`app`](http://expressjs.com/en/4x/api.html#app) instance.
-   * @param {Object} signed_request  The signed request.
-   * @returns {Object} The decrypted signed request.
+   * @returns {Object} The Webhook instance.
    * @function getInstance
    * @memberof  Webhook
    */
@@ -70,8 +69,7 @@ function Webhook (options) {
 
   /**
    * Stops the Webhook instance
-   * @param {Object} signed_request  The signed request.
-   * @returns {Object} The decrypted signed request.
+   * @param {Function} callback  A callback function to execute when the webhook is stopped.   
    * @function stopInstance
    * @memberof  Webhook
    */
@@ -79,8 +77,7 @@ function Webhook (options) {
 
   /**
    * Retrieves the port the webhook is running on
-   * @param {Object} signed_request  The signed request.
-   * @returns {Object} The decrypted signed request.
+   * @returns {String} The current port number.
    * @function getPort
    * @memberof  Webhook
    */
@@ -88,8 +85,7 @@ function Webhook (options) {
 
   /**
    * Retrieves the current endpoint of the webhook
-   * @param {Object} signed_request  The signed request.
-   * @returns {Object} The decrypted signed request.
+   * @returns {String} The current endpoint.
    * @function getEndpoint
    * @memberof  Webhook
    */
@@ -97,8 +93,7 @@ function Webhook (options) {
 
   /**
    * Retrieves the current verify token of the webhook
-   * @param {Object} signed_request  The signed request.
-   * @returns {Object} The decrypted signed request.
+   * @returns {String} The current verify token.
    * @function getVerifyToken
    * @memberof  Webhook
    */
@@ -106,8 +101,8 @@ function Webhook (options) {
 
   /**
    * Sets the app secret used for validating signed requests
-   * @param {String} app_secret  Your app secret.
-   * @returns {Object} The decrypted signed request.
+   * @param {String} app_secret The app secret to set
+   * @returns {String} The app secret that was successfully set.
    * @function setAppSecret
    * @memberof  Webhook
    */

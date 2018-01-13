@@ -45,7 +45,7 @@ function getCustomLabelById (label_id) {
     }
     let options = {
       'path': '/' + label_id,
-      'qs': {'fields': 'id,name'};
+      'qs': {'fields': 'id,name'}
     }
 
     try {
