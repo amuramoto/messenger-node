@@ -35,61 +35,39 @@ Client.Messages.sendText(payload);
 
 ### Table of Contents
 
--   [Attachments](#attachments)
-    -   [Client.uploadAttachment](#clientuploadattachment)
 -   [Client](#client)
+    -   [uploadAttachment](#uploadattachment)
     -   [setPageToken](#setpagetoken)
     -   [getPageToken](#getpagetoken)
     -   [setAppToken](#setapptoken)
     -   [getAppToken](#getapptoken)
     -   [setApiVersion](#setapiversion)
     -   [getApiVersion](#getapiversion)
--   [Broadcasts](#broadcasts)
-    -   [Client.sendBroadcast](#clientsendbroadcast)
-    -   [Client.startBroadcastReachEstimation](#clientstartbroadcastreachestimation)
-    -   [Client.getBroadcastReachEstimation](#clientgetbroadcastreachestimation)
--   [CustomLabels](#customlabels)
-    -   [Client.createCustomLabel](#clientcreatecustomlabel)
-    -   [Client.getCustomLabelById](#clientgetcustomlabelbyid)
-    -   [Client.getCustomLabelsByPsid](#clientgetcustomlabelsbypsid)
-    -   [Client.getAllCustomLabels](#clientgetallcustomlabels)
-    -   [Client.deleteCustomLabel](#clientdeletecustomlabel)
-    -   [Client.addPsidtoCustomLabel](#clientaddpsidtocustomlabel)
-    -   [Client.removePsidfromCustomLabel](#clientremovepsidfromcustomlabel)
--   [SendMessages](#sendmessages)
-    -   [Client.createMessageCreative](#clientcreatemessagecreative)
-    -   [Client.sendText](#clientsendtext)
-    -   [Client.sendQuickReplies](#clientsendquickreplies)
-    -   [Client.sendAttachment](#clientsendattachment)
-    -   [Client.sendTemplate](#clientsendtemplate)
-    -   [Client.sendSenderAction](#clientsendsenderaction)
-    -   [Client.sendSponsoredMessage](#clientsendsponsoredmessage)
--   [MessagingInsights](#messaginginsights)
-    -   [Client.getMessagingInsights](#clientgetmessaginginsights)
--   [MessengerCodes](#messengercodes)
-    -   [Client.generateMessengerCode](#clientgeneratemessengercode)
--   [MessengerProfile](#messengerprofile)
-    -   [Client.setMessengerProfile](#clientsetmessengerprofile)
-    -   [Client.getMessengerProfile](#clientgetmessengerprofile)
-    -   [Client.deleteMessengerProfile](#clientdeletemessengerprofile)
--   [IdMatching](#idmatching)
-    -   [Client.getMatchingPsids](#clientgetmatchingpsids)
-    -   [Client.getMatchingAsids](#clientgetmatchingasids)
--   [UserProfile](#userprofile)
-    -   [Client.getUserProfile](#clientgetuserprofile)
-
-## Attachments
-
-### Client.uploadAttachment
-
-Uploads media using the Attachment Upload API
-
-**Parameters**
-
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The attachment details
-    -   `options.source_type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The source of the attachment. Must be `url` or `file`.
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+    -   [sendBroadcast](#sendbroadcast)
+    -   [startBroadcastReachEstimation](#startbroadcastreachestimation)
+    -   [getBroadcastReachEstimation](#getbroadcastreachestimation)
+    -   [createCustomLabel](#createcustomlabel)
+    -   [getCustomLabelById](#getcustomlabelbyid)
+    -   [getCustomLabelsByPsid](#getcustomlabelsbypsid)
+    -   [getAllCustomLabels](#getallcustomlabels)
+    -   [deleteCustomLabel](#deletecustomlabel)
+    -   [addPsidtoCustomLabel](#addpsidtocustomlabel)
+    -   [removePsidfromCustomLabel](#removepsidfromcustomlabel)
+    -   [createMessageCreative](#createmessagecreative)
+    -   [sendText](#sendtext)
+    -   [sendQuickReplies](#sendquickreplies)
+    -   [sendAttachment](#sendattachment)
+    -   [sendTemplate](#sendtemplate)
+    -   [sendSenderAction](#sendsenderaction)
+    -   [sendSponsoredMessage](#sendsponsoredmessage)
+    -   [getMessagingInsights](#getmessaginginsights)
+    -   [generateMessengerCode](#generatemessengercode)
+    -   [setMessengerProfile](#setmessengerprofile)
+    -   [getMessengerProfile](#getmessengerprofile)
+    -   [deleteMessengerProfile](#deletemessengerprofile)
+    -   [getMatchingPsids](#getmatchingpsids)
+    -   [getMatchingAsids](#getmatchingasids)
+    -   [getUserProfile](#getuserprofile)
 
 ## Client
 
@@ -101,6 +79,19 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
     -   `options.graph_api_version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[Client](#client)** 
+
+### uploadAttachment
+
+Uploads media using the Attachment Upload API
+
+**Parameters**
+
+-   `type`  
+-   `source`  
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The attachment details
+    -   `options.source_type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The source of the attachment. Must be `url` or `file`.
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
 ### setPageToken
 
@@ -156,20 +147,18 @@ Gets the current Graph API version being used for all requests
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Current Graph API version
 
-## Broadcasts
+### sendBroadcast
 
-### Client.sendBroadcast
-
-Sends a broadcast message
+Sends a new broadcast message.
 
 **Parameters**
 
--   `message_creative_id` **Integer** 
--   `custom_label_id` **Integer** _Optional._
+-   `message_creative_id` **Integer** The ID of a message creative to send in the broadcast. Created by calling [Client.createMessageCreative()](#createmessagecreative).
+-   `custom_label_id` **Integer** _Optional._ The ID of a custom label to target for the broadcast. Created by calling [Client.createCustomLabel()](#createcustomlabel).
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
 
-### Client.startBroadcastReachEstimation
+### startBroadcastReachEstimation
 
 Start a reach estimation for the number of people that will be 
 reached by a broadcast to all users or to users associated with 
@@ -177,25 +166,23 @@ a custom label
 
 **Parameters**
 
--   `custom_label_id` **Integer** _Optional._
+-   `custom_label_id` **Integer** _Optional._ The ID of a custom label targeted by the broadcast. Created by calling [Client.createCustomLabel()](#createcustomlabel).
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API Response
 
-### Client.getBroadcastReachEstimation
+### getBroadcastReachEstimation
 
 Get the current status of a broadcast reach estimation.
-`startBroadcastReachEstimation` must be run first to get a
-`reach_estimation_id`
+{@link #startbroadcastreachestimation|`startBroadcastReachEstimation` 
+must be run first to get a `reach_estimation_id`.
 
 **Parameters**
 
--   `reach_estimation_id` **Integer** 
+-   `reach_estimation_id` **Integer** The reach estimation ID.
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API Response
 
-## CustomLabels
-
-### Client.createCustomLabel
+### createCustomLabel
 
 Creates a new custom label
 
@@ -205,7 +192,7 @@ Creates a new custom label
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.getCustomLabelById
+### getCustomLabelById
 
 Retrieves the id and name of a custom label
 
@@ -215,7 +202,7 @@ Retrieves the id and name of a custom label
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.getCustomLabelsByPsid
+### getCustomLabelsByPsid
 
 Retrieves the list of custom labels associated with a PSID
 
@@ -225,13 +212,13 @@ Retrieves the list of custom labels associated with a PSID
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.getAllCustomLabels
+### getAllCustomLabels
 
 Retrieves the list of all custom labels
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.deleteCustomLabel
+### deleteCustomLabel
 
 Deletes a custom label
 
@@ -241,7 +228,7 @@ Deletes a custom label
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.addPsidtoCustomLabel
+### addPsidtoCustomLabel
 
 Associates a user PSID to a custom label
 
@@ -252,7 +239,7 @@ Associates a user PSID to a custom label
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.removePsidfromCustomLabel
+### removePsidfromCustomLabel
 
 Removes a user PSID from a custom label
 
@@ -263,9 +250,7 @@ Removes a user PSID from a custom label
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-## SendMessages
-
-### Client.createMessageCreative
+### createMessageCreative
 
 Creates a new message creative
 
@@ -275,7 +260,7 @@ Creates a new message creative
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.sendText
+### sendText
 
 Sends a text message
 
@@ -286,7 +271,7 @@ Sends a text message
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.sendQuickReplies
+### sendQuickReplies
 
 Sends a text message
 
@@ -298,7 +283,7 @@ Sends a text message
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.sendAttachment
+### sendAttachment
 
 Sends a standalone attachment, including images, audio, video, and files
 
@@ -309,7 +294,7 @@ Sends a standalone attachment, including images, audio, video, and files
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.sendTemplate
+### sendTemplate
 
 Sends a template message
 
@@ -320,7 +305,7 @@ Sends a template message
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.sendSenderAction
+### sendSenderAction
 
 Sends a sender action
 
@@ -331,7 +316,7 @@ Sends a sender action
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.sendSponsoredMessage
+### sendSponsoredMessage
 
 Sends a new Sponsored Message
 
@@ -346,9 +331,7 @@ Sends a new Sponsored Message
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-## MessagingInsights
-
-### Client.getMessagingInsights
+### getMessagingInsights
 
 Retrieves metrics from the Messaging Insights API
 
@@ -361,9 +344,7 @@ Retrieves metrics from the Messaging Insights API
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-## MessengerCodes
-
-### Client.generateMessengerCode
+### generateMessengerCode
 
 Generate a new static or parametric Messenger Code for your bot
 
@@ -375,9 +356,7 @@ Generate a new static or parametric Messenger Code for your bot
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-## MessengerProfile
-
-### Client.setMessengerProfile
+### setMessengerProfile
 
 Sets one or more properties of your bot's Messenger Profile
 
@@ -387,7 +366,7 @@ Sets one or more properties of your bot's Messenger Profile
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.getMessengerProfile
+### getMessengerProfile
 
 Retrieves one or more properties of your bot's Messenger Profile
 
@@ -397,7 +376,7 @@ Retrieves one or more properties of your bot's Messenger Profile
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.deleteMessengerProfile
+### deleteMessengerProfile
 
 Deletes one or more properties of your bot's Messenger Profile
 
@@ -407,9 +386,7 @@ Deletes one or more properties of your bot's Messenger Profile
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-## IdMatching
-
-### Client.getMatchingPsids
+### getMatchingPsids
 
 Returns all Page-scoped IDs (PSIDs) for a user across all Pages in the same 
 Facebook Business Manager account. Matches can be found using 
@@ -422,7 +399,7 @@ a PSID or ASID.
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-### Client.getMatchingAsids
+### getMatchingAsids
 
 Returns all app-scoped IDs (ASIDs) for a user across all Pages in the same 
 Facebook Business Manager account. Matches can be found using 
@@ -430,14 +407,12 @@ a PSID or ASID.
 
 **Parameters**
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A valid ASID or PSID
 -   `id_type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of ID provided in the `id` argument: `ASID` or `PSID`
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A valid ASID or PSID
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
-## UserProfile
-
-### Client.getUserProfile
+### getUserProfile
 
 Retrieves a user's profile
 
@@ -447,3 +422,4 @@ Retrieves a user's profile
 -   `fields` **Integer** _Optional._
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+amm-mbp:messenger-node amm$ 
