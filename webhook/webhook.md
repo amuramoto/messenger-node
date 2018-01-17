@@ -1,19 +1,39 @@
 ## Creating a webhook
 
+To create a webhook, start by creating an instance of the `Webhook` class. The following configuration properties may be provided when the `Webhook` instance is created: 
+
+- `verify_token`: __Required.__ The token to use for webhook verification. The Messenger Platform will send this with the challenge request when you register your webhook.
+- `port`: _Optional._ The port number your webhook should listen on. Defaults to the `process.env.PORT`.
+- `endpoint`: _Optional._ The endpoint for your webhook. For example, if your webhook base URL is `https://www.mywebhook.com` and `endpoint` is set to `bananas`, the full URL that you should tell the Messenger Platform to send webhook events to is `https://www.mywebhook.com/bananas/`. Defaults to `webhook`
+- `app_secret`: _Optional._ Your app secret. This is required if you want to validate signed webview requests using [Webhook.validateSignedRequest()](#validatesignedrequest).
+
 ```js
-const Messenger = require('./index');
-const Webhook = new Messenger.Webhook({'verify_token':'<YOUR VERIFY TOKEN>'});
+let webhook_config = {
+  'verify_token':'MY_VERIFY_TOKEN'
+}
+
+const Webhook = new Messenger.Webhook(webhook_config);
 ```
 
-## Subscribing to events
+## Handling Webhook Events
+
+When the Messenger Platform sends your webhook a [webhook event](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) the SDK will emit it by name, and include info about the sender and the full body of the received event.
+
+For a list of available webhook events, see the [list in the Messenger Platform docs](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/).
+
+To listen for a particular event, all you have to do is add an event listener with [`Webhook.on`](#on) or `[Webhook.once`](#once):
 
 ```js
-Webhook.on('<EVENT NAME>', (event_type, sender_info, webhook_event) => {
+Webhook.on('messaging_postbacks', (event_type, sender_info, webhook_event) => {
   // do something
 });
 ```
 
-For a list of available webhook events, see the [list in the Messenger Platform docs](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/).
+You can also [`Webhook.emit`](#emit) events, which can be useful for testing:
+
+```js
+Webhook.emit('messaging_postbacks', event_type, sender_info, webhook_event);
+```
 
 ### Callback Arguments
 | **Name** | **Type** | **Description** | **Example** |
