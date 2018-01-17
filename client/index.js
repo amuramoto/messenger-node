@@ -7,12 +7,13 @@ const GraphRequest = require('./graph-api'),
       Attachment = require('./attachment-upload');      
 
 /**
+ * Creates an instance of `Client`, used for sending requests to the Messenger Platform APIs.
  * @constructor
  * @class Client
- * @param {Object} options  
- * @param {string} options.page_token
- * @param {string} options.app_token
- * @param {string} options.graph_api_version
+ * @param {Object} options  An object that contains the configuration settings for the `Client`.
+ * @param {String} options.page_token  A valid Page-scoped access token.
+ * @param {String} options.app_token  _Optional._ A valid app-scoped access token. Required for ID Matching.
+ * @param {String} options.graph_api_version  _Optional._ The version of the Graph API to target for all API requests. Defaults to latest. Must be in the format `v2.11`.
  * @returns {Client}
  */
 function Client (options) {

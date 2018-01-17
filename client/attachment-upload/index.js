@@ -1,18 +1,13 @@
-/**
- * @namespace Attachments
- */
-
 function Attachment (GraphRequest) {    
   this.uploadAttachment = uploadAttachment.bind(GraphRequest);  
 }
 
 /**
- * Uploads media using the Attachment Upload API
- * @param {Object} options The attachment details
- * @param {String} options.source_type The source of the attachment. Must be `url` or `file`.
+ * Uploads media using the Attachment Upload API.
+ * @param {String} type The attachment type. Must be `url` or `file`.
+ * @param {String} source The location of the attachment. A URL or file path.
  * @returns {Promise<Object>} The API response 
- * @function Client.uploadAttachment
- * @memberof Attachments#
+ * @memberof Client#
  */
 function uploadAttachment(type, source) {
   return new Promise (async (resolve, reject) => {

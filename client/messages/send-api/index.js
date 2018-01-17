@@ -1,9 +1,6 @@
 const util = require('./util'),
       payload = {};
 
-/**
- * @name  SendMessages
- */
 function SendAPI (GraphRequest) {
   this.sendQuickReplies = sendQuickReplies;
   this.sendText = sendText;
@@ -14,12 +11,12 @@ function SendAPI (GraphRequest) {
 }
 
 /**
- * Sends a text message
- * @param  {Object}  recipient
- * @param  {String}  text
+ * Sends a text message.
+ * @param  {Object}  recipient  An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+ * For example, sends to a PSID would be `{'id': 123456}`, to a phone number `{'phone_number': '+1 (408) 444-4444'}.
+ * @param  {String}  text  The text to send.
  * @return {Promise<Object>}  The API response
- * @function  Client.sendText
- * @memberof  SendMessages#
+ * @memberof  Client#
  */
 function sendText (recipient, text) {
   return new Promise (async (resolve, reject) => {
@@ -40,12 +37,12 @@ function sendText (recipient, text) {
 
 /**
  * Sends a text message
- * @param  {Object}  recipient
- * @param  {Object}  quick_replies
+ * @param  {Object}  recipient  An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+ * For example, sends to a PSID would be `{'id': 123456}`, to a phone number `{'phone_number': '+1 (408) 444-4444'}.
+ * @param  {Object}  quick_replies  An object that describes the quick replies to send. For format, see the {@link https://developers.facebook.com/docs/messenger-platform/send-messages/quick-replies|Messenger Platform docs}.
  * @param  {String}  text   _Optional._
  * @return {Promise<Object>}  The API response
- * @function  Client.sendQuickReplies
- * @memberof  SendMessages#
+ * @memberof  Client#
  */
 function sendQuickReplies (recipient, quick_replies, text) {  
   return new Promise (async (resolve, reject) => {
@@ -69,12 +66,12 @@ function sendQuickReplies (recipient, quick_replies, text) {
 }
 
 /**
- * Sends a standalone attachment, including images, audio, video, and files
- * @param  {Object}  recipient
- * @param  {Object}  attachment
+ * Sends a standalone attachment, including images, audio, video, and files.
+ * @param  {Object}  recipient  An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+ * For example, sends to a PSID would be `{'id': 123456}`, to a phone number `{'phone_number': '+1 (408) 444-4444'}.
+ * @param  {Object}  attachment  An object that describes the attachment to send.
  * @return {Promise<Object>}  The API response
- * @function  Client.sendAttachment
- * @memberof  SendMessages#
+ * @memberof  Client#
  */
 function sendAttachment (recipient, attachment) {
   return new Promise (async (resolve, reject) => {
@@ -96,12 +93,12 @@ function sendAttachment (recipient, attachment) {
 }
 
 /**
- * Sends a template message
- * @param  {Object}  recipient
- * @param  {Object}  template
+ * Sends a template message.
+ * @param  {Object}  recipient  An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+ * For example, sends to a PSID would be `{'id': 123456}`, to a phone number `{'phone_number': '+1 (408) 444-4444'}.
+ * @param  {Object}  template  An object that describes the template to send.
  * @return {Promise<Object>}  The API response
- * @function  Client.sendTemplate
- * @memberof  SendMessages#
+ * @memberof  Client#
  */
 function sendTemplate (recipient, template) {
   return new Promise (async (resolve, reject) => {
@@ -122,12 +119,12 @@ function sendTemplate (recipient, template) {
 }
 
 /**
- * Sends a sender action
- * @param  {Object}  recipient
- * @param  {Object}  sender_action
+ * Sends a sender action.
+ * @param  {Object}  recipient  An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+ * For example, sends to a PSID would be `{'id': 123456}`, to a phone number `{'phone_number': '+1 (408) 444-4444'}.
+ * @param  {String}  sender_action  The sender action to send. Must be `typing_on`, `typing_off`, or `mark_seen`.
  * @return {Promise<Object>}  The API response
- * @function  Client.sendSenderAction
- * @memberof  SendMessages#
+ * @memberof  Client#
  */
 function sendSenderAction (recipient, sender_action) {
   return new Promise (async (resolve, reject) => {

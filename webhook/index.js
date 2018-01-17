@@ -3,7 +3,7 @@ const express = require('express'),
       util = require('./util');
 
 /**
- * 
+ * Creates and starts a webhook that emits all received webhook events.
  * @constructor
  * @class Webhook
  * @param {Object} options  Configuration options for your webhook. All options may also be set as environment variables.
@@ -68,7 +68,7 @@ function Webhook (options) {
   this.getInstance = () => { return app };
 
   /**
-   * Stops the Webhook instance
+   * Stops the Webhook instance.
    * @param {Function} callback  A callback function to execute when the webhook is stopped.   
    * @function stopInstance
    * @memberof  Webhook
@@ -76,7 +76,7 @@ function Webhook (options) {
   this.stopInstance = (callback) => server.close(callback);
 
   /**
-   * Retrieves the port the webhook is running on
+   * Retrieves the port the webhook is running on.
    * @returns {String} The current port number.
    * @function getPort
    * @memberof  Webhook
@@ -84,7 +84,7 @@ function Webhook (options) {
   this.getPort = () => { return port };
 
   /**
-   * Retrieves the current endpoint of the webhook
+   * Retrieves the current endpoint of the webhook.
    * @returns {String} The current endpoint.
    * @function getEndpoint
    * @memberof  Webhook
@@ -92,7 +92,7 @@ function Webhook (options) {
   this.getEndpoint = () => { return endpoint };
 
   /**
-   * Retrieves the current verify token of the webhook
+   * Retrieves the current verify token of the webhook.
    * @returns {String} The current verify token.
    * @function getVerifyToken
    * @memberof  Webhook
@@ -100,8 +100,8 @@ function Webhook (options) {
   this.getVerifyToken = () => { return verify_token };
 
   /**
-   * Sets the app secret used for validating signed requests
-   * @param {String} app_secret The app secret to set
+   * Sets the app secret used for validating signed requests.
+   * @param {String} app_secret The app secret to set.
    * @returns {String} The app secret that was successfully set.
    * @function setAppSecret
    * @memberof  Webhook

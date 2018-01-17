@@ -1,19 +1,15 @@
-/**
- * @namespace  MessagingInsights
- */
 function MessagingInsights (GraphRequest) {
   this.getMessagingInsights = getMessagingInsights.bind(GraphRequest);
 }
 
 /**
- * Retrieves metrics from the Messaging Insights API
- * @param  {Object}  options
- * @param  {String}  options.metrics
- * @param  {String}  options.since
- * @param  {String}  options.until
+ * Retrieves metrics from the Messaging Insights API.
+ * @param  {Object}  options An object that describes the metrics data to retrieve.
+ * @param  {Array<String>}  options.metrics  An array list of the metrics to retrieve.
+ * @param  {String}  options.since  _Optional._ UNIX timestamp of the start time to get the metric for.
+ * @param  {String}  options.until  _Optional._ UNIX timestamp of the end time to get the metric for.
  * @return {Promise<Object>}  The API response
- * @function  Client.getMessagingInsights
- * @memberof  MessagingInsights#
+ * @memberof  Client#
  */
 function getMessagingInsights(options) {
   return new Promise (async (resolve, reject) => {

@@ -3,16 +3,15 @@ function SponsoredMessage (GraphRequest) {
 }
 
 /**
- * Sends a new Sponsored Message
- * @param   {Integer}  ad_account_id
- * @param   {Object}   options
- * @param   {String}   options.message_creative_id
- * @param   {String}   options.daily_budget
- * @param   {String}   options.bid_amount
- * @param   {String}   options.targeting
+ * Sends a new Sponsored Message.
+ * @param   {Integer}  ad_account_id  Your Facebook Ads account ID.
+ * @param   {Object}   options  An object that describes the sponsored message to send.
+ * @param   {String}   options.message_creative_id  The ID of a message creative to send. Created by calling {@link #createmessagecreative|Client.createMessageCreative()}.
+ * @param   {String}   options.daily_budget  The maximum daily budget of the ad campaign for the Sponsored Message send.
+ * @param   {String}   options.bid_amount  The maximum bid for each message recipient.
+ * @param   {String}   options.targeting  {@link https://developers.facebook.com/docs/marketing-api/targeting-specs|Targeting spec} for the Sponsored Message send.
  * @return  {Promise<Object>}  The API response
- * @function  Client.sendSponsoredMessage
- * @memberof SendMessages#
+ * @memberof  Client#
  */
 function sendSponsoredMessage (ad_account_id, options) {
   return new Promise (async (resolve, reject) => {

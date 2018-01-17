@@ -4,11 +4,10 @@ function MessageCreative(GraphRequest) {
 }
 
 /**
- * Creates a new message creative
- * @param  {Object}  message
+ * Creates a new message creative.
+ * @param  {Object}  message  An object that describes the message to send.
  * @return {Promise<Object>}  The API response
- * @function  Client.createMessageCreative
- * @memberof  SendMessages#
+ * @memberof  Client#
  */
 function createMessageCreative (message) {
   return new Promise (async (resolve, reject) => {

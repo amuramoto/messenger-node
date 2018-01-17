@@ -1,6 +1,3 @@
-/**
- * @namespace  Broadcasts
- */
 function Broadcast (GraphRequest) {
   this.sendBroadcast = sendBroadcast;
   this.startBroadcastReachEstimation = startBroadcastReachEstimation;
@@ -9,12 +6,11 @@ function Broadcast (GraphRequest) {
 }
 
 /**
- * Sends a broadcast message
- * @param  {Integer}  message_creative_id
- * @param  {Integer}  custom_label_id   _Optional._
+ * Sends a new broadcast message.
+ * @param  {Integer}  message_creative_id  The ID of a message creative to send in the broadcast. Created by calling {@link #createmessagecreative|Client.createMessageCreative()}.
+ * @param  {Integer}  custom_label_id   _Optional._ The ID of a custom label to target for the broadcast. Created by calling {@link #createcustomlabel|Client.createCustomLabel()}.
  * @return {Promise}  The API response
- * @function  Client.sendBroadcast
- * @memberof  Broadcasts#
+ * @memberof  Client#
  */
 function sendBroadcast (message_creative_id, custom_label_id) {
   return new Promise (async (resolve, reject) => {
@@ -40,11 +36,10 @@ function sendBroadcast (message_creative_id, custom_label_id) {
 /**
  * Start a reach estimation for the number of people that will be 
  * reached by a broadcast to all users or to users associated with 
- * a custom label
- * @param  {Integer}  custom_label_id   _Optional._
+ * a custom label.
+ * @param  {Integer}  custom_label_id   _Optional._ The ID of a custom label targeted by the broadcast. Created by calling {@link #createcustomlabel|Client.createCustomLabel()}.
  * @return {Promise<Object>}  The API Response
- * @function  Client.startBroadcastReachEstimation
- * @memberof  Broadcasts#
+ * @memberof  Client#
  */
 function startBroadcastReachEstimation (custom_label_id) {
   return new Promise (async (resolve, reject) => {
@@ -61,13 +56,12 @@ function startBroadcastReachEstimation (custom_label_id) {
 }
 
 /**
- * Get the current status of a broadcast reach estimation.
- * `startBroadcastReachEstimation` must be run first to get a
- * `reach_estimation_id`
- * @param  {Integer}  reach_estimation_id
+ * Get the current status of a broadcast reach estimation
+ * {@link #startbroadcastreachestimation|`startBroadcastReachEstimation` 
+ * must be run first to get a `reach_estimation_id`.
+ * @param  {Integer}  reach_estimation_id   The reach estimation ID.
  * @return {Promise<Object>}  The API Response
- * @function  Client.getBroadcastReachEstimation
- * @memberof  Broadcasts#
+ * @memberof  Client#
  */
 function getBroadcastReachEstimation (reach_estimation_id) {
   return new Promise (async (resolve, reject) => {

@@ -1,18 +1,14 @@
-/**
- * @namespace  MessengerCodes
- */
 function MessengerCode (GraphRequest) {
   this.generateMessengerCode = generateMessengerCode.bind(GraphRequest);
 }
 
 /**
- * Generate a new static or parametric Messenger Code for your bot
- * @param  {Object}   options
- * @param  {Object}   options.ref
- * @param  {Object}   options.image_size
+ * Generate a new static or parametric Messenger Code for your bot.
+ * @param  {Object}   options  An object that describes the Messenger Code to generate.
+ * @param  {Integer}  options.ref  The ref string to pass to your bot is opened via the code. Max 250 characters. Valid characters: `a-z A-Z 0-9 +/=-.:_`.
+ * @param  {Object}   options.image_size  The size, in pixels, for the image you are requesting. Supported range: 100-2000. Defaults to 1000.
  * @return {Promise<Object>}  The API response
- * @function  Client.generateMessengerCode
- * @memberof  MessengerCodes
+ * @memberof  Client#
  */
 function generateMessengerCode(options) {
   return new Promise (async (resolve, reject) => {

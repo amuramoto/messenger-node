@@ -1,6 +1,3 @@
-/**
- * @namespace  CustomLabels
- */
 function CustomLabels (GraphRequest) {
   this.createCustomLabel = createCustomLabel;
   this.getCustomLabelById = getCustomLabelById;
@@ -13,11 +10,10 @@ function CustomLabels (GraphRequest) {
 };
 
 /**
- * Creates a new custom label
- * @param  {String}  name
+ * Creates a new custom label.
+ * @param  {String}  name  The name of the custom label.
  * @return {Promise<Object>}  The API response
- * @function  Client.createCustomLabel
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function createCustomLabel (name) {
   return new Promise (async (resolve, reject) => {
@@ -37,11 +33,10 @@ function createCustomLabel (name) {
 }
 
 /**
- * Retrieves the id and name of a custom label
- * @param  {Integer}  label_id
+ * Retrieves the id and name of a custom label.
+ * @param  {Integer}  label_id  The ID of a custom label. Created with {@link #createcustomlabel|createCustomLabel()}.
  * @return {Promise<Object>}  The API response
- * @function  Client.getCustomLabelById
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function getCustomLabelById (label_id) {
   return new Promise (async (resolve, reject) => {
@@ -63,11 +58,10 @@ function getCustomLabelById (label_id) {
 }
 
 /**
- * Retrieves the list of custom labels associated with a PSID
- * @param  {Integer}  psid
+ * Retrieves the list of custom labels associated with a PSID.
+ * @param  {Integer}  psid  The PSID of the user to retrieve the custom labels for.
  * @return {Promise<Object>}  The API response
- * @function  Client.getCustomLabelsByPsid
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function getCustomLabelsByPsid (psid) {
   return new Promise (async (resolve, reject) => {
@@ -89,10 +83,9 @@ function getCustomLabelsByPsid (psid) {
 }
 
 /**
- * Retrieves the list of all custom labels
+ * Retrieves the list of all custom labels.
  * @return {Promise<Object>}  The API response
- * @function  Client.getAllCustomLabels
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function getAllCustomLabels () {
   return new Promise (async (resolve, reject) => {
@@ -110,11 +103,10 @@ function getAllCustomLabels () {
 }
 
 /**
- * Deletes a custom label
- * @param  {Integer}  label_id
+ * Deletes a custom label.
+ * @param  {Integer}  label_id  The ID of the custom label to delete.
  * @return {Promise<Object>}  The API response
- * @function  Client.deleteCustomLabel
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function deleteCustomLabel (label_id) {
   return new Promise (async (resolve, reject) => {
@@ -137,12 +129,11 @@ function deleteCustomLabel (label_id) {
 }
 
 /**
- * Associates a user PSID to a custom label
- * @param  {Integer}  psid
- * @param  {Integer}  label_id
+ * Associates a user's PSID to a custom label.
+ * @param  {Integer}  psid  PSID of the user to associate with the custom label.
+ * @param  {Integer}  label_id  The ID of a custom label. Created with {@link #createcustomlabel|createCustomLabel()}.
  * @return {Promise<Object>}  The API response
- * @function  Client.addPsidtoCustomLabel
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function addPsidtoCustomLabel (psid, label_id) {
   return new Promise (async (resolve, reject) => {
@@ -164,12 +155,11 @@ function addPsidtoCustomLabel (psid, label_id) {
 }
 
 /**
- * Removes a user PSID from a custom label
- * @param  {Integer}  psid
- * @param  {Integer}  label_id
+ * Removes a user PSID from a custom label.
+ * @param  {Integer}  psid  PSID of the user to remove from the custom label.
+ * @param  {Integer}  label_id  The ID of a custom label.
  * @return {Promise<Object>}  The API response
- * @function  Client.removePsidfromCustomLabel
- * @memberof  CustomLabels#
+ * @memberof  Client#
  */
 function removePsidfromCustomLabel (psid, label_id) {
   return new Promise (async (resolve, reject) => {
