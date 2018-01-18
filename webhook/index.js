@@ -1,6 +1,6 @@
 const express = require('express'),
-  body_parser = require('body-parser'),      
-  util = require('./util');
+      body_parser = require('body-parser'),      
+      util = require('./util');
 
 /**
  * Creates and starts a webhook that emits all received webhook events.
@@ -15,11 +15,11 @@ const express = require('express'),
  */
 function Webhook (options) {
   let app,
-    server,
-    port = options.port || process.env.MESSENGER_PORT || 1337,
-    endpoint = options.endpoint || process.env.MESSENGER_ENDPOINT || '/webhook',
-    app_secret = options.app_secret || process.env.MESSENGER_APP_SECRET,
-    verify_token = options.verify_token || process.env.MESSENGER_VERIFY_TOKEN;
+      server,
+      port = options.port || process.env.MESSENGER_PORT || 1337,
+      endpoint = options.endpoint || process.env.MESSENGER_ENDPOINT || '/webhook',
+      app_secret = options.app_secret || process.env.MESSENGER_APP_SECRET,
+      verify_token = options.verify_token || process.env.MESSENGER_VERIFY_TOKEN;
   
   if (!verify_token) throw 'VERIFY_TOKEN required to create webhook!';
   if (endpoint.indexOf('/') !== 0) endpoint = '/' + endpoint;

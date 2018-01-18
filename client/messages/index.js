@@ -1,8 +1,8 @@
 const Broadcast = require('./broadcast'),
-  SendApi = require('./send-api'),
-  MessageCreative = require('./message-creative'),
-  CustomLabels = require('./custom-labels'),
-  SponsoredMessage = require('./sponsored-message');
+      SendApi = require('./send-api'),
+      MessageCreative = require('./message-creative'),
+      CustomLabels = require('./custom-labels'),
+      SponsoredMessage = require('./sponsored-message');
 
 function Messages (GraphRequest) {
   Object.assign(

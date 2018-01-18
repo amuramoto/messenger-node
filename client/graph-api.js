@@ -1,5 +1,5 @@
 const request = require('request'),
-  fs = require('fs');
+      fs = require('fs');
 
 function GraphRequest(options) {  
 
@@ -85,11 +85,11 @@ function formatApiVersion (version) {
 function sendGraphRequest (options) {
 
   const api_version = options.api_version || this.getApiVersion(),
-    qs = options.qs || {},
-    request_options = {
-      uri: 'https://graph.facebook.com',
-      qs: qs
-    };
+        qs = options.qs || {},
+        request_options = {
+          uri: 'https://graph.facebook.com',
+          qs: qs
+        };
 
   return new Promise((resolve, reject) => {
     if (!options.path) {

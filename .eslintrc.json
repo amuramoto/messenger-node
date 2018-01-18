@@ -11,7 +11,7 @@
         "indent": [
             2,
             2,
-            {"SwitchCase": 1}
+            {"SwitchCase": 1, "VariableDeclarator": {"const": 3, "let": 2}}
         ],
         "linebreak-style": [
             "error",

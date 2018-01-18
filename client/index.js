@@ -1,10 +1,10 @@
 const GraphRequest = require('./graph-api'),
-  Messages = require('./messages'),
-  MessengerProfile = require('./messenger-profile'),
-  Person = require('./person'),
-  MessengerCode = require('./messenger-codes'),
-  MessagingInsights = require('./messaging-insights'),
-  Attachment = require('./attachment-upload');      
+      Messages = require('./messages'),
+      MessengerProfile = require('./messenger-profile'),
+      Person = require('./person'),
+      MessengerCode = require('./messenger-codes'),
+      MessagingInsights = require('./messaging-insights'),
+      Attachment = require('./attachment-upload');      
 
 /**
  * Creates an instance of `Client`, used for sending requests to the Messenger Platform APIs.

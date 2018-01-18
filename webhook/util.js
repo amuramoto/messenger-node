@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 function verifyWebhook(verify_token, qs) {
   const mode = qs['hub.mode'],
-    token = qs['hub.verify_token'];
+        token = qs['hub.verify_token'];
 
   console.log('Verifying webhook...');          
 
