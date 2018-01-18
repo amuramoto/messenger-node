@@ -15,6 +15,14 @@ const GraphRequest = require('./graph-api'),
  * @param {String} options.app_token  _Optional._ A valid app-scoped access token. Required for ID Matching.
  * @param {String} options.graph_api_version  _Optional._ The version of the Graph API to target for all API requests. Defaults to latest. Must be in the format `v2.11`.
  * @returns {Client}
+ * @example
+ * const Messenger = require('messenger-node');
+ * let options = {
+ *   'page_token': 'sd0we98h248n2g40gh4g80h32',
+ *   'app_token': 'ih908wh084ggh423940hg934g358h0358hg3', //optional
+ *   'api_version': 'v2.9' //optional
+ * }
+ * const Client = new Messenger.Client(options);
  */
 function Client (options) {
   
