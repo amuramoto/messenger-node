@@ -7,14 +7,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "request": "^2.83.0",
-    "uglify-js": "^3.3.7"
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.9.1",
-    "jest": "^22.0.5"
+    "jest": "^22.0.5",
+    "uglify-es": "^3.3.7"
   },
   "jest": {
     "verbose": true,
@@ -26,6 +26,7 @@
   "scripts": {
     "docs": "cat docs/overview.md docs/webhook.md docs/client.md > README.md",
     "lint": "eslint client/** webhook/** tests/**",
-    "test": "jest"
+    "test": "jest",
+    "uglify": "uglifyjs ./client/index.js -c -m --toplevel"
   }
 }
