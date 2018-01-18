@@ -35,7 +35,7 @@ describe('Person', () => {
 
     ids.forEach(id => {
       test(`Get PSIDs from ${id.type}`, done => {
-        Client.getMatchingPsids(id.type, id.id).then(res => {
+        Client.getMatchingPsids(id.id, id.type).then(res => {
           expect(res).toHaveProperty('data');
           expect(res).toHaveProperty('paging');    
           done();
@@ -43,7 +43,7 @@ describe('Person', () => {
       });
       
       test(`Get ASIDs from ${id.type}`, done => {
-        Client.getMatchingAsids(id.type, id.id).then(res => {
+        Client.getMatchingAsids(id.id, id.type).then(res => {
           expect(res).toHaveProperty('data');
           expect(res).toHaveProperty('paging');    
           done();

@@ -120,6 +120,7 @@ test('Validate signed request', () => {
     'psid': '1254459154682919',
     'signed_request': 'QDTuYBidQ7pbpxIbPwgsb__nHty2-KuVPfxAFb9P49k.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTUxNTY0NjM5MiwibWV0YWRhdGEiOm51bGwsInBhZ2VfaWQiOjY4MjQ5ODE3MTk0MzE2NSwicHNpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkiLCJ0aHJlYWRfdHlwZSI6IlVTRVJfVE9fUEFHRSIsInRpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkifQ'
   }
+  
   let result = Webhook.validateSignedRequest(request.signed_request);
   expect(result).toEqual({ 
     'algorithm': 'HMAC-SHA256',

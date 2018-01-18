@@ -33,7 +33,7 @@ function getMatchingPsids (id, id_type) {
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
  */
-function getMatchingAsids (id_type, id) {
+function getMatchingAsids (id, id_type) {
   return new Promise (async (resolve, reject) => {
     try {
       let response = await this.callIdMatchingApi(id, id_type, 'asid');
