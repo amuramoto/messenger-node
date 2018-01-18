@@ -9,6 +9,15 @@ function MessengerCode (GraphRequest) {
  * @param  {Object}   options.image_size  The size, in pixels, for the image you are requesting. Supported range: 100-2000. Defaults to 1000.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let options = {
+ *   'ref': 'referral_ref', //optional
+ *   'image_size': 500 //optional
+ * };
+ * Client.generateMessengerCode(options)
+ *   .then(res => {
+ *     console.log(res); // {"uri": "https://scontent.xx.fbcdn.net/v/t39..."}
+ *   });
  */
 function generateMessengerCode(options) {
   return new Promise (async (resolve, reject) => {

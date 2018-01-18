@@ -10,6 +10,26 @@ function MessengerProfile (GraphRequest) {
  * @param  {Object}  fields  An object that contains the Messenger Profile properties to set as key-value pairs.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let fields = {
+ *   'whitelisted_domains': ['https://www.example.com'],    
+ *   'get_started': {
+ *     'payload': 'callback_payload'
+ *   },
+ *   'greeting': [
+ *     {
+ *       'locale':'default',
+ *       'text':'Hello!'
+ *     }, {
+ *       'locale':'en_US',
+ *       'text':'Timeless apparel for the masses.'
+ *     }
+ *   ]
+ * };
+ * Client.setMessengerProfile(fields)
+ *   .then(res => {
+ *     console.log(res); // {"result": "success"}
+ *   });
  */
 function setMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
@@ -31,6 +51,27 @@ function setMessengerProfile (fields) {
  * @param  {Array<String>}  fields  _Optional._ An array list of the Messenger Profile filds to retrieve.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let fields = ['whitelisted_domains', 'greeting'];
+ * Client.getMessengerProfile(fields)
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //    "data": [
+ *     //         {
+ *     //           "whitelisted_domains": [
+ *     //             "https://facebook.com/"
+ *     //           ],
+ *     //           "greeting": [
+ *     //             {
+ *     //                "locale": "default",
+ *     //                "text": "Hello!"
+ *     //             }
+ *     //          ]
+ *     //       }
+ *     //    ]
+ *     // } 
+ *   });
  */
 function getMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {
@@ -63,6 +104,12 @@ function getMessengerProfile (fields) {
  * @param  {Array<String>}  fields  _Optional._ An array list of the Messenger Profile filds to delete.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let fields = ['whitelisted_domains', 'greeting'];
+ * Client.deleteMessengerProfile(fields)
+ *   .then(res => {
+ *     console.log(res); // {"id": "9485676932424"}
+ *   });
  */
 function deleteMessengerProfile (fields) {
   return new Promise (async (resolve, reject) => {

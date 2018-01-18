@@ -12,6 +12,35 @@ function IdMatching (GraphRequest) {
  * @param  {String} id_type   The type of ID provided in the `id` argument: `ASID` or `PSID`.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * Client.getMatchingPsids('95740976304764', 'PSID')
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //    "data": [
+ *     //      {
+ *     //        "id": "1429384723454138",
+ *     //        "page": {
+ *     //            "name": "MyPage1",
+ *     //            "id": "9384723458738365"
+ *     //        }
+ *     //      },
+ *     //      {
+ *     //        "id": "1254459384723459",
+ *     //        "page": {
+ *     //            "name": "MyPage2",
+ *     //            "id": "689384723453165"
+ *     //        }
+ *     //      }
+ *     //    ],
+ *     //    "paging": {
+ *     //        "cursors": {
+ *     //            "before": "MTA4MDYxNjQ2ODczODM2NQZDZD",
+ *     //            "after": "NjgyNDk4MTcxOTQzMTY1"
+ *     //        }
+ *     //    }
+ *     // } 
+ *   });
  */
 function getMatchingPsids (id, id_type) {
   return new Promise (async (resolve, reject) => {        
@@ -32,6 +61,37 @@ function getMatchingPsids (id, id_type) {
  * @param  {String} id_type   The type of ID provided in the `id` argument: `ASID` or `PSID`.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * Client.getMatchingAsids('95740976304764', 'PSID')
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //    "data": [
+ *     //      {
+ *     //        "id": "7234541381429384",
+ *     //        "app": {
+ *     //            "link": "https://www.facebook.com/games/?app_id=299493827472589",
+ *     //            "name": "MyApp1",
+ *     //            "id": "9948573218738365"
+ *     //        }
+ *     //      },
+ *     //      {
+ *     //        "id": "9384723459125445",
+ *     //        "app": {
+ *     //            "link": "https://www.facebook.com/games/?app_id=299490394856589",
+ *     //            "name": "MyApp2",
+ *     //            "id": "689384785732187"
+ *     //        }
+ *     //      }
+ *     //    ],
+ *     //    "paging": {
+ *     //        "cursors": {
+ *     //            "before": "ODczODM2NQZDZDMTA4MDYxNjQ2",
+ *     //            "after": "TcxOTQzMTY1NjgyNDk4M"
+ *     //        }
+ *     //    }
+ *     // } 
+ *   });
  */
 function getMatchingAsids (id, id_type) {
   return new Promise (async (resolve, reject) => {

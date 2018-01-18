@@ -13,9 +13,21 @@ function SponsoredMessage (GraphRequest) {
  * @return  {Promise<Object>}  The API response
  * @memberof  Client#
  * @example
- * Client.createCustomLabel('my_custom_label')
+ * let options = {
+ *   'message_creative_id': '34967347634346',
+ *   'daily_budget': '10',
+ *   'bid_amount': '1',
+ *   'targeting': '{'geo_locations': {'countries':['US']}}',
+ *   'ad_account_id': '9352379502706' 
+ * };
+ * Client.sendSponsoredMessage('test', options)
  *   .then(res => {
- *     console.log(res); // {"id": "9485676932424"}
+ *     console.log(res);
+ *     // {
+ *     //   "ad_group_id": "6088387928148",
+ *     //   "broadcast_id": "754911018029273",
+ *     //   "success": true
+ *     // }
  *   });
  */
 function sendSponsoredMessage (ad_account_id, options) {

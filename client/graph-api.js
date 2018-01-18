@@ -16,7 +16,12 @@ function GraphRequest(options) {
    * Sets a new page token to use for all Page-level requests   
    * @param {string} page_token The new page token
    * @return {string} Updated page token
-   * @memberof Client#
+   * @memberof Client#* @example <caption>Upload from URL</caption> 
+   * @example
+   * Client.setPageToken('sgh084th3t3ht340t34h8t3t940390th34')
+   *  .then(res => {
+   *     console.log(res) // 'sgh084th3t3ht340t34h8t3t940390th34'
+   *  });
    */
   this.setPageToken = token => {
     page_token = token;
@@ -27,6 +32,11 @@ function GraphRequest(options) {
    * Gets the current page token being used for page-level requests
    * @return {string} Current page token
    * @memberof Client#
+   * @example
+   * Client.getPageToken()
+   *  .then(res => {
+   *     console.log(res) // 'sgh084th3t3ht340t34h8t3t940390th34'
+   *  });
    */
   this.getPageToken = () => {return page_token;};
 
@@ -35,6 +45,11 @@ function GraphRequest(options) {
    * @param {string} app_token The new app token
    * @return {string} Updated app token
    * @memberof Client#
+   * @example
+   * Client.setAppToken('9h03t9h0ahtg409thw3t34h8t3t940390th34')
+   *  .then(res => {
+   *     console.log(res) // '9h03t9h0ahtg409thw3t34h8t3t940390th34'
+   *  });
    */
   this.setAppToken = token => {
     app_token = token;
@@ -45,6 +60,11 @@ function GraphRequest(options) {
    * Gets the current app token being used for app-level requests
    * @return {string} Current app token
    * @memberof Client#
+   * @example
+   * Client.getAppToken()
+   *  .then(res => {
+   *     console.log(res) // '9h03t9h0ahtg409thw3t34h8t3t940390th34'
+   *  });
    */
   this.getAppToken = () => {return app_token;};
 
@@ -53,6 +73,11 @@ function GraphRequest(options) {
    * @param {string} version The new version in the format `v2.11`
    * @return {string} Updated version number
    * @memberof Client#
+   * @example
+   * Client.setApiVersion('v2.6')
+   *  .then(res => {
+   *     console.log(res) // 'v2.6'
+   *  });
    */
   this.setApiVersion = version => {
     graph_api_version = formatApiVersion(version);
@@ -63,6 +88,11 @@ function GraphRequest(options) {
    * Gets the current Graph API version being used for all requests
    * @return {string} Current Graph API version
    * @memberof Client#
+   * @example
+   * Client.getApiVersion()
+   *  .then(res => {
+   *     console.log(res) // 'v2.6'
+   *  });
    */
   this.getApiVersion = () => {
     return graph_api_version;

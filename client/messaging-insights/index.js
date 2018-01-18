@@ -10,6 +10,40 @@ function MessagingInsights (GraphRequest) {
  * @param  {String}  options.until  _Optional._ UNIX timestamp of the end time to get the metric for.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let today = new Date().getTime();
+ * let options = {
+ *   'metrics': [
+ *     'page_messages_active_threads_unique',
+ *     'page_messages_blocked_conversations_unique',
+ *     'page_messages_reported_conversations_unique',
+ *     'page_messages_reported_conversations_by_report_type_unique'
+ *   ],
+ *   'since': today - 864000,
+ *   'until': today
+ * };
+ * Client.getMessagingInsights(options)
+ *   .then(res => {
+ *     console.log(res);
+ *     // { 
+ *     //   "data": [ 
+ *     //     { 
+ *     //       "name": "<METRIC>", 
+ *     //       "period": "day", 
+ *     //       "values": [ 
+ *     //         { 
+ *     //           "value": "<VALUE>", 
+ *     //           "end_time": "<UTC_TIMESTAMP>" 
+ *     //         }, 
+ *     //         { 
+ *     //           "value": "<VALUE>", 
+ *     //           "end_time": "<UTC_TIMESTAMP>" 
+ *     //         }
+ *     //      ]
+ *     //     } 
+ *     //   ],
+ *     // } 
+ *   });
  */
 function getMessagingInsights(options) {
   return new Promise (async (resolve, reject) => {
