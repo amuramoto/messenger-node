@@ -12,6 +12,11 @@ function SponsoredMessage (GraphRequest) {
  * @param   {String}   options.targeting  {@link https://developers.facebook.com/docs/marketing-api/targeting-specs|Targeting spec} for the Sponsored Message send.
  * @return  {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * Client.createCustomLabel('my_custom_label')
+ *   .then(res => {
+ *     console.log(res); // {"id": "9485676932424"}
+ *   });
  */
 function sendSponsoredMessage (ad_account_id, options) {
   return new Promise (async (resolve, reject) => {

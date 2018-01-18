@@ -8,6 +8,39 @@ function MessageCreative(GraphRequest) {
  * @param  {Object}  message  An object that describes the message to send.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example <caption>Text Message</caption> 
+ * let message = {'text': 'my text message'};
+ * Client.createMessageCreative(message)
+ *   .then(res => {
+ *     console.log(res); // {"message_creative_id": "953434576932424"}
+ *   });
+ * @example <caption>Template Message</caption> 
+ * let message = {
+ *   template_type: 'generic',
+ *   elements: [
+ *     {
+ *       'title':'This is a generic template',
+ *       'subtitle':'Plus a subtitle!',
+ *       'image_url':'https://www.example.com/dog.jpg',
+ *       'buttons':[
+ *         {
+ *           'type':'postback',
+ *           'title':'Postback Button',
+ *           'payload':'postback_payload'
+ *         },
+ *         {
+ *           'type': 'web_url',
+ *           'title': 'URL Button',
+ *           'url': 'https://www.example.com/'
+ *         }
+ *       ]      
+ *     }
+ *   ]
+ * };
+ * Client.createMessageCreative(message)
+ *   .then(res => {
+ *     console.log(res); // {"message_creative_id": "953434576932424"}
+ *   });
  */
 function createMessageCreative (message) {
   return new Promise (async (resolve, reject) => {

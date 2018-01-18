@@ -8,14 +8,12 @@ function Attachment (GraphRequest) {
  * @param {String} source The location of the attachment. A URL or file path.
  * @returns {Promise<Object>} The API response 
  * @memberof Client#
- * @example
- * // Upload from URL 
+ * @example <caption>Upload from URL</caption> 
  * Client.uploadAttachment('url', 'https://www.example.com/image.jpg')
  *  .then(res => {
  *     console.log(res) // {'attachment_id': 09754203957254}
  *  });
- * @example
- * // Upload from file
+ * @example <caption>Upload from file</caption> 
  * Client.uploadAttachment('file', '/User/Me/Desktop/video.mp4')
  *  .then(res => {
  *     console.log(res); // {'attachment_id': 09754203957254}

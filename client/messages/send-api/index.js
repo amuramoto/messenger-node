@@ -16,6 +16,17 @@ function SendAPI (GraphRequest) {
  * @param  {String}  text  The text to send.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let recipient = {'id': '57024957309673'},
+ *     text = 'This is a text message';
+ * Client.sendText(text)
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //   "recipient_id": "1008372609250235", 
+ *     //   "message_id": "mid.1456970487936:c34767dfe57ee6e339"
+ *     // }
+ *   });
  */
 function sendText (recipient, text) {
   return new Promise (async (resolve, reject) => {
@@ -35,13 +46,35 @@ function sendText (recipient, text) {
 }
 
 /**
- * Sends a text message
+ * Sends a set of quick reply buttons
  * @param  {Object}  recipient  An object that describes the message recipient in the format: `{<id_type>: <id>}`.
  * For example, sends to a PSID would be `{'id': 123456}`, to a phone number `{'phone_number': '+1 (408) 444-4444'}.
- * @param  {Object}  quick_replies  An object that describes the quick replies to send. For format, see the {@link https://developers.facebook.com/docs/messenger-platform/send-messages/quick-replies|Messenger Platform docs}.
+ * @param  {Object}  quick_replies  An object that describes the quick replies to send.
  * @param  {String}  text   _Optional._
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example <caption>Generic Template</caption> 
+ * let recipient = {'id': '57024957309673'};
+ * let quick_replies = [
+ *   {
+ *     'content_type':'text',
+ *     'title':'Quick Reply 1',
+ *     'image_url':'https://www.example.com/icon.png',
+ *     'payload':'quick_reply_payload'
+ *   },
+ *   {
+ *     'content_type':'location'
+ *   }
+ * ];
+ * let text = 'Text message to send with the quick replies'; //optional
+ * Client.sendQuickReplies(recipient, quick_replies, text)
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //   "recipient_id": "1008372609250235", 
+ *     //   "message_id": "mid.1456970487936:c34767dfe57ee6e339"
+ *     // }
+ *   });
  */
 function sendQuickReplies (recipient, quick_replies, text) {  
   return new Promise (async (resolve, reject) => {
@@ -71,6 +104,25 @@ function sendQuickReplies (recipient, quick_replies, text) {
  * @param  {Object}  attachment  An object that describes the attachment to send.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let recipient = {'id': '57024957309673'},
+ *     options = {
+ *       'type':'image', 
+ *       'payload':{
+ *         'url':'https://www.example.com/dog.png', 
+ *         'is_reusable':true
+ *       }    
+ *     }
+ * Client.sendAttachment(recipient, options)
+ *   .then(res => {
+ *     console.log(res); // {"id": "9485676932424"}
+ *     // {
+ *     //   "recipient_id": "1008372609250235", 
+ *     //   "message_id": "mid.1456970487936:c34767dfe57ee6e339",
+ *     //   "attachment_id": "395723096739076353"
+ *     // }
+ *   });
+ *   });
  */
 function sendAttachment (recipient, attachment) {
   return new Promise (async (resolve, reject) => {
@@ -98,6 +150,64 @@ function sendAttachment (recipient, attachment) {
  * @param  {Object}  template  An object that describes the template to send.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example <caption>Generic Template</caption> 
+ * let recipient = {'id': '57024957309673'};
+ * let message = {
+ *   template_type: 'generic',
+ *   elements: [
+ *     {
+ *       'title':'This is a generic template',
+ *       'subtitle':'Plus a subtitle!',
+ *       'image_url':'https://www.example.com/dog.jpg',
+ *       'buttons':[
+ *         {
+ *           'type':'postback',
+ *           'title':'Postback Button',
+ *           'payload':'postback_payload'
+ *         },
+ *         {
+ *           'type': 'web_url',
+ *           'title': 'URL Button',
+ *           'url': 'https://www.example.com/'
+ *         }
+ *       ]      
+ *     }
+ *   ]
+ * };
+ * Client.sendTemplate(message)
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //   "recipient_id": "1008372609250235", 
+ *     //   "message_id": "mid.1456970487936:c34767dfe57ee6e339"
+ *     // }
+ *   });
+ * @example <caption>Media Template</caption> 
+ * let recipient = {'id': '57024957309673'};
+ * let message = {
+ *   'template_type': 'media',
+ *   'elements': [
+ *     {
+ *       'media_type': 'image',
+ *       'url': 'https://www.example.com/dog.jpg'
+ *     },
+ *     'buttons':[
+ *       {
+ *         'type': 'web_url',
+ *         'title': 'URL Button',
+ *         'url': 'https://www.example.com/'
+ *       }
+ *     ]    
+ *   ]
+ * };
+ * Client.sendTemplate(message)
+ *   .then(res => {
+ *     console.log(res);
+ *     // {
+ *     //   "recipient_id": "1008372609250235", 
+ *     //   "message_id": "mid.1456970487936:c34767dfe57ee6e339"
+ *     // }
+ *   });
  */
 function sendTemplate (recipient, template) {
   return new Promise (async (resolve, reject) => {
@@ -124,6 +234,13 @@ function sendTemplate (recipient, template) {
  * @param  {String}  sender_action  The sender action to send. Must be `typing_on`, `typing_off`, or `mark_seen`.
  * @return {Promise<Object>}  The API response
  * @memberof  Client#
+ * @example
+ * let recipient = {'id': '57024957309673'},
+ *     sender_action = 'mark_seen';
+ * Client.sendSenderAction(recipient, sender_action)
+ *   .then(res => {
+ *     console.log(res); // {"recipient_id": "1008372609250235"}
+ *   });
  */
 function sendSenderAction (recipient, sender_action) {
   return new Promise (async (resolve, reject) => {
