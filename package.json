@@ -3,14 +3,12 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "uglify-js": "^3.3.7"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -26,6 +24,8 @@
     ]
   },
   "scripts": {
-    "docs": "cat docs/overview.md docs/webhook.md docs/client.md"
+    "docs": "cat docs/overview.md docs/webhook.md docs/client.md > README.md",
+    "lint": "eslint client/** webhook/** tests/**",
+    "test": "jest"
   }
 }

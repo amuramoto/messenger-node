@@ -11,6 +11,13 @@ function Broadcast (GraphRequest) {
  * @param  {Integer}  custom_label_id   _Optional._ The ID of a custom label to target for the broadcast. Created by calling {@link #createcustomlabel|Client.createCustomLabel()}.
  * @return {Promise}  The API response
  * @memberof  Client#
+ * @example
+ * let message_creative_id = 499792492764246,
+ *     custom_label_id = 097046973276-46; // optional
+ * Client.sendBroadcast(message_creative_id, custom_label_id)
+ *   .then(res => {
+ *     console.log(res); // {'broadcast_id': 397230957240952}
+ *   });
  */
 function sendBroadcast (message_creative_id, custom_label_id) {
   return new Promise (async (resolve, reject) => {
@@ -40,6 +47,12 @@ function sendBroadcast (message_creative_id, custom_label_id) {
  * @param  {Integer}  custom_label_id   _Optional._ The ID of a custom label targeted by the broadcast. Created by calling {@link #createcustomlabel|Client.createCustomLabel()}.
  * @return {Promise<Object>}  The API Response
  * @memberof  Client#
+ * @example
+ * let custom_label_id = 3467390467035645 //optional
+ * Client.startBroadcastReachEstimation(custom_label_id)
+ *   .then(res => {
+ *     console.log(res); // {"reach_estimation_id": "9485676932424"}
+ *   });
  */
 function startBroadcastReachEstimation (custom_label_id) {
   return new Promise (async (resolve, reject) => {
@@ -62,6 +75,11 @@ function startBroadcastReachEstimation (custom_label_id) {
  * @param  {Integer}  reach_estimation_id   The reach estimation ID.
  * @return {Promise<Object>}  The API Response
  * @memberof  Client#
+ * @example
+ * Client.getBroadcastReachEstimation(9485676932424)
+ *   .then(res => {
+ *     console.log(res); // {"reach_estimation": "100", "id": "9485676932424"}
+ *   });
  */
 function getBroadcastReachEstimation (reach_estimation_id) {
   return new Promise (async (resolve, reject) => {
