@@ -17,7 +17,7 @@ describe('Person', () => {
         'timezone',
         'gender',
         'last_ad_referral'
-      ]
+      ];
       Client.getUserProfile(PSID, fields).then(res => {
         for (let field in res) {
           expect(fields.includes(field)).toBeTruthy();
@@ -31,7 +31,7 @@ describe('Person', () => {
     let ids = [
       {'type': 'PSID', 'id': PSID},
       {'type': 'ASID', 'id': ASID}
-    ]
+    ];
 
     ids.forEach(id => {
       test(`Get PSIDs from ${id.type}`, done => {
@@ -49,6 +49,6 @@ describe('Person', () => {
           done();
         });          
       });
-    })
+    });
   });
 });      

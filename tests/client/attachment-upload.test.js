@@ -1,7 +1,6 @@
 'use strict';
 
-const PSID = process.env.TEST_PSID,
-      Client = require('./util/client-generator');
+const Client = require('./util/client-generator');
 
 /* ATTACHMENT UPLOAD API TESTS */
 describe('Attachment Upload API', () => {
@@ -18,7 +17,7 @@ describe('Attachment Upload API', () => {
   ];
 
   attachments.forEach(attachment => {
-    let source_type = attachment.source.indexOf('http') >= 0 ? 'url':'file'
+    let source_type = attachment.source.indexOf('http') >= 0 ? 'url':'file';
     test(`Upload ${attachment.type} from ${source_type}`, done => {
       jest.setTimeout(20000);
       Client.uploadAttachment(attachment.type, attachment.source).then(res => {

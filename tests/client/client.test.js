@@ -1,15 +1,11 @@
 'use strict';
 
 const Messenger = require('../../index.js'),
-      template_mocks = require('./util/template_mocks'),
       PAGE_TOKEN = process.env.TEST_PAGE_TOKEN,
-      APP_TOKEN = process.env.TEST_APP_TOKEN,
-      PSID = process.env.TEST_PSID,
-      ASID = process.env.TEST_ASID;
+      APP_TOKEN = process.env.TEST_APP_TOKEN;
 
 const Client = require('./util/client-generator');
 
-/* CLIENT TESTS */
 test('Create new API client', () => {
   expect(Client).toEqual(expect.any(Messenger.Client));
 });
@@ -33,24 +29,3 @@ test('Set/get client member variables', () => {
   Client.setAppToken(APP_TOKEN);
   Client.setApiVersion('');  
 });
-
-
-
-/* Messaging Insights API */
-
-
-
-
-/* Messenger Codes API */
-
-
-
-
-/* Messenger Profile API */
-
-
-
-
-
-
-

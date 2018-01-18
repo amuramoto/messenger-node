@@ -25,7 +25,7 @@ describe('Messenger Profile API', () => {
         'whitelist':['US', 'CA']
       }
     }
-  }
+  };
 
   let fields_arr = Object.keys(fields);
 
@@ -33,8 +33,8 @@ describe('Messenger Profile API', () => {
     Client.setMessengerProfile(fields).then(res => {
       expect(res).toHaveProperty('result');
       expect(res.result).toEqual('success');
-      done()
-    })
+      done();
+    });
   });
 
   test('Get profile fields', done => {      
@@ -44,7 +44,7 @@ describe('Messenger Profile API', () => {
         expect(res).toHaveProperty('data');
         expect(keys).toEqual(expect.arrayContaining(fields_arr));        
         done();
-      })
+      });
     });  
   });
 
@@ -53,7 +53,7 @@ describe('Messenger Profile API', () => {
       expect(res).toHaveProperty('result');
       expect(res.result).toEqual('success');
       done();
-    })
+    });
   });
   
 });

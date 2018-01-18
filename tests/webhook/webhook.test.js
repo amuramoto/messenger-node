@@ -30,7 +30,7 @@ process.argv.forEach(arg => {
 
 beforeAll(() => {
   Webhook = new Messenger.Webhook(webhook_settings);  
-})
+});
 
 
 describe('Webhook creation', () => {
@@ -46,19 +46,19 @@ describe('Webhook creation', () => {
   test('Set app secret', () => {
     let result = Webhook.setAppSecret(app_secret);
     expect(result).toEqual(app_secret);
-  })
+  });
 });
 
 describe('Webhook verification', () => {
   let qs = {
     'hub.mode': 'subscribe',
     'hub.challenge': 'challenge'
-  }
+  };
 
   let options = {
     'method': 'GET',
     'qs': qs
-  }
+  };
 
   test('Send correct token', done => {        
     let callback = (err, res, body) => {
@@ -81,7 +81,7 @@ describe('Webhook verification', () => {
     callWebhook(options, callback);
   });
 
-})
+});
 
 describe('Emit events', () => {
 
@@ -96,7 +96,7 @@ describe('Emit events', () => {
       let callback = (err, res, body) => {
         expect(body).toEqual('EVENT_RECEIVED');
         expect(res.statusCode).toEqual(200);        
-      }
+      };
 
       options.json = event_mocks[name];
    
@@ -107,7 +107,7 @@ describe('Emit events', () => {
       });
 
       callWebhook(options, callback);
-    })
+    });
   }
 
 });
@@ -118,7 +118,7 @@ test('Validate signed request', () => {
     'thread_type': 'USER_TO_PAGE', 
     'psid': '1254459154682919',
     'signed_request': 'QDTuYBidQ7pbpxIbPwgsb__nHty2-KuVPfxAFb9P49k.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTUxNTY0NjM5MiwibWV0YWRhdGEiOm51bGwsInBhZ2VfaWQiOjY4MjQ5ODE3MTk0MzE2NSwicHNpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkiLCJ0aHJlYWRfdHlwZSI6IlVTRVJfVE9fUEFHRSIsInRpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkifQ'
-  }
+  };
 
   let result = Webhook.validateSignedRequest(request.signed_request);
   expect(result).toEqual({ 

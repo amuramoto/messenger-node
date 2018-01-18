@@ -5,14 +5,14 @@ const Client = require('./util/client-generator');
 jest.mock('../../client/graph-api', () => { 
   function GraphRequest(){
     this.sendGraphRequest = () => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         resolve('ok');
       }); 
-    }
+    };
 
-    this.getPageToken = () => { return 'token' }
+    this.getPageToken = () => { return 'token'; };
   } 
-  return GraphRequest
+  return GraphRequest;
 });
 
 
@@ -24,9 +24,9 @@ test('Sponsored Message', done => {
     'bid_amount': 'test',
     'targeting': 'test',
     'ad_account_id': 'test' 
-  }
+  };
   Client.sendSponsoredMessage('test', options).then(res => {
     expect(res).toEqual('ok');
     done();
-  })
+  });
 });

@@ -24,7 +24,7 @@ describe('Send API', () => {
         'url':'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png', 
         'is_reusable':true
       }    
-    }
+    };
     Client.sendAttachment(recipient, options).then(res => {
       expect(res).toHaveProperty('recipient_id');
       expect(res).toHaveProperty('message_id');
@@ -38,7 +38,7 @@ describe('Send API', () => {
     let promises = [];
     sender_actions.forEach(action => {      
       promises.push(Client.sendSenderAction(recipient, action));
-    })
+    });
     
     Promise.all(promises).then(responses => {
       responses.forEach(res => {
@@ -66,7 +66,7 @@ describe('Send API', () => {
       {
         'content_type':'location'
       }
-    ]
+    ];
     
 
     Client.sendQuickReplies(recipient, quick_replies, text).then(res => {

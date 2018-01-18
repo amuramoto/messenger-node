@@ -7,29 +7,29 @@ let generic = {
       'image_url':'https://github.com/amuramoto/messenger-node/raw/master/__tests__/client/assets/dog.jpg',
       'buttons':[
         {
-        'type':'postback',
-        'title':'Postback Button',
-        'payload':'<POSTBACK_PAYLOAD>'
+          'type':'postback',
+          'title':'Postback Button',
+          'payload':'<POSTBACK_PAYLOAD>'
         },
         {
-        'type': 'web_url',
-        'title': 'URL Button',
-        'url': 'https://messenger.fb.com/'
+          'type': 'web_url',
+          'title': 'URL Button',
+          'url': 'https://messenger.fb.com/'
         }
       ]      
     }
   ]
-}
+};
   
 let media = {
   'template_type': 'media',
   'elements': [
     {
-       'media_type': 'image',
-       'url': 'https://www.facebook.com/MessengerPlatform/photos/a.1534851423476297.1073741827.1534848353476604/1754854618142642/'
+      'media_type': 'image',
+      'url': 'https://www.facebook.com/MessengerPlatform/photos/a.1534851423476297.1073741827.1534848353476604/1754854618142642/'
     }
   ]
-}
+};
   
 let list = {
   'template_type': 'list',
@@ -54,14 +54,14 @@ let list = {
       'image_url': 'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png',          
     }
   ],
-   'buttons': [
+  'buttons': [
     {
       'title': 'Send postback',
       'type': 'postback',
       'payload': 'payload'            
     }
   ]  
-}
+};
 
 let button = {
   'template_type': 'button',
@@ -78,7 +78,7 @@ let button = {
       'payload': '5555555555'
     }
   ]
-}
+};
 
 let open_graph = {
   'template_type': 'open_graph',
@@ -94,7 +94,7 @@ let open_graph = {
       ]      
     }
   ]
-}
+};
 
 let receipt = {
   'template_type': 'receipt',
@@ -146,7 +146,7 @@ let receipt = {
       'image_url':'https://messenger.fb.com/wp-content/uploads/2017/11/peaches.png'
     }
   ]
-}
+};
 
 let airline_boardingpass = {
   'template_type': 'airline_boardingpass',
@@ -154,13 +154,13 @@ let airline_boardingpass = {
   'locale': 'en_US',
   'boarding_pass': [
     {
-      'passenger_name': 'SMITH\/NICOLAS',
+      'passenger_name': 'SMITH/NICOLAS',
       'pnr_number': 'CG4X7U',
       'seat': '74J',            
-      'logo_image_url': 'https:\/\/www.example.com\/en\/logo.png',
-      'header_image_url': 'https:\/\/www.example.com\/en\/fb\/header.png',
-      'qr_code': 'M1SMITH\/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh',
-      'above_bar_code_image_url': 'https:\/\/www.example.com\/en\/PLAT.png',
+      'logo_image_url': 'https://www.example.com/en/logo.png',
+      'header_image_url': 'https://www.example.com/en/fb/header.png',
+      'qr_code': 'M1SMITH/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh',
+      'above_bar_code_image_url': 'https://www.example.com/en/PLAT.png',
       'auxiliary_fields': [
         {
           'label': 'Terminal',
@@ -208,14 +208,14 @@ let airline_boardingpass = {
       }
     }
   ]
-}
+};
 
 let airline_checkin = {
   'template_type': 'airline_checkin',
   'intro_message': 'Check-in is available now.',
   'locale': 'en_US',        
   'pnr_number': 'ABCDEF',
-  'checkin_url': 'https:\/\/www.airline.com\/check-in',  
+  'checkin_url': 'https://www.airline.com/check-in',  
   'flight_info': [
     {
       'flight_number': 'f001',
@@ -238,7 +238,7 @@ let airline_checkin = {
       }
     }
   ]
-}
+};
 
 let airline_itinerary = {
   'template_type': 'airline_itinerary',
@@ -362,7 +362,7 @@ let airline_itinerary = {
   'tax': '200',
   'total_price': '14003',
   'currency': 'USD'
-}
+};
 
 let airline_update = {
   'template_type': 'airline_update',
@@ -390,7 +390,7 @@ let airline_update = {
       'arrival_time': '2015-12-27T07:30'
     }
   }
-}
+};
 
 
 module.exports = [
@@ -404,4 +404,4 @@ module.exports = [
   airline_update,
   airline_checkin,
   airline_boardingpass
-]
+];
