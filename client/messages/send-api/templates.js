@@ -13,7 +13,7 @@ function parseProperties (options, required_props, optional_props) {
   if (optional_props) {
     optional_props.forEach(prop => {
       if (options[prop]) properties[prop] = options[prop];
-    })
+    });
   }
 
   return properties;
@@ -56,7 +56,7 @@ function getProperties (options) {
         'currency',
         'payment_method',
         'summary'
-      ]
+      ];
 
       optional_props = [
         'sharable',
@@ -65,7 +65,7 @@ function getProperties (options) {
         'elements',
         'address',
         'adjustments'
-      ]
+      ];
       break;
 
     case 'airline_boardingpass':
@@ -73,11 +73,11 @@ function getProperties (options) {
         'intro_message',
         'locale',
         'boarding_pass'
-      ]
+      ];
 
       optional_props = [
-       'theme_color'
-      ]
+        'theme_color'
+      ];
       break;
 
     case 'airline_itinerary':
@@ -90,14 +90,14 @@ function getProperties (options) {
         'passenger_segment_info',
         'total_price',
         'currency'
-      ]
+      ];
 
       optional_props = [
         'theme_color',
         'price_info',
         'base_price',
         'tax'
-      ]
+      ];
       break;
 
     case 'airline_checkin':
@@ -106,11 +106,11 @@ function getProperties (options) {
         'locale',
         'checkin_url',
         'flight_info'
-      ]
+      ];
 
       optional_props = [
         'pnr_number'
-      ]
+      ];
       break;
 
     case 'airline_update':
@@ -119,12 +119,12 @@ function getProperties (options) {
         'update_type',
         'locale',
         'update_flight_info'
-      ]
+      ];
 
       optional_props = [
         'theme_color',
         'pnr_number'
-      ]
+      ];
       break;
 
     default: 
@@ -137,4 +137,4 @@ function getProperties (options) {
 
 module.exports = {
   getProperties
-}
+};

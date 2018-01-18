@@ -1,6 +1,6 @@
 const express = require('express'),
-      body_parser = require('body-parser'),      
-      util = require('./util');
+  body_parser = require('body-parser'),      
+  util = require('./util');
 
 /**
  * Creates and starts a webhook that emits all received webhook events.
@@ -15,11 +15,11 @@ const express = require('express'),
  */
 function Webhook (options) {
   let app,
-      server,
-      port = options.port || process.env.MESSENGER_PORT || 1337,
-      endpoint = options.endpoint || process.env.MESSENGER_ENDPOINT || '/webhook',
-      app_secret = options.app_secret || process.env.MESSENGER_APP_SECRET,
-      verify_token = options.verify_token || process.env.MESSENGER_VERIFY_TOKEN;
+    server,
+    port = options.port || process.env.MESSENGER_PORT || 1337,
+    endpoint = options.endpoint || process.env.MESSENGER_ENDPOINT || '/webhook',
+    app_secret = options.app_secret || process.env.MESSENGER_APP_SECRET,
+    verify_token = options.verify_token || process.env.MESSENGER_VERIFY_TOKEN;
   
   if (!verify_token) throw 'VERIFY_TOKEN required to create webhook!';
   if (endpoint.indexOf('/') !== 0) endpoint = '/' + endpoint;
@@ -32,22 +32,22 @@ function Webhook (options) {
     console.log('webhook is listening on port ' + port);
   });
 
-/**
- * Adds an event listener. Implements Node.js EventEmitter's [`emitter.on`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener).
- * @param {String} event_name  The name of the event to listen for.
- * @param {Function} callback  The callback to execute when the event is received.
- * @function on
- * @memberof  Webhook
- */
+  /**
+   * Adds an event listener. Implements Node.js EventEmitter's [`emitter.on`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener).
+   * @param {String} event_name  The name of the event to listen for.
+   * @param {Function} callback  The callback to execute when the event is received.
+   * @function on
+   * @memberof  Webhook
+   */
   this.on = app.on.bind(app);
   
-/**
- * Adds a one-time event listener that will be removed after it is called once. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener).
- * @param {String} event_name  The name of the event to listen for.
- * @param {Function} callback  The callback to execute when the event is received.
- * @function once
- * @memberof  Webhook
- */
+  /**
+   * Adds a one-time event listener that will be removed after it is called once. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener).
+   * @param {String} event_name  The name of the event to listen for.
+   * @param {Function} callback  The callback to execute when the event is received.
+   * @function once
+   * @memberof  Webhook
+   */
   this.once = app.once.bind(app);
 
   /**
@@ -65,7 +65,7 @@ function Webhook (options) {
    * @function getInstance
    * @memberof  Webhook
    */
-  this.getInstance = () => { return app };
+  this.getInstance = () => { return app; };
 
   /**
    * Stops the Webhook instance.
@@ -81,7 +81,7 @@ function Webhook (options) {
    * @function getPort
    * @memberof  Webhook
    */
-  this.getPort = () => { return port };
+  this.getPort = () => { return port; };
 
   /**
    * Retrieves the current endpoint of the webhook.
@@ -89,7 +89,7 @@ function Webhook (options) {
    * @function getEndpoint
    * @memberof  Webhook
    */
-  this.getEndpoint = () => { return endpoint };
+  this.getEndpoint = () => { return endpoint; };
 
   /**
    * Retrieves the current verify token of the webhook.
@@ -97,7 +97,7 @@ function Webhook (options) {
    * @function getVerifyToken
    * @memberof  Webhook
    */
-  this.getVerifyToken = () => { return verify_token };
+  this.getVerifyToken = () => { return verify_token; };
 
   /**
    * Sets the app secret used for validating signed requests.
@@ -124,7 +124,7 @@ function Webhook (options) {
       return;
     }
     return util.validateSignedRequest(app_secret, signed_request);
-  }
+  };
 }
 
 function addVerifyEndpoint (verify_token, endpoint, app) {
@@ -151,7 +151,7 @@ function addWebhookEndpoint (endpoint, app) {
         let webhook_event = entry.messaging[0];        
         let sender_id = util.parseSenderId(webhook_event.sender);
         let event_type = util.parseEventType(webhook_event);
-        app.emit(event_type.type, event_type, sender_id, webhook_event)
+        app.emit(event_type.type, event_type, sender_id, webhook_event);
       });
 
       // Return a '200 OK' response to all events

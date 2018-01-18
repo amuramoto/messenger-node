@@ -13,11 +13,11 @@ function RequestPayload (recipient, payload) {
 }
 
 function parseMessageProps (options) {
-  let message_props = {}
+  let message_props = {};
   if (options.attachment) message_props.attachment = options.attachment;  
   
   if (options.quick_replies) {
-    message_props.quick_replies = options.quick_replies
+    message_props.quick_replies = options.quick_replies;
   }
 
   if (options.text) {
@@ -46,4 +46,4 @@ function parseMessageProps (options) {
 module.exports = {
   parseMessageProps,
   RequestPayload
-}
+};

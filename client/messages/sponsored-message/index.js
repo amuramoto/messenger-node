@@ -1,5 +1,5 @@
 function SponsoredMessage (GraphRequest) {
-  this.sendSponsoredMessage = sendSponsoredMessage.bind(GraphRequest)
+  this.sendSponsoredMessage = sendSponsoredMessage.bind(GraphRequest);
 }
 
 /**
@@ -20,7 +20,7 @@ function sendSponsoredMessage (ad_account_id, options) {
       'daily_budget',
       'bid_amount',
       'targeting'
-    ]
+    ];
 
     let request_options = {};
 

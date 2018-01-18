@@ -1,0 +1,33 @@
+{
+    "env": {
+        "node": true,
+        "es6": true,
+        "jest": true,
+        "amd": true
+    },
+    "parserOptions": { "ecmaVersion": 2017 },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            2,
+            2,
+            {"SwitchCase": 1}
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": [
+            "error", 
+            { "allow": ["log", "error"] }
+        ]
+    }
+}

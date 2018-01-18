@@ -22,7 +22,7 @@ function getUserProfile (psid, fields) {
     let request_options = {
       'path': '/' + psid,
       'qs': {'fields': fields.join(',')}
-    }
+    };
 
     try {
       let response = await this.sendGraphRequest(request_options);

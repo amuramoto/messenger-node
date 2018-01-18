@@ -25,13 +25,13 @@ function getMessagingInsights(options) {
         'page_messages_blocked_conversations_unique',
         'page_messages_reported_conversations_unique',
         'page_messages_reported_conversations_by_report_type_unique'
-      ]
+      ];
     }
 
     let request_options = {
       'path': '/me/insights',
       'qs': {'metric': options.metrics.join(',')}
-    }
+    };
 
     if (options.since) request_options.qs.since = options.since;
     if (options.until) request_options.qs.until = options.until;

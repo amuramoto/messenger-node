@@ -44,7 +44,7 @@ function getMessengerProfile (fields) {
         'payment_settings',
         'target_audience',
         'home_url'
-      ]
+      ];
     }
 
     fields = fields.join(',');
@@ -83,7 +83,7 @@ function callMessengerProfileApi(fields) {
   return new Promise (async (resolve, reject) => {
     let options = {
       'path': '/me/messenger_profile'
-    }
+    };
 
     if (typeof fields === 'string') {
       options.qs = {'fields': fields};

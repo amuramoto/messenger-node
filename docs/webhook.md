@@ -1,4 +1,14 @@
-## Creating a webhook
+## Webhook
+
+Every Messenger bot has to have a webhook that the Messenger Platform can send [webhook events](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) to. This SDK provides a simple `Webhook` class that you can instantiate to create and run a fully-functional webhook. The webhook can do all these things for you:
+
+- Handle the webhook verification request sent by the Messenger Platform when you register your webhook. 
+- Parse all incoming webhook events, and emit them for you to react to with event listeners.
+- Validate signed requests from the Messenger Extensions SDK [`getContext()`](https://developers.facebook.com/docs/messenger-platform/webview/context) function.
+
+Basically it saves you the hassle of writing the basic stuff so you can get to building your bot right away.
+
+### Creating a Webhook
 
 To create a webhook, start by creating an instance of the `Webhook` class. The following configuration properties may be provided when the `Webhook` instance is created: 
 
@@ -15,7 +25,7 @@ let webhook_config = {
 const Webhook = new Messenger.Webhook(webhook_config);
 ```
 
-## Handling Webhook Events
+### Handling Webhook Events
 
 When the Messenger Platform sends your webhook a [webhook event](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) the SDK will emit it by name, and include info about the sender and the full body of the received event.
 
@@ -35,7 +45,7 @@ You can also [`Webhook.emit`](#emit) events, which can be useful for testing:
 Webhook.emit('messaging_postbacks', event_type, sender_info, webhook_event);
 ```
 
-### Callback Arguments
+#### Callback Arguments
 | **Name** | **Type** | **Description** | **Example** |
 |------|------|-------------|--------|
 | event_type | Object | Contains the event type and subtype. If the webhook has no subtype, then `event_type.subtype` will be `null` | `{'type': 'messaging_handovers', 'subtype': 'pass_thread_control}` |

@@ -7,7 +7,7 @@ function CustomLabels (GraphRequest) {
   this.addPsidtoCustomLabel = addPsidtoCustomLabel;
   this.removePsidfromCustomLabel = removePsidfromCustomLabel;
   this.callCustomLabelsApi = callCustomLabelsApi.bind(GraphRequest);
-};
+}
 
 /**
  * Creates a new custom label.
@@ -46,7 +46,7 @@ function getCustomLabelById (label_id) {
     let options = {
       'path': '/' + label_id,
       'qs': {'fields': 'id,name'}
-    }
+    };
 
     try {
       let response = await  this.callCustomLabelsApi(options);
@@ -71,7 +71,7 @@ function getCustomLabelsByPsid (psid) {
 
     let options = {
       'path': `/${psid}/custom_labels`
-    }
+    };
 
     try {
       let response = await  this.callCustomLabelsApi(options);
@@ -117,7 +117,7 @@ function deleteCustomLabel (label_id) {
     let options = {
       'method': 'DELETE',
       'path': '/' + label_id
-    }
+    };
 
     try {
       let response = await  this.callCustomLabelsApi(options);
@@ -144,7 +144,7 @@ function addPsidtoCustomLabel (psid, label_id) {
     let options = {
       'path': `/${label_id}/label`,
       'payload': {'user': psid}
-    }
+    };
     try {
       let response = await  this.callCustomLabelsApi(options);
       resolve(response);
@@ -170,7 +170,7 @@ function removePsidfromCustomLabel (psid, label_id) {
       'method': 'DELETE',
       'path': `/${label_id}/label`,
       'payload': {'user': psid}
-    }
+    };
     try {
       let response = await  this.callCustomLabelsApi(options);
       resolve(response);
@@ -190,4 +190,4 @@ function callCustomLabelsApi (options) {
   return this.sendGraphRequest(options);        
 }
 
-module.exports = CustomLabels
+module.exports = CustomLabels;

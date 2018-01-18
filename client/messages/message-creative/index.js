@@ -21,7 +21,7 @@ function createMessageCreative (message) {
       'payload': {
         'messages': [util.parseMessageProps(message)]
       }
-    }
+    };
 
     try {
       let response = await this.sendGraphRequest(request_options);

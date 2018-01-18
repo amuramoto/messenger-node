@@ -45,7 +45,7 @@ function startBroadcastReachEstimation (custom_label_id) {
   return new Promise (async (resolve, reject) => {
     let options = {
       'custom_label_id': custom_label_id || true
-    }    
+    };    
     try {
       let response = await this.callBroadcastApi(options);
       resolve(response);
@@ -71,7 +71,7 @@ function getBroadcastReachEstimation (reach_estimation_id) {
     }
     let options = {
       'reach_estimation_id': reach_estimation_id
-    }
+    };
     try {
       let response = await this.callBroadcastApi(options);
       resolve(response);

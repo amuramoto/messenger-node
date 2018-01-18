@@ -19,9 +19,9 @@ function uploadAttachment(type, source) {
 
     let request_options = {
       'path': '/me/message_attachments'
-    }
+    };
 
-    let source_type = source.indexOf('http') >= 0 ? 'url':'file'
+    let source_type = source.indexOf('http') >= 0 ? 'url':'file';
 
     let payload = {
       'message': {
@@ -32,7 +32,7 @@ function uploadAttachment(type, source) {
           }
         }
       }
-    }
+    };
 
     switch (source_type) {
       case 'url':
@@ -41,7 +41,7 @@ function uploadAttachment(type, source) {
         break;
       case 'file':
         formData.message = JSON.stringify(payload.message);
-        formData.filedata = `${source}`
+        formData.filedata = `${source}`;
         request_options.formData = formData;
         break;
     }

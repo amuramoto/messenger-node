@@ -1,4 +1,8 @@
-## Creating a `Client` Instance
+## Client
+
+Once you have a working webhook, you need a way to respond to the events and messages your bot receievs. This means you need to be able to send allllll kiiinnndddsss of API requests to the Messenger Platform. The `Client` provided by this SDK makes this a much simpler declarative process by handling all the repetitive (and error prone) parts of formatting valid API requests for you, and making sure they get sent to the right place.
+
+### Creating a `Client` Instance
 
 To make API calls, start by creating an instance of the `Client` class. The following configuration properties may be provided when the `Client` instance is created: 
 
@@ -16,11 +20,11 @@ let client_config = {
 const Client = new Messenger.Client(client_config);
 ```
 
-## Making API Calls
+### Making API Calls
 
 All Messenger Platform API requests are included as instance functions that are called on the `Client` instance. Here are a few examples. For a complete list, see the [`Client` reference](#client) below. 
 
-### Send a Text Message
+#### Send a Text Message
 
 ```js
 // define the message recipient
@@ -42,7 +46,7 @@ Client.sendText(recipient, text)
   }
 ```
 
-### Send a Generic Template Message
+#### Send a Generic Template Message
 
 ```js
 // define the message recipient
@@ -84,7 +88,7 @@ Client.sendTemplate(recipient, generic_template)
   }
 ```
 
-### Get a User's Profile
+#### Get a User's Profile
 
 ```js
 // PSID of the user
@@ -103,7 +107,7 @@ Client.getUserProfile(psid, fields)
   }
 ```
 
-## API Responses & Error Handling
+### API Responses & Error Handling
 
 All SDK functions return a promise that resolves with the full API response received from the Messenger Platform on success, and rejects with an error string on failure. Functions also do light input-checking when called, and will reject if incorrect arguments are provided.
 

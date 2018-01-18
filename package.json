@@ -13,6 +13,9 @@
     "request": "^2.83.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.9.1",
     "jest": "^22.0.5"
   },
   "jest": {

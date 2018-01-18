@@ -2,8 +2,7 @@ const crypto = require('crypto');
 
 function verifyWebhook(verify_token, qs) {
   const mode = qs['hub.mode'],
-        token = qs['hub.verify_token'],
-        challenge = qs['hub.challenge']
+    token = qs['hub.verify_token'];
 
   console.log('Verifying webhook...');          
 
@@ -35,7 +34,7 @@ function parseEventType (webhook_event) {
   let event = {
     'type': '',
     'subtype': ''
-  }
+  };
 
   if (webhook_event.message) {
     if (webhook_event.message.is_echo) {    
@@ -45,7 +44,7 @@ function parseEventType (webhook_event) {
       if (webhook_event.message.quick_reply) {
         event.subtype = 'quick_reply';
       } else if (webhook_event.message.attachments) {
-        event.subtype = 'attachment'      
+        event.subtype = 'attachment';      
       } else {
         event.subtype = 'text';
       } 
@@ -85,7 +84,7 @@ function parseEventType (webhook_event) {
   } else if (webhook_event.game_play) {
     event.type = 'messaging_game_plays';
   } else {
-    console.error("Webhook received unknown messagingEvent: ", webhook_event);
+    console.error('Webhook received unknown messagingEvent: ', webhook_event);
     event.type = 'unknown';
   }
   return event;
@@ -94,11 +93,11 @@ function parseEventType (webhook_event) {
 function validateSignedRequest (app_secret, hash) {
   let signed_request = hash.split('.');
   let signature = Buffer.from(signed_request[0].replace('-','+').replace('_', '/'), 'base64').toString('hex');  
-  let payload = Buffer.from(signed_request[1], 'base64').toString('ascii')
+  let payload = Buffer.from(signed_request[1], 'base64').toString('ascii');
 
   let expected_signature = crypto.createHmac('sha256', app_secret)
-                                  .update(signed_request[1])
-                                  .digest('hex');
+    .update(signed_request[1])
+    .digest('hex');
   // Confirm the signature
   if (signature !== expected_signature) {
     console.error('Cannot validate signed request: invalid request signature');
@@ -113,4 +112,4 @@ module.exports = {
   parseSenderId,
   parseEventType,
   validateSignedRequest
-}
+};

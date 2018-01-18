@@ -1,5 +1,4 @@
-const util = require('./util'),
-      payload = {};
+const util = require('./util');
 
 function SendAPI (GraphRequest) {
   this.sendQuickReplies = sendQuickReplies;
@@ -52,7 +51,7 @@ function sendQuickReplies (recipient, quick_replies, text) {
 
     let payload = {
       'quick_replies': quick_replies
-    }
+    };
 
     if (text) payload.text = text;
 
@@ -81,7 +80,7 @@ function sendAttachment (recipient, attachment) {
     
     let payload = {
       'attachment': attachment
-    }
+    };
 
     try {
       let response = await this.callSendApi(recipient, payload);  
@@ -134,7 +133,7 @@ function sendSenderAction (recipient, sender_action) {
 
     let payload = {
       'sender_action': sender_action
-    }
+    };
 
     try {
       let response = await this.callSendApi(recipient, payload);  
@@ -159,7 +158,7 @@ function callSendApi (recipient, payload) {
     let request_options = {
       'path': '/me/messages',
       'payload': new util.RequestPayload(recipient, payload)
-    }
+    };
 
     if (!request_options.payload) {
       reject('error creating request payload');
