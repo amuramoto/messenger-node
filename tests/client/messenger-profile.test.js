@@ -42,7 +42,7 @@ describe('Messenger Profile API', () => {
       Client.getMessengerProfile(field_list).then(res => {
         let keys = Object.keys(res.data[0]);
         expect(res).toHaveProperty('data');
-        expect.arrayContaining(fields_arr);        
+        expect(keys).toEqual(expect.arrayContaining(fields_arr));        
         done();
       })
     });  

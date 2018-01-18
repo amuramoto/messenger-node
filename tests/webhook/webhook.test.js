@@ -1,7 +1,6 @@
 'use strict';
 
 const Messenger = require('../../index.js'),
-      constructor = require('../../webhook'), 
       app_secret = process.env.TEST_APP_SECRET,
       request = require('request'),
       webhook_mocks = require('./webhook-event-mocks'),
@@ -73,7 +72,7 @@ describe('Webhook verification', () => {
   });
 
   test('Send wrong token', done => {        
-    let callback = (err, res, body) => {
+    let callback = (err, res) => {
       expect(res.statusCode).toEqual(403);
       done();
     };
@@ -120,7 +119,7 @@ test('Validate signed request', () => {
     'psid': '1254459154682919',
     'signed_request': 'QDTuYBidQ7pbpxIbPwgsb__nHty2-KuVPfxAFb9P49k.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTUxNTY0NjM5MiwibWV0YWRhdGEiOm51bGwsInBhZ2VfaWQiOjY4MjQ5ODE3MTk0MzE2NSwicHNpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkiLCJ0aHJlYWRfdHlwZSI6IlVTRVJfVE9fUEFHRSIsInRpZCI6IjEyNTQ0NTkxNTQ2ODI5MTkifQ'
   }
-  
+
   let result = Webhook.validateSignedRequest(request.signed_request);
   expect(result).toEqual({ 
     'algorithm': 'HMAC-SHA256',
@@ -134,7 +133,7 @@ test('Validate signed request', () => {
 });
 
 test('Stop webhook instance', () => {
-  let server = Webhook.stopInstance((err) => {
+  Webhook.stopInstance((err) => {
     expect(err).toEqual(undefined);
   });  
 });

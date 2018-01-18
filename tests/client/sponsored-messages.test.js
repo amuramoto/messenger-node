@@ -26,6 +26,7 @@ test('Sponsored Message', done => {
     'ad_account_id': 'test' 
   }
   Client.sendSponsoredMessage('test', options).then(res => {
+    expect(res).toEqual('ok');
     done();
   })
 });

@@ -24,5 +24,8 @@
       "client/**",
       "webhook/**"
     ]
+  },
+  "scripts": {
+    "docs": "cat docs/overview.md docs/webhook.md docs/client.md"
   }
 }
