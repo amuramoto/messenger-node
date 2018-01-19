@@ -1,4 +1,4 @@
-## Client
+## Using `Messenger.Client`
 
 Once you have a working webhook, you need a way to respond to the events and messages your bot receievs. This means you need to be able to send allllll kiiinnndddsss of API requests to the Messenger Platform. The `Client` provided by this SDK makes this a much simpler declarative process by handling all the repetitive (and error prone) parts of formatting valid API requests for you, and making sure they get sent to the right place.
 

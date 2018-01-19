@@ -25,7 +25,7 @@
   },
   "scripts": {
     "prepublish": "npm run docs && npm run lint && npm test",
-    "docs": "cat docs/overview.md echo docs/webhook.md docs/client.md > README.md && documentation build lib/** -f md >> README.md",
+    "docs": "rm README.md && for x in docs/overview.md docs/webhook.md docs/client.md; do cat $x >> README.md; echo echo >> README.md; done && documentation build lib/** -f md >> README.md",
     "lint": "eslint client/** webhook/** tests/**",
     "test": "jest",
     "uglify": "uglifyjs lib/client/index.js lib/client/**/*.js lib/webhook/*.js -c -m --toplevel -o bundle.min.js"
