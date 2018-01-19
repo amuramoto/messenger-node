@@ -17,20 +17,31 @@ describe('Send API', () => {
     });
   });
 
-  test('Send attachment', done => {
+  describe.only('Send Attachment', () => {
     let options = {
-      'type':'image', 
-      'payload':{
+      'URL': {
+        'type':'image', 
         'url':'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png', 
-        'is_reusable':true
-      }    
-    };
-    Client.sendAttachment(recipient, options).then(res => {
-      expect(res).toHaveProperty('recipient_id');
-      expect(res).toHaveProperty('message_id');
-      expect(res).toHaveProperty('attachment_id');
-      done();
-    });
+        'is_reusable': true      
+      },
+      'file': {
+        'type': 'image', 
+        'file': __dirname + '/assets/dog.jpg', 
+        'is_reusable': true      
+      }
+    }
+
+    for (let attachment_type in options) {
+      test(`Send attachment from ${attachment_type}`, done => {    
+        Client.sendAttachment(recipient, options[attachment_type]).then(res => {
+          expect(res).toHaveProperty('recipient_id');
+          expect(res).toHaveProperty('message_id');
+          expect(res).toHaveProperty('attachment_id');
+          done();
+        });
+      });
+    }
+    
   });
 
   test('Send sender actions', done => {
