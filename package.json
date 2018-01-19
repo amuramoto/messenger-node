@@ -1,9 +1,9 @@
 {
   "name": "messenger-node",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
-  "author": "",
+  "main": "lib/index.js",
+  "author": "Alex Muramoto",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "eslint": "^3.19.0",
+    "eslint": "^4.1.1",
     "eslint-config-google": "^0.9.1",
     "jest": "^22.0.5",
     "uglify-es": "^3.3.7"
@@ -24,9 +24,10 @@
     ]
   },
   "scripts": {
-    "docs": "cat docs/overview.md docs/webhook.md docs/client.md > README.md",
+    "prepublish": "npm run docs && npm run lint && npm test",
+    "docs": "cat docs/overview.md echo docs/webhook.md docs/client.md > README.md && documentation build lib/** -f md >> README.md",
     "lint": "eslint client/** webhook/** tests/**",
     "test": "jest",
-    "uglify": "uglifyjs ./client/index.js -c -m --toplevel"
+    "uglify": "uglifyjs lib/client/index.js lib/client/**/*.js lib/webhook/*.js -c -m --toplevel -o bundle.min.js"
   }
 }

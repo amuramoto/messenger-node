@@ -2,7 +2,7 @@
 
 const Client = require('./util/client-generator');
 
-jest.mock('../../client/graph-api', () => { 
+jest.mock('../../lib/client/graph-api', () => { 
   function GraphRequest(){
     this.sendGraphRequest = () => {
       return new Promise((resolve) => {

@@ -1,6 +1,6 @@
 # Messenger Platform Node.js SDK
 
-THe `messenger-node` module is a server-side SDK for building bots on Facebook's [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/). The SDK includes two base classes:
+The `messenger-node` module is a server-side SDK for building bots on Facebook's [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/). The SDK includes two base classes:
 
 - [Webhook](#webhook): Creates an [express.js](expressjs.com) web server for receiving and processing [webhook events](https://developers.facebook.com/docs/messenger-platform/webhook) sent by the Messenger Platform.
 - [Client](#creating-a-client-instance): Creates a client object that simplifies sending requests to the Messenger Platform's various APIs.
@@ -13,7 +13,17 @@ To use the SDK, start by importing it into your project:
 const Messenger = require('messenger-node');
 ```
 
-Once the SDK is imported, you can create instances of the `Webhook` and `Client` classes.## Creating a webhook
+Once the SDK is imported, you can create instances of the `Webhook` and `Client` classes.## Webhook
+
+Every Messenger bot has to have a webhook that the Messenger Platform can send [webhook events](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) to. This SDK provides a simple `Webhook` class that you can instantiate to create and run a fully-functional webhook. The webhook can do all these things for you:
+
+- Handle the webhook verification request sent by the Messenger Platform when you register your webhook. 
+- Parse all incoming webhook events, and emit them for you to react to with event listeners.
+- Validate signed requests from the Messenger Extensions SDK [`getContext()`](https://developers.facebook.com/docs/messenger-platform/webview/context) function.
+
+Basically it saves you the hassle of writing the basic stuff so you can get to building your bot right away.
+
+### Creating a Webhook
 
 To create a webhook, start by creating an instance of the `Webhook` class. The following configuration properties may be provided when the `Webhook` instance is created: 
 
@@ -30,7 +40,7 @@ let webhook_config = {
 const Webhook = new Messenger.Webhook(webhook_config);
 ```
 
-## Handling Webhook Events
+### Handling Webhook Events
 
 When the Messenger Platform sends your webhook a [webhook event](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) the SDK will emit it by name, and include info about the sender and the full body of the received event.
 
@@ -50,12 +60,16 @@ You can also [`Webhook.emit`](#emit) events, which can be useful for testing:
 Webhook.emit('messaging_postbacks', event_type, sender_info, webhook_event);
 ```
 
-### Callback Arguments
+#### Callback Arguments
 | **Name** | **Type** | **Description** | **Example** |
 |------|------|-------------|--------|
 | event_type | Object | Contains the event type and subtype. If the webhook has no subtype, then `event_type.subtype` will be `null` | `{'type': 'messaging_handovers', 'subtype': 'pass_thread_control}` |
 | sender_info | Object | Contains the ID and ID type. | `{'id': '84736289974242', 'type': 'PSID'}` |
-| webhook_event | Object | The complete webhook event parsed from the `messaging` array of the received `POST` request. | For webhook event formats and details, see the [webhook event reference](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) in the Messenger Platform docs. |## Creating a `Client` Instance
+| webhook_event | Object | The complete webhook event parsed from the `messaging` array of the received `POST` request. | For webhook event formats and details, see the [webhook event reference](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) in the Messenger Platform docs. |## Client
+
+Once you have a working webhook, you need a way to respond to the events and messages your bot receievs. This means you need to be able to send allllll kiiinnndddsss of API requests to the Messenger Platform. The `Client` provided by this SDK makes this a much simpler declarative process by handling all the repetitive (and error prone) parts of formatting valid API requests for you, and making sure they get sent to the right place.
+
+### Creating a `Client` Instance
 
 To make API calls, start by creating an instance of the `Client` class. The following configuration properties may be provided when the `Client` instance is created: 
 
@@ -73,11 +87,11 @@ let client_config = {
 const Client = new Messenger.Client(client_config);
 ```
 
-## Making API Calls
+### Making API Calls
 
 All Messenger Platform API requests are included as instance functions that are called on the `Client` instance. Here are a few examples. For a complete list, see the [`Client` reference](#client) below. 
 
-### Send a Text Message
+#### Send a Text Message
 
 ```js
 // define the message recipient
@@ -99,7 +113,7 @@ Client.sendText(recipient, text)
   }
 ```
 
-### Send a Generic Template Message
+#### Send a Generic Template Message
 
 ```js
 // define the message recipient
@@ -141,7 +155,7 @@ Client.sendTemplate(recipient, generic_template)
   }
 ```
 
-### Get a User's Profile
+#### Get a User's Profile
 
 ```js
 // PSID of the user
@@ -160,7 +174,7 @@ Client.getUserProfile(psid, fields)
   }
 ```
 
-## API Responses & Error Handling
+### API Responses & Error Handling
 
 All SDK functions return a promise that resolves with the full API response received from the Messenger Platform on success, and rejects with an error string on failure. Functions also do light input-checking when called, and will reject if incorrect arguments are provided.
 

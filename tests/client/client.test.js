@@ -1,6 +1,6 @@
 'use strict';
 
-const Messenger = require('../../index.js'),
+const Messenger = require('../../lib/index.js'),
       PAGE_TOKEN = process.env.TEST_PAGE_TOKEN,
       APP_TOKEN = process.env.TEST_APP_TOKEN;
 

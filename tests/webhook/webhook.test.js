@@ -1,6 +1,6 @@
 'use strict';
 
-const Messenger = require('../../index.js'),
+const Messenger = require('../../lib/index.js'),
       app_secret = process.env.TEST_APP_SECRET,
       request = require('request'),
       webhook_mocks = require('./webhook-event-mocks'),

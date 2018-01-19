@@ -1,0 +1,5 @@
+tests
+docs
+coverage
+.eslintrc.json
+tester.js
