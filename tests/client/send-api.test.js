@@ -21,19 +21,19 @@ describe('Send API', () => {
     let options = {
       'URL': {
         'type':'image', 
-        'url':'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png', 
+        'source':'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png', 
         'is_reusable': true      
       },
       'file': {
         'type': 'image', 
-        'file': __dirname + '/assets/dog.jpg', 
+        'source': __dirname + '/assets/dog.jpg', 
         'is_reusable': true      
       }
     }
 
     for (let attachment_type in options) {
       test(`Send attachment from ${attachment_type}`, done => {    
-        Client.sendAttachment(recipient, options[attachment_type]).then(res => {
+        Client.sendAttachment(options[attachment_type], recipient).then(res => {
           expect(res).toHaveProperty('recipient_id');
           expect(res).toHaveProperty('message_id');
           expect(res).toHaveProperty('attachment_id');

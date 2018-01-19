@@ -17,10 +17,12 @@ describe('Attachment Upload API', () => {
   ];
 
   attachments.forEach(attachment => {
-    let source_type = attachment.source.indexOf('http') >= 0 ? 'url':'file';
+    let source_type = attachment.source.indexOf('https') === 0 ? 'url' : 'file';
     test(`Upload ${attachment.type} from ${source_type}`, done => {
       jest.setTimeout(20000);
-      Client.uploadAttachment(attachment.type, attachment.source).then(res => {
+      let options = attachment;
+      options.is_reusable = true;
+      Client.uploadAttachment(options).then(res => {
         expect(res).toHaveProperty('attachment_id');
         expect(res.attachment_id).toEqual(expect.any(String));
         done();
