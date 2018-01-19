@@ -10,7 +10,7 @@ describe('Built-in NLP', () => {
       'custom_token': process.env.TEST_WIT_TOKEN,
       'verbose': false,
       'n_best': 1
-    }
+    };
     Client.setNlpConfigs(configs).then(res => {
       console.log(res);
       done();

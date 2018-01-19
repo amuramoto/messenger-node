@@ -215,6 +215,7 @@ The SDK does not transform the API response in any way, other than ensuring you 
     -   [setMessengerProfile](#setmessengerprofile)
     -   [getMessengerProfile](#getmessengerprofile)
     -   [deleteMessengerProfile](#deletemessengerprofile)
+    -   [setNlpConfigs](#setnlpconfigs)
     -   [getMatchingPsids](#getmatchingpsids)
     -   [getMatchingAsids](#getmatchingasids)
     -   [getUserProfile](#getuserprofile)
@@ -257,18 +258,26 @@ Returns **[Client](#client)**
 
 ### uploadAttachment
 
-Uploads media using the Attachment Upload API.
+Uploads media using the [Attachment Upload API](https://developers.facebook.com/docs/messenger-platform/reference/attachment-upload-api).
 
 **Parameters**
 
--   `type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The attachment type. Must be `url` or `file`.
--   `source` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location of the attachment. A URL or file path.
+-   `attachment` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the attachment to send.
+    -   `attachment.type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of asset being upload. Must be `image`, `video`, `audio`, or `file`.
+    -   `attachment.source` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location of the asset. Must be a valid URL or complete filesystem location.
+    -   `attachment.is_reusable` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** **Optional.** Set to `true` to return a reusable attachment ID.
 
 **Examples**
 
 _Upload from URL_
 
 ```javascript
+let recipient = {'id': '57024957309673'},
+    attachment = {
+      'type':'image', 
+       'source':'https://www.example.com/dog.png', 
+       'is_reusable':true           
+    }
 Client.uploadAttachment('url', 'https://www.example.com/image.jpg')
  .then(res => {
     console.log(res) // {'attachment_id': 09754203957254}
@@ -278,7 +287,13 @@ Client.uploadAttachment('url', 'https://www.example.com/image.jpg')
 _Upload from file_
 
 ```javascript
-Client.uploadAttachment('file', '/User/Me/Desktop/video.mp4')
+let recipient = {'id': '57024957309673'},
+    attachment = {
+      'type':'image', 
+       'source':'/Users/me/Desktop/dog.jpg', 
+       'is_reusable':true           
+    }
+Client.uploadAttachment(attachment)
  .then(res => {
     console.log(res); // {'attachment_id': 09754203957254}
  });
@@ -392,7 +407,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ### sendBroadcast
 
-Sends a new broadcast message.
+Sends a new broadcast message via the [Broadcast API](https://developers.facebook.com/docs/messenger-platform/reference/broadcast-api).
 
 **Parameters**
 
@@ -672,7 +687,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### sendText
 
-Sends a text message.
+Sends a text message via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
 
 **Parameters**
 
@@ -699,14 +714,14 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### sendQuickReplies
 
-Sends a set of quick reply buttons
+Sends a set of quick reply buttons  via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
 
 **Parameters**
 
 -   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
 -   `quick_replies` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the quick replies to send.
--   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._
+-   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ Text message to send with quick replies.
 
 **Examples**
 
@@ -740,26 +755,29 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### sendAttachment
 
-Sends a standalone attachment, including images, audio, video, and files.
+Sends a standalone attachment, including images, audio, video, and files  via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
 
 **Parameters**
 
+-   `attachment` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the attachment to send.
+    -   `attachment.type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of asset being upload. Must be `image`, `video`, `audio`, or `file`.
+    -   `attachment.source` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location of the asset. Must be a valid URL or complete filesystem location.
+    -   `attachment.is_reusable` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** **Optional.** Set to `true` to return a reusable attachment ID.
 -   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `attachment` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the attachment to send.
 
 **Examples**
 
+_Send attachment from URL_
+
 ```javascript
 let recipient = {'id': '57024957309673'},
-    options = {
+    attachment = {
       'type':'image', 
-      'payload':{
-        'url':'https://www.example.com/dog.png', 
-        'is_reusable':true
-      }    
+       'source':'https://www.example.com/dog.png', 
+       'is_reusable':true           
     }
-Client.sendAttachment(recipient, options)
+Client.sendAttachment(attachment, recipient)
   .then(res => {
     console.log(res); // {"id": "9485676932424"}
     // {
@@ -768,14 +786,34 @@ Client.sendAttachment(recipient, options)
     //   "attachment_id": "395723096739076353"
     // }
   });
-  });
+});
+```
+
+_Send attachment from file_
+
+```javascript
+let recipient = {'id': '57024957309673'},
+    attachment = {
+      'type':'image', 
+       'source':'/Users/me/Desktop/dog.jpg', 
+       'is_reusable':true           
+    }
+Client.uploadAttachment(attachment, recipient)
+ .then(res => {
+    console.log(res); // {'attachment_id': 09754203957254}
+    // {
+    //   "recipient_id": "1008372609250235", 
+    //   "message_id": "mid.1456970487936:c34767dfe57ee6e339",
+    //   "attachment_id": "395723096739076353"
+    // }
+ });
 ```
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
 ### sendTemplate
 
-Sends a template message.
+Sends a template message via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
 
 **Parameters**
 
@@ -855,7 +893,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### sendSenderAction
 
-Sends a sender action.
+Sends a sender action via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
 
 **Parameters**
 
@@ -878,7 +916,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### sendSponsoredMessage
 
-Sends a new Sponsored Message.
+Sends a new [Sponsored Message via the Messenger Platform](https://developers.facebook.com/docs/messenger-platform/reference/sponsored-messages).
 
 **Parameters**
 
@@ -914,7 +952,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### getMessagingInsights
 
-Retrieves metrics from the Messaging Insights API.
+Retrieves metrics from the [Messaging Insights API](https://developers.facebook.com/docs/messenger-platform/reference/messaging-insights-api).
 
 **Parameters**
 
@@ -965,7 +1003,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### generateMessengerCode
 
-Generate a new static or parametric Messenger Code for your bot.
+Generate a new static or parametric [Messenger Code](https://developers.facebook.com/docs/messenger-platform/reference/messenger-code-api) for your bot.
 
 **Parameters**
 
@@ -990,7 +1028,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### setMessengerProfile
 
-Sets one or more properties of your bot's Messenger Profile
+Sets one or more properties of your bot's [Messenger Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api).
 
 **Parameters**
 
@@ -1024,7 +1062,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### getMessengerProfile
 
-Retrieves one or more properties of your bot's Messenger Profile
+Retrieves one or more properties of your bot's [Messenger Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api).
 
 **Parameters**
 
@@ -1059,7 +1097,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### deleteMessengerProfile
 
-Deletes one or more properties of your bot's Messenger Profile.
+Deletes one or more properties of your bot's [Messenger Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api).
 
 **Parameters**
 
@@ -1077,11 +1115,45 @@ Client.deleteMessengerProfile(fields)
 
 Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
 
+### setNlpConfigs
+
+Sets config values for [built-in NLP]\(<https://developers.facebook.com/docs/messenger-platform/built-in-nlp>.
+
+**Parameters**
+
+-   `configs` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The NLP configs to set
+
+**Examples**
+
+```javascript
+let configs = {
+  'nlp_enabled': true,
+  'model': 'ENGLISH',
+  'custom_token': '924t2904t7304ty3wo',
+  'verbose': true,
+  'n_best': 2
+}
+Client.setNlpConfigs(configs).then(res => {
+ .then(res => {
+    console.log(res) // { 'success': true }
+ });
+```
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.nlp_enabled  Enable/disable built-in NLP. Must be `true` or `false`
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.model  The default NLP model to use. For values, see the [Messenger Platform docs](https://developers.facebook.com/docs/messenger-platform/built-in-nlp#api).
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.custom_token  [Wit.ai](https://wit.ai/) server token for integrating a custom model.
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.verbose  Enables verbose mode, which returns extra information like the position of the detected entity in the query. Must be `true` or `false`.
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.n_best  The number of entities to return, in descending order of confidence. Minimum 1. Maximum 8.
+
 ### getMatchingPsids
 
 Returns all Page-scoped IDs (PSIDs) for a user across all Pages in the same 
 Facebook Business Manager account. Matches can be found using 
-a PSID or ASID.
+a PSID or ASID. Uses the [ID Matching API](https://developers.facebook.com/docs/messenger-platform/identity/id-matching).
 
 **Parameters**
 
@@ -1127,7 +1199,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 Returns all app-scoped IDs (ASIDs) for a user across all Pages in the same 
 Facebook Business Manager account. Matches can be found using 
-a PSID or ASID.
+a PSID or ASID. Uses the [ID Matching API](https://developers.facebook.com/docs/messenger-platform/identity/id-matching).
 
 **Parameters**
 
@@ -1173,7 +1245,7 @@ Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ### getUserProfile
 
-Retrieves a user's profile.
+Retrieves a user's profile via the [User Profile API](https://developers.facebook.com/docs/messenger-platform/identity/user-profile).
 
 **Parameters**
 

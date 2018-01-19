@@ -29,7 +29,7 @@ describe('Send API', () => {
         'source': __dirname + '/assets/dog.jpg', 
         'is_reusable': true      
       }
-    }
+    };
 
     for (let attachment_type in options) {
       test(`Send attachment from ${attachment_type}`, done => {    
