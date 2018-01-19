@@ -17,7 +17,7 @@ describe('Send API', () => {
     });
   });
 
-  describe.only('Send Attachment', () => {
+  describe('Send Attachment', () => {
     let options = {
       'URL': {
         'type':'image', 
