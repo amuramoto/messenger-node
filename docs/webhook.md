@@ -39,7 +39,7 @@ Webhook.on('messaging_postbacks', (event_type, sender_info, webhook_event) => {
 });
 ```
 
-You can also [`Webhook.emit`](#emit) events, which can be useful for testing:
+You can also [emit](#emit) events, which can be useful for testing:
 
 ```js
 Webhook.emit('messaging_postbacks', event_type, sender_info, webhook_event);
@@ -51,3 +51,23 @@ Webhook.emit('messaging_postbacks', event_type, sender_info, webhook_event);
 | event_type | Object | Contains the event type and subtype. If the webhook has no subtype, then `event_type.subtype` will be `null` | `{'type': 'messaging_handovers', 'subtype': 'pass_thread_control}` |
 | sender_info | Object | Contains the ID and ID type. | `{'id': '84736289974242', 'type': 'PSID'}` |
 | webhook_event | Object | The complete webhook event parsed from the `messaging` array of the received `POST` request. | For webhook event formats and details, see the [webhook event reference](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/) in the Messenger Platform docs. |
+
+#### Supported Webhook Events
+
+All webhook events sent by the Messenger Platform are supported. To listen for the event, all you have to do is attach an event listener for the event name:
+
+- `messages`
+- `messaging_postbacks`
+- `message_reads`
+- `message_echoes`
+- `message_deliveries`
+- `messaging_handovers`
+- `messaging_referrals`
+- `messaging_optins`
+- `messaging_payments`
+- `messaging_pre_checkouts`
+- `messaging_checkout_updates`
+- `messaging_game_plays`
+- `messaging_policy_enforcement`
+- `messaging_account_linking`
+- `standby`
