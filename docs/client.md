@@ -24,7 +24,11 @@ const Client = new Messenger.Client(client_config);
 
 All Messenger Platform API requests are included as instance functions that are called on the `Client` instance. Here are a few examples. For a complete list, see the [`Client` reference](#client) below. 
 
-#### Send a Text Message
+#### Examples
+
+Here are a few example requests. The [Reference](#reference) also includes examples for every call.
+
+__Send a Text Message__
 
 ```js
 // define the message recipient
@@ -46,7 +50,7 @@ Client.sendText(recipient, text)
   }
 ```
 
-#### Send a Generic Template Message
+__Send a Generic Template Message__
 
 ```js
 // define the message recipient
@@ -88,7 +92,7 @@ Client.sendTemplate(recipient, generic_template)
   }
 ```
 
-#### Get a User's Profile
+__Get a User's Profile__
 
 ```js
 // PSID of the user
