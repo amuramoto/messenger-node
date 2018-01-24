@@ -1,10 +1,17 @@
 {
   "name": "messenger-node",
   "version": "0.2.3",
-  "description": "",
+  "description": "An SDK for the Messenger Platform",
   "main": "lib/index.js",
   "author": "Alex Muramoto",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amuramoto/messenger-node/issues"
+  },
+  "repository": { 
+    "type" : "git", 
+    "url" : "https://github.com/amuramoto/messenger-node.git"
+  },
   "dependencies": {
     "express": "^4.16.2",
     "request": "^2.83.0"
