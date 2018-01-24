@@ -1,5 +1,7 @@
 # Messenger Platform Node.js SDK
 
+[![NSP Status](https://nodesecurity.io/orgs/alex/projects/fe10e5f2-44d9-472f-924b-4615aa9c98bb/badge)](https://nodesecurity.io/orgs/alex/projects/fe10e5f2-44d9-472f-924b-4615aa9c98bb)
+
 The `messenger-node` module is a server-side SDK for building bots on Facebook's [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/). The SDK includes two base classes:
 
 - [Webhook](#webhook): Creates an [express.js](expressjs.com) web server for receiving and processing [webhook events](https://developers.facebook.com/docs/messenger-platform/webhook) sent by the Messenger Platform.
