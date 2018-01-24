@@ -5,6 +5,15 @@ The `messenger-node` module is a server-side SDK for building bots on Facebook's
 - [Webhook](#webhook): Creates an [express.js](expressjs.com) web server for receiving and processing [webhook events](https://developers.facebook.com/docs/messenger-platform/webhook) sent by the Messenger Platform.
 - [Client](#creating-a-client-instance): Creates a client object that simplifies sending requests to the Messenger Platform's various APIs.
 
+## Installing the SDK
+
+The SDK is available via [NPM](https://www.npmjs.com/package/messenger-node):
+
+```
+npm install messenger messenger-node --save
+```
+
+
 ## Importing the SDK
 
 To use the SDK, start by importing it into your project:
@@ -118,7 +127,11 @@ const Client = new Messenger.Client(client_config);
 
 All Messenger Platform API requests are included as instance functions that are called on the `Client` instance. Here are a few examples. For a complete list, see the [`Client` reference](#client) below. 
 
-#### Send a Text Message
+#### Examples
+
+Here are a few example requests. The [Reference](#reference) also includes examples for every call.
+
+__Send a Text Message__
 
 ```js
 // define the message recipient
@@ -140,7 +153,7 @@ Client.sendText(recipient, text)
   }
 ```
 
-#### Send a Generic Template Message
+__Send a Generic Template Message__
 
 ```js
 // define the message recipient
@@ -182,7 +195,7 @@ Client.sendTemplate(recipient, generic_template)
   }
 ```
 
-#### Get a User's Profile
+__Get a User's Profile__
 
 ```js
 // PSID of the user
@@ -748,7 +761,7 @@ Sends a set of quick reply buttons  via the [Send API](https://developers.facebo
 
 -   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `quick_replies` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the quick replies to send.
+-   `quick_replies` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the quick replies to send. This is the `message.quick_replies` property that would normally be included in a Send API request.
 -   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ Text message to send with quick replies.
 
 **Examples**
@@ -847,7 +860,7 @@ Sends a template message via the [Send API](https://developers.facebook.com/docs
 
 -   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `template` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the template to send.
+-   `template` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the template to send. This is the `message.attachment.payload` property that would normally be included in a Send API request.
 
 **Examples**
 

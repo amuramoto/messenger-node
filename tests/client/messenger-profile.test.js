@@ -24,7 +24,36 @@ describe('Messenger Profile API', () => {
       'countries':{
         'whitelist':['US', 'CA']
       }
-    }
+    },
+    'persistent_menu': [
+      {
+        'locale': 'default',
+        'composer_input_disabled': false,
+        'call_to_actions': [
+          {
+            'title': 'Explore the night',
+            'type': 'nested',
+            'call_to_actions': [
+              {
+                'title': 'Buy a section',
+                'type': 'postback',
+                'payload': 'BUY_SECTION'
+              },
+              {
+                'title': 'Buy a bottle',
+                'type': 'postback',
+                'payload': 'BUY_BOTTLE'
+              },
+              {
+                'title': 'Win a section',
+                'type': 'postback',
+                'payload': 'WIN_SECTION'
+              }
+            ]
+          }
+        ]
+      }
+    ]
   };
 
   let fields_arr = Object.keys(fields);
@@ -53,7 +82,7 @@ describe('Messenger Profile API', () => {
       expect(res).toHaveProperty('result');
       expect(res.result).toEqual('success');
       done();
-    });
+    }).catch(e => console.log(JSON.stringify(e)));
   });
   
 });
