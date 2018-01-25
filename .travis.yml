@@ -8,4 +8,8 @@ cache:
     - "node_modules"
 
 before_install:
-- npm install -g documentation
+  - npm install -g documentation
+
+branches:
+  only:
+    - master
