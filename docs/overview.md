@@ -12,7 +12,7 @@ The `messenger-node` module is a server-side SDK for building bots on Facebook's
 The SDK is available via [NPM](https://www.npmjs.com/package/messenger-node):
 
 ```
-npm install messenger messenger-node --save
+npm install messenger-node --save
 ```
 
 

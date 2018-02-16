@@ -30,6 +30,17 @@
       "webhook/**"
     ]
   },
+  "keywords": [
+    "facebook",
+    "messenger",
+    "sdk",
+    "webhook",
+    "messenger platform",
+    "bot",
+    "chatbot",
+    "messenger bot",
+    "graph api"
+  ],
   "scripts": {
     "prepublish": "npm run docs && npm run lint && npm test",
     "docs": "rm README.md && for x in docs/overview.md docs/webhook.md docs/client.md; do cat $x >> README.md; echo \"\n\n\" >> README.md; done && echo \"## Reference\" >> README.md && documentation build lib/** -f md >> README.md",
