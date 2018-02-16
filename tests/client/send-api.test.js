@@ -21,7 +21,7 @@ describe('Send API', () => {
     let options = {
       'URL': {
         'type':'image', 
-        'source':'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png', 
+        'source':'https://github.com/amuramoto/messenger-node/raw/master/tests/client/assets/dog.jpg', 
         'is_reusable': true      
       },
       'file': {
@@ -66,7 +66,7 @@ describe('Send API', () => {
       {
         'content_type':'text',
         'title':'Quick Reply 1',
-        'image_url':'https://messenger.fb.com/wp-content/uploads/2017/04/messenger-logo.png',
+        'image_url':'https://github.com/amuramoto/messenger-node/raw/master/tests/client/assets/dog.jpg',
         'payload':'payload1'
       },
       {
