@@ -105,7 +105,7 @@ All webhook events sent by the Messenger Platform are supported. To listen for t
 
 ## Using `Messenger.Client`
 
-Once you have a working webhook, you need a way to respond to the events and messages your bot receievs. This means you need to be able to send allllll kiiinnndddsss of API requests to the Messenger Platform. The `Client` provided by this SDK makes this a much simpler declarative process by handling all the repetitive (and error prone) parts of formatting valid API requests for you, and making sure they get sent to the right place.
+Once you have a working webhook, you need a way to respond to the events and messages your bot receives. This means you need to be able to send allllll kiiinnndddsss of API requests to the Messenger Platform. The `Client` provided by this SDK makes this a much simpler declarative process by handling all the repetitive (and error prone) parts of formatting valid API requests for you, and making sure they get sent to the right place.
 
 ### Creating a `Client` Instance
 
@@ -149,10 +149,10 @@ Client.sendText(recipient, text)
   .then(res => {
     // log the api response
     console.log(res);
-  });
-  .catch(e) {
+  })
+  .catch(e => {
     console.error(e);
-  }
+  });
 ```
 
 __Send a Generic Template Message__
