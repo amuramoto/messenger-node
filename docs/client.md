@@ -44,10 +44,10 @@ Client.sendText(recipient, text)
   .then(res => {
     // log the api response
     console.log(res);
-  });
-  .catch(e) {
+  })
+  .catch(e => {
     console.error(e);
-  }
+  });
 ```
 
 __Send a Generic Template Message__
