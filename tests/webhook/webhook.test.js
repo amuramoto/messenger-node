@@ -87,14 +87,12 @@ describe('Emit events', () => {
 
   let options = {'method': 'POST'};
   let event_mocks = webhook_mocks.getAll();
-// console.log(JSON.stringify(event_mocks,null,2));
   for (let name in event_mocks) {    
     test(`Emit ${name}`, done => {      
       let event_type_arr = name.split('.');
       let event_type = event_type_arr[0];
       let event_subtype = event_type_arr[1];
       options.json = event_mocks[name];   
-// console.log(JSON.stringify(event_mocks[name],null, 2));
       Webhook.once(event_type, (event) => {            
         expect(event.type).toEqual(event_type);
         if (event.subtype) expect(event.subtype).toEqual(event_subtype);

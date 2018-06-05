@@ -243,6 +243,7 @@ The SDK does not transform the API response in any way, other than ensuring you 
     -   [getThreadOwner](#getthreadowner)
     -   [getSecondaryReceiverList](#getsecondaryreceiverlist)
     -   [sendBroadcast](#sendbroadcast)
+    -   [cancelScheduledBroadcast](#cancelscheduledbroadcast)
     -   [startBroadcastReachEstimation](#startbroadcastreachestimation)
     -   [getBroadcastReachEstimation](#getbroadcastreachestimation)
     -   [createCustomLabel](#createcustomlabel)
@@ -591,6 +592,29 @@ Sends a new broadcast message via the [Broadcast API](https://developers.faceboo
 
 -   `message_creative_id` **Integer** The ID of a message creative to send in the broadcast. Created by calling [Client.createMessageCreative()](#createmessagecreative).
 -   `custom_label_id` **Integer** _Optional._ The ID of a custom label to target for the broadcast. Created by calling [Client.createCustomLabel()](#createcustomlabel).
+-   `timestamp` **Integer** _Optional._  A time in the future to send the broadcast. UNIX or ISO-8601 formats are supported.
+
+**Examples**
+
+```javascript
+let message_creative_id = 499792492764246,
+    custom_label_id = 097046973276-46, // optional
+    timestamp = 1527720084; // optional
+Client.sendBroadcast(message_creative_id, custom_label_id, 1527720084)
+  .then(res => {
+    console.log(res); // {'broadcast_id': 397230957240952}
+  });
+```
+
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+
+### cancelScheduledBroadcast
+
+[Cancel a scheduled broadcast send](https://developers.facebook.com/docs/messenger-platform/send-messages/broadcast-messages/#scheduling).
+
+**Parameters**
+
+-   `broadcast_id` **Integer** The broadcast ID of the scheduled broadcast to cancel.
 
 **Examples**
 

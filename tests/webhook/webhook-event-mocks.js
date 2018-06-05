@@ -219,7 +219,6 @@ function getAll () {
     let subtype = key_arr[1] ? key_arr[1]: '';    
     events[key] = buildEventPayload(type, subtype);
   }
-console.log(JSON.stringify(events,null,2));      
   return events;
 }
 
@@ -229,11 +228,10 @@ function buildEventPayload (type, subtype) {
     'entry': []
   };
   let key = !subtype ? type : type + '.' + subtype;
-  let body = webhook_events[key];
   let payload = {
     'sender': {'id': 'USER PSID'},
     'recipient': {'id': 'PAGE ID'}
-  }
+  };
   Object.assign(payload, webhook_events[key]);
   if (type !== 'standby') {
     event.entry[0] = {
