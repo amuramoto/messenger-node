@@ -1,12 +1,3 @@
-const event_template = {
-  'object': 'page',
-  'entry': [{
-    'messaging': [{
-      'sender': {'id': 'USER PSID'},
-      'recipient': {'id': 'PAGE ID'}              
-    }]
-  }]
-};
 const webhook_events = {
   'messages.text': {
     'message': {
@@ -114,6 +105,12 @@ const webhook_events = {
       'metadata':'additional content that the caller wants to set'
     }
   },
+  'standby': {
+    'message': {
+      'mid':'mid.1457764197618:41d102a3e1ae206a38',
+      'text': 'text message'
+    }
+  },
   'messaging_handovers.app_roles': {
     'app_roles':{
       '123456789':['primary_receiver']
@@ -211,23 +208,44 @@ const webhook_events = {
 };
 
 function get (type, subtype) {
-  let event = event_template;
-  let key = type;
-  if (subtype) key += '.' + subtype;
-  Object.assign(event.entry[0].messaging[0], webhook_events[key]);
-  return event;
+  return buildEventPayload(type, subtype);
 }
 
 function getAll () {  
   let events = {};
-  for (let key in webhook_events) {
-    let event = JSON.parse(JSON.stringify(event_template));
-    Object.assign(event.entry[0].messaging[0], webhook_events[key]);
-    events[key] = event;
+  for (let key in webhook_events) {    
+    let key_arr = key.split('.');
+    let type = key_arr[0];
+    let subtype = key_arr[1] ? key_arr[1]: '';    
+    events[key] = buildEventPayload(type, subtype);
   }
-
+console.log(JSON.stringify(events,null,2));      
   return events;
 }
+
+function buildEventPayload (type, subtype) {
+  let event = {
+    'object': 'page',
+    'entry': []
+  };
+  let key = !subtype ? type : type + '.' + subtype;
+  let body = webhook_events[key];
+  let payload = {
+    'sender': {'id': 'USER PSID'},
+    'recipient': {'id': 'PAGE ID'}
+  }
+  Object.assign(payload, webhook_events[key]);
+  if (type !== 'standby') {
+    event.entry[0] = {
+      'messaging': [payload]
+    };
+  } else {
+    event.entry[0] = {
+      'standby': [payload]
+    };
+  }
+  return event;
+} 
 
 module.exports = {
   get,
