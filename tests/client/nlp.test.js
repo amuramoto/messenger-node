@@ -12,7 +12,7 @@ describe('Built-in NLP', () => {
       'n_best': 1
     };
     Client.setNlpConfigs(configs).then(res => {
-      console.log(res);
+      expect(res.result).toEqual('success');
       done();
     });
   });
