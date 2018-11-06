@@ -28,7 +28,8 @@
     "collectCoverageFrom": [
       "client/**",
       "webhook/**"
-    ]
+    ],
+    "testURL": "http://localhost"
   },
   "keywords": [
     "facebook",
