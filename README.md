@@ -1,6 +1,6 @@
 # Messenger Platform Node.js SDK
 
-[![Build Status](https://travis-ci.org/amuramoto/messenger-node.svg?branch=master)](https://travis-ci.org/amuramoto/messenger-node)
+[![NSP Status](https://nodesecurity.io/orgs/alex/projects/fe10e5f2-44d9-472f-924b-4615aa9c98bb/badge)](https://nodesecurity.io/orgs/alex/projects/fe10e5f2-44d9-472f-924b-4615aa9c98bb)  [![Build Status](https://travis-ci.org/amuramoto/messenger-node.svg?branch=master)](https://travis-ci.org/amuramoto/messenger-node)
 
 The `messenger-node` module is a server-side SDK for building bots on Facebook's [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/). The SDK includes two base classes:
 
@@ -229,70 +229,161 @@ The SDK does not transform the API response in any way, other than ensuring you 
 
 ### Table of Contents
 
--   [Client](#client)
-    -   [uploadAttachment](#uploadattachment)
-    -   [setPageToken](#setpagetoken)
-    -   [getPageToken](#getpagetoken)
-    -   [setAppToken](#setapptoken)
-    -   [getAppToken](#getapptoken)
-    -   [setApiVersion](#setapiversion)
-    -   [getApiVersion](#getapiversion)
-    -   [passThreadControl](#passthreadcontrol)
-    -   [takeThreadControl](#takethreadcontrol)
-    -   [requestThreadControl](#requestthreadcontrol)
-    -   [getThreadOwner](#getthreadowner)
-    -   [getSecondaryReceiverList](#getsecondaryreceiverlist)
-    -   [sendBroadcast](#sendbroadcast)
-    -   [cancelScheduledBroadcast](#cancelscheduledbroadcast)
-    -   [startBroadcastReachEstimation](#startbroadcastreachestimation)
-    -   [getBroadcastReachEstimation](#getbroadcastreachestimation)
-    -   [createCustomLabel](#createcustomlabel)
-    -   [getCustomLabelById](#getcustomlabelbyid)
-    -   [getCustomLabelsByPsid](#getcustomlabelsbypsid)
-    -   [getAllCustomLabels](#getallcustomlabels)
-    -   [deleteCustomLabel](#deletecustomlabel)
-    -   [addPsidtoCustomLabel](#addpsidtocustomlabel)
-    -   [removePsidfromCustomLabel](#removepsidfromcustomlabel)
-    -   [createMessageCreative](#createmessagecreative)
-    -   [sendText](#sendtext)
-    -   [sendQuickReplies](#sendquickreplies)
-    -   [sendAttachment](#sendattachment)
-    -   [sendTemplate](#sendtemplate)
-    -   [sendSenderAction](#sendsenderaction)
-    -   [sendSponsoredMessage](#sendsponsoredmessage)
-    -   [getMessagingInsights](#getmessaginginsights)
-    -   [generateMessengerCode](#generatemessengercode)
-    -   [setMessengerProfile](#setmessengerprofile)
-    -   [getMessengerProfile](#getmessengerprofile)
-    -   [deleteMessengerProfile](#deletemessengerprofile)
-    -   [setNlpConfigs](#setnlpconfigs)
-    -   [getMatchingPsids](#getmatchingpsids)
-    -   [getMatchingAsids](#getmatchingasids)
-    -   [getUserProfile](#getuserprofile)
--   [Webhook](#webhook)
-    -   [on](#on)
-    -   [once](#once)
-    -   [emit](#emit)
-    -   [getInstance](#getinstance)
-    -   [stopInstance](#stopinstance)
-    -   [getPort](#getport)
-    -   [getEndpoint](#getendpoint)
-    -   [getVerifyToken](#getverifytoken)
-    -   [setAppSecret](#setappsecret)
-    -   [validateSignedRequest](#validatesignedrequest)
+-   [Client][1]
+    -   [Parameters][2]
+    -   [Examples][3]
+    -   [uploadAttachment][4]
+        -   [Parameters][5]
+        -   [Examples][6]
+    -   [setPageToken][7]
+        -   [Parameters][8]
+        -   [Examples][9]
+    -   [getPageToken][10]
+        -   [Examples][11]
+    -   [setAppToken][12]
+        -   [Parameters][13]
+        -   [Examples][14]
+    -   [getAppToken][15]
+        -   [Examples][16]
+    -   [setApiVersion][17]
+        -   [Parameters][18]
+        -   [Examples][19]
+    -   [getApiVersion][20]
+        -   [Examples][21]
+    -   [passThreadControl][22]
+        -   [Parameters][23]
+        -   [Examples][24]
+    -   [takeThreadControl][25]
+        -   [Parameters][26]
+        -   [Examples][27]
+    -   [requestThreadControl][28]
+        -   [Parameters][29]
+        -   [Examples][30]
+    -   [getThreadOwner][31]
+        -   [Parameters][32]
+        -   [Examples][33]
+    -   [getSecondaryReceiverList][34]
+        -   [Parameters][35]
+        -   [Examples][36]
+    -   [sendBroadcast][37]
+        -   [Parameters][38]
+        -   [Examples][39]
+    -   [startBroadcastReachEstimation][40]
+        -   [Parameters][41]
+        -   [Examples][42]
+    -   [getBroadcastReachEstimation][43]
+        -   [Parameters][44]
+        -   [Examples][45]
+    -   [createCustomLabel][46]
+        -   [Parameters][47]
+        -   [Examples][48]
+    -   [getCustomLabelById][49]
+        -   [Parameters][50]
+        -   [Examples][51]
+    -   [getCustomLabelsByPsid][52]
+        -   [Parameters][53]
+        -   [Examples][54]
+    -   [getAllCustomLabels][55]
+        -   [Examples][56]
+    -   [deleteCustomLabel][57]
+        -   [Parameters][58]
+        -   [Examples][59]
+    -   [addPsidtoCustomLabel][60]
+        -   [Parameters][61]
+        -   [Examples][62]
+    -   [removePsidfromCustomLabel][63]
+        -   [Parameters][64]
+        -   [Examples][65]
+    -   [createMessageCreative][66]
+        -   [Parameters][67]
+        -   [Examples][68]
+    -   [sendText][69]
+        -   [Parameters][70]
+        -   [Examples][71]
+    -   [sendQuickReplies][72]
+        -   [Parameters][73]
+        -   [Examples][74]
+    -   [sendAttachment][75]
+        -   [Parameters][76]
+        -   [Examples][77]
+    -   [sendTemplate][78]
+        -   [Parameters][79]
+        -   [Examples][80]
+    -   [sendSenderAction][81]
+        -   [Parameters][82]
+        -   [Examples][83]
+    -   [sendSponsoredMessage][84]
+        -   [Parameters][85]
+        -   [Examples][86]
+    -   [getMessagingInsights][87]
+        -   [Parameters][88]
+        -   [Examples][89]
+    -   [generateMessengerCode][90]
+        -   [Parameters][91]
+        -   [Examples][92]
+    -   [setMessengerProfile][93]
+        -   [Parameters][94]
+        -   [Examples][95]
+    -   [getMessengerProfile][96]
+        -   [Parameters][97]
+        -   [Examples][98]
+    -   [deleteMessengerProfile][99]
+        -   [Parameters][100]
+        -   [Examples][101]
+    -   [setNlpConfigs][102]
+        -   [Parameters][103]
+        -   [Examples][104]
+    -   [getMatchingPsids][105]
+        -   [Parameters][106]
+        -   [Examples][107]
+    -   [getMatchingAsids][108]
+        -   [Parameters][109]
+        -   [Examples][110]
+    -   [getUserProfile][111]
+        -   [Parameters][112]
+        -   [Examples][113]
+-   [Webhook][114]
+    -   [Parameters][115]
+    -   [Examples][116]
+    -   [on][117]
+        -   [Parameters][118]
+        -   [Examples][119]
+    -   [once][120]
+        -   [Parameters][121]
+        -   [Examples][122]
+    -   [emit][123]
+        -   [Parameters][124]
+        -   [Examples][125]
+    -   [getInstance][126]
+        -   [Examples][127]
+    -   [stopInstance][128]
+        -   [Parameters][129]
+        -   [Examples][130]
+    -   [getPort][131]
+        -   [Examples][132]
+    -   [getEndpoint][133]
+        -   [Examples][134]
+    -   [getVerifyToken][135]
+        -   [Examples][136]
+    -   [setAppSecret][137]
+        -   [Parameters][138]
+        -   [Examples][139]
+    -   [validateSignedRequest][140]
+        -   [Parameters][141]
+        -   [Examples][142]
 
 ## Client
 
 Creates an instance of `Client`, used for sending requests to the Messenger Platform APIs.
 
-**Parameters**
+### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that contains the configuration settings for the `Client`.
-    -   `options.page_token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A valid Page-scoped access token.
-    -   `options.app_token` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ A valid app-scoped access token. Required for ID Matching.
-    -   `options.graph_api_version` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ The version of the Graph API to target for all API requests. Defaults to latest. Must be in the format `v2.11`.
+-   `options` **[Object][143]** An object that contains the configuration settings for the `Client`.
+    -   `options.page_token` **[String][144]** A valid Page-scoped access token.
+    -   `options.app_token` **[String][144]** _Optional._ A valid app-scoped access token. Required for ID Matching.
+    -   `options.graph_api_version` **[String][144]** _Optional._ The version of the Graph API to target for all API requests. Defaults to latest. Must be in the format `v2.11`.
 
-**Examples**
+### Examples
 
 ```javascript
 const Messenger = require('messenger-node');
@@ -304,22 +395,23 @@ let options = {
 const Client = new Messenger.Client(options);
 ```
 
-Returns **[Client](#client)** 
+Returns **[Client][145]** 
 
 ### uploadAttachment
 
-Uploads media using the [Attachment Upload API](https://developers.facebook.com/docs/messenger-platform/reference/attachment-upload-api).
+Uploads media using the [Attachment Upload API][146].
 
-**Parameters**
+#### Parameters
 
--   `attachment` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the attachment to send.
-    -   `attachment.type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of asset being upload. Must be `image`, `video`, `audio`, or `file`.
-    -   `attachment.source` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location of the asset. Must be a valid URL or complete filesystem location.
-    -   `attachment.is_reusable` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** **Optional.** Set to `true` to return a reusable attachment ID.
+-   `attachment` **[Object][143]** An object that describes the attachment to send.
+    -   `attachment.type` **[String][144]** The type of asset being upload. Must be `image`, `video`, `audio`, or `file`.
+    -   `attachment.source` **[String][144]** The location of the asset. Must be a valid URL or complete filesystem location.
+    -   `attachment.is_reusable` **[String][144]** **Optional.** Set to `true` to return a reusable attachment ID.
 
-**Examples**
+#### Examples
 
-_Upload from URL_
+Upload from URL
+
 
 ```javascript
 let recipient = {'id': '57024957309673'},
@@ -334,7 +426,8 @@ Client.uploadAttachment('url', 'https://www.example.com/image.jpg')
  });
 ```
 
-_Upload from file_
+Upload from file
+
 
 ```javascript
 let recipient = {'id': '57024957309673'},
@@ -349,18 +442,18 @@ Client.uploadAttachment(attachment)
  });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### setPageToken
 
 Sets a new page token to use for all Page-level requests
 
-**Parameters**
+#### Parameters
 
 -   `token`  
--   `page_token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The new page token
+-   `page_token` **[string][144]** The new page token
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.setPageToken('sgh084th3t3ht340t34h8t3t940390th34')
@@ -369,13 +462,13 @@ Client.setPageToken('sgh084th3t3ht340t34h8t3t940390th34')
  });
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Updated page token
+Returns **[string][144]** Updated page token
 
 ### getPageToken
 
 Gets the current page token being used for page-level requests
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getPageToken()
@@ -384,18 +477,18 @@ Client.getPageToken()
  });
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Current page token
+Returns **[string][144]** Current page token
 
 ### setAppToken
 
 Sets a new app token to use for all app-level requests
 
-**Parameters**
+#### Parameters
 
 -   `token`  
--   `app_token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The new app token
+-   `app_token` **[string][144]** The new app token
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.setAppToken('9h03t9h0ahtg409thw3t34h8t3t940390th34')
@@ -404,13 +497,13 @@ Client.setAppToken('9h03t9h0ahtg409thw3t34h8t3t940390th34')
  });
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Updated app token
+Returns **[string][144]** Updated app token
 
 ### getAppToken
 
 Gets the current app token being used for app-level requests
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getAppToken()
@@ -419,17 +512,17 @@ Client.getAppToken()
  });
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Current app token
+Returns **[string][144]** Current app token
 
 ### setApiVersion
 
 Sets a new Graph API version to use for all requests
 
-**Parameters**
+#### Parameters
 
--   `version` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The new version in the format `v2.11`
+-   `version` **[string][144]** The new version in the format `v2.11`
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.setApiVersion('v2.6')
@@ -438,13 +531,13 @@ Client.setApiVersion('v2.6')
  });
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Updated version number
+Returns **[string][144]** Updated version number
 
 ### getApiVersion
 
 Gets the current Graph API version being used for all requests
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getApiVersion()
@@ -453,19 +546,19 @@ Client.getApiVersion()
  });
 ```
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Current Graph API version
+Returns **[string][144]** Current Graph API version
 
 ### passThreadControl
 
-Initiates a new handover protocol [pass thread control](https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control) event.
+Initiates a new handover protocol [pass thread control][148] event.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** The PSID of the user whose thread you want to initiate the pass thread control event for.
 -   `target_app_id` **Integer** _Optional._ The app ID of the app to pass thread control to. Set to `page_inbox` to pass thread control to the Page Inbox.
--   `metadata` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ An arbitrary string that will be delivered to the target app with the `messaging_handovers` webhook event.
+-   `metadata` **[String][144]** _Optional._ An arbitrary string that will be delivered to the target app with the `messaging_handovers` webhook event.
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 1008372609250235,
@@ -477,19 +570,19 @@ Client.passThreadControl(psid, target_app_id, metadata)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+Returns **[Promise][147]** The API response
 
 ### takeThreadControl
 
-Initiates a new handover protocol [take thread control](https://developers.facebook.com/docs/messenger-platform/handover-protocol/take-thread-control) event.
+Initiates a new handover protocol [take thread control][149] event.
 This may only be called by the app with the Primary Receiver app role.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** The PSID of the user whose thread you want to initiate the take thread control event for.
--   `metadata` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ An arbitrary string that will be delivered to the Secondary Receiver app with the `messaging_handovers` webhook event.
+-   `metadata` **[String][144]** _Optional._ An arbitrary string that will be delivered to the Secondary Receiver app with the `messaging_handovers` webhook event.
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 1008372609250235,
@@ -500,18 +593,18 @@ Client.takeThreadControl(psid, metadata)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+Returns **[Promise][147]** The API response
 
 ### requestThreadControl
 
-Initiates a new handover protocol [request thread control](https://developers.facebook.com/docs/messenger-platform/handover-protocol/request-thread-control) event.
+Initiates a new handover protocol [request thread control][150] event.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** The PSID of the user whose thread you want to initiate the request thread control event for.
--   `metadata` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ An arbitrary string that will be delivered to the Primary Receiver app with the `messaging_handovers` webhook event.
+-   `metadata` **[String][144]** _Optional._ An arbitrary string that will be delivered to the Primary Receiver app with the `messaging_handovers` webhook event.
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 1008372609250235,
@@ -522,18 +615,18 @@ Client.requestThreadControl(psid, metadata)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+Returns **[Promise][147]** The API response
 
 ### getThreadOwner
 
-Retrieves the app ID of the current [thread owner](https://developers.facebook.com/docs/messenger-platform/handover-protocol/take-thread-control).
+Retrieves the app ID of the current [thread owner][149].
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** The PSID of the user whose thread you want to get the thread owner of.
--   `metadata` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ An arbitrary string that will be delivered to the target app with the `messaging_handovers` webhook event.
+-   `metadata` **[String][144]** _Optional._ An arbitrary string that will be delivered to the target app with the `messaging_handovers` webhook event.
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 1008372609250235
@@ -550,17 +643,17 @@ Client.getThreadOwner(psid)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+Returns **[Promise][147]** The API response
 
 ### getSecondaryReceiverList
 
-Retrieves a list of app ID's of all [Secondary Receivers](https://developers.facebook.com/docs/messenger-platform/handover-protocol#secondary_receivers_list) for the Page.
+Retrieves a list of app ID's of all [Secondary Receivers][151] for the Page.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** The PSID of the user whose thread you want to get the list of Secondary Receiver apps for.
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 1008372609250235
@@ -582,41 +675,18 @@ Client.getThreadOwner(psid)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+Returns **[Promise][147]** The API response
 
 ### sendBroadcast
 
-Sends a new broadcast message via the [Broadcast API](https://developers.facebook.com/docs/messenger-platform/reference/broadcast-api).
+Sends a new broadcast message via the [Broadcast API][152].
 
-**Parameters**
+#### Parameters
 
--   `message_creative_id` **Integer** The ID of a message creative to send in the broadcast. Created by calling [Client.createMessageCreative()](#createmessagecreative).
--   `custom_label_id` **Integer** _Optional._ The ID of a custom label to target for the broadcast. Created by calling [Client.createCustomLabel()](#createcustomlabel).
--   `timestamp` **Integer** _Optional._  A time in the future to send the broadcast. UNIX or ISO-8601 formats are supported.
+-   `message_creative_id` **Integer** The ID of a message creative to send in the broadcast. Created by calling [Client.createMessageCreative()][66].
+-   `custom_label_id` **Integer** _Optional._ The ID of a custom label to target for the broadcast. Created by calling [Client.createCustomLabel()][46].
 
-**Examples**
-
-```javascript
-let message_creative_id = 499792492764246,
-    custom_label_id = 097046973276-46, // optional
-    timestamp = 1527720084; // optional
-Client.sendBroadcast(message_creative_id, custom_label_id, 1527720084)
-  .then(res => {
-    console.log(res); // {'broadcast_id': 397230957240952}
-  });
-```
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
-
-### cancelScheduledBroadcast
-
-[Cancel a scheduled broadcast send](https://developers.facebook.com/docs/messenger-platform/send-messages/broadcast-messages/#scheduling).
-
-**Parameters**
-
--   `broadcast_id` **Integer** The broadcast ID of the scheduled broadcast to cancel.
-
-**Examples**
+#### Examples
 
 ```javascript
 let message_creative_id = 499792492764246,
@@ -627,7 +697,7 @@ Client.sendBroadcast(message_creative_id, custom_label_id)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** The API response
+Returns **[Promise][147]** The API response
 
 ### startBroadcastReachEstimation
 
@@ -635,11 +705,11 @@ Start a reach estimation for the number of people that will be
 reached by a broadcast to all users or to users associated with 
 a custom label.
 
-**Parameters**
+#### Parameters
 
--   `custom_label_id` **Integer** _Optional._ The ID of a custom label targeted by the broadcast. Created by calling [Client.createCustomLabel()](#createcustomlabel).
+-   `custom_label_id` **Integer** _Optional._ The ID of a custom label targeted by the broadcast. Created by calling [Client.createCustomLabel()][46].
 
-**Examples**
+#### Examples
 
 ```javascript
 let custom_label_id = 3467390467035645 //optional
@@ -649,7 +719,7 @@ Client.startBroadcastReachEstimation(custom_label_id)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API Response
+Returns **[Promise][147]&lt;[Object][143]>** The API Response
 
 ### getBroadcastReachEstimation
 
@@ -657,11 +727,11 @@ Get the current status of a broadcast reach estimation
 {@link #startbroadcastreachestimation|`startBroadcastReachEstimation` 
 must be run first to get a `reach_estimation_id`.
 
-**Parameters**
+#### Parameters
 
 -   `reach_estimation_id` **Integer** The reach estimation ID.
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getBroadcastReachEstimation(9485676932424)
@@ -670,17 +740,17 @@ Client.getBroadcastReachEstimation(9485676932424)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API Response
+Returns **[Promise][147]&lt;[Object][143]>** The API Response
 
 ### createCustomLabel
 
 Creates a new custom label.
 
-**Parameters**
+#### Parameters
 
--   `name` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the custom label.
+-   `name` **[String][144]** The name of the custom label.
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.createCustomLabel('my_custom_label')
@@ -689,17 +759,17 @@ Client.createCustomLabel('my_custom_label')
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getCustomLabelById
 
 Retrieves the id and name of a custom label.
 
-**Parameters**
+#### Parameters
 
--   `label_id` **Integer** The ID of a custom label. Created with [createCustomLabel()](#createcustomlabel).
+-   `label_id` **Integer** The ID of a custom label. Created with [createCustomLabel()][46].
 
-**Examples**
+#### Examples
 
 ```javascript
 let custom_label_id = 9485676932424,
@@ -710,17 +780,17 @@ Client.getCustomLabelById(custom_label_id, fields)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getCustomLabelsByPsid
 
 Retrieves the list of custom labels associated with a PSID.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** The PSID of the user to retrieve the custom labels for.
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getCustomLabelsByPsid(950724069735075)
@@ -741,13 +811,13 @@ Client.getCustomLabelsByPsid(950724069735075)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getAllCustomLabels
 
 Retrieves the list of all custom labels.
 
-**Examples**
+#### Examples
 
 ```javascript
 let field = ['name', 'id']; //optional
@@ -769,17 +839,17 @@ Client.getAllCustomLabels(fields)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### deleteCustomLabel
 
 Deletes a custom label.
 
-**Parameters**
+#### Parameters
 
 -   `label_id` **Integer** The ID of the custom label to delete.
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.deleteCustomLabel(094730967209673)
@@ -788,18 +858,18 @@ Client.deleteCustomLabel(094730967209673)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### addPsidtoCustomLabel
 
 Associates a user's PSID to a custom label.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** PSID of the user to associate with the custom label.
--   `label_id` **Integer** The ID of a custom label. Created with [createCustomLabel()](#createcustomlabel).
+-   `label_id` **Integer** The ID of a custom label. Created with [createCustomLabel()][46].
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 49670354734069743,
@@ -810,18 +880,18 @@ Client.addPsidtoCustomLabel(psid, custom_label_id)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### removePsidfromCustomLabel
 
 Removes a user PSID from a custom label.
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** PSID of the user to remove from the custom label.
 -   `label_id` **Integer** The ID of a custom label.
 
-**Examples**
+#### Examples
 
 ```javascript
 let psid = 49670354734069743,
@@ -832,19 +902,20 @@ Client.removePsidfromCustomLabel(psid, custom_label_id)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### createMessageCreative
 
 Creates a new message creative.
 
-**Parameters**
+#### Parameters
 
--   `message` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message to send.
+-   `message` **[Object][143]** An object that describes the message to send.
 
-**Examples**
+#### Examples
 
-_Text Message_
+Text Message
+
 
 ```javascript
 let message = {'text': 'my text message'};
@@ -854,7 +925,8 @@ Client.createMessageCreative(message)
   });
 ```
 
-_Template Message_
+Template Message
+
 
 ```javascript
 let message = {
@@ -885,19 +957,19 @@ Client.createMessageCreative(message)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### sendText
 
-Sends a text message via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
+Sends a text message via the [Send API][153].
 
-**Parameters**
+#### Parameters
 
--   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+-   `recipient` **[Object][143]** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The text to send.
+-   `text` **[String][144]** The text to send.
 
-**Examples**
+#### Examples
 
 ```javascript
 let recipient = {'id': '57024957309673'},
@@ -912,22 +984,23 @@ Client.sendText(text)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### sendQuickReplies
 
-Sends a set of quick reply buttons  via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
+Sends a set of quick reply buttons  via the [Send API][153].
 
-**Parameters**
+#### Parameters
 
--   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+-   `recipient` **[Object][143]** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `quick_replies` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the quick replies to send. This is the `message.quick_replies` property that would normally be included in a Send API request.
--   `text` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ Text message to send with quick replies.
+-   `quick_replies` **[Object][143]** An object that describes the quick replies to send. This is the `message.quick_replies` property that would normally be included in a Send API request.
+-   `text` **[String][144]** _Optional._ Text message to send with quick replies.
 
-**Examples**
+#### Examples
 
-_Generic Template_
+Generic Template
+
 
 ```javascript
 let recipient = {'id': '57024957309673'};
@@ -953,24 +1026,25 @@ Client.sendQuickReplies(recipient, quick_replies, text)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### sendAttachment
 
-Sends a standalone attachment, including images, audio, video, and files  via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
+Sends a standalone attachment, including images, audio, video, and files  via the [Send API][153].
 
-**Parameters**
+#### Parameters
 
--   `attachment` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the attachment to send.
-    -   `attachment.type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of asset being upload. Must be `image`, `video`, `audio`, or `file`.
-    -   `attachment.source` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location of the asset. Must be a valid URL or complete filesystem location.
-    -   `attachment.is_reusable` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** **Optional.** Set to `true` to return a reusable attachment ID.
--   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+-   `attachment` **[Object][143]** An object that describes the attachment to send.
+    -   `attachment.type` **[String][144]** The type of asset being upload. Must be `image`, `video`, `audio`, or `file`.
+    -   `attachment.source` **[String][144]** The location of the asset. Must be a valid URL or complete filesystem location.
+    -   `attachment.is_reusable` **[String][144]** **Optional.** Set to `true` to return a reusable attachment ID.
+-   `recipient` **[Object][143]** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
 
-**Examples**
+#### Examples
 
-_Send attachment from URL_
+Send attachment from URL
+
 
 ```javascript
 let recipient = {'id': '57024957309673'},
@@ -991,7 +1065,8 @@ Client.sendAttachment(attachment, recipient)
 });
 ```
 
-_Send attachment from file_
+Send attachment from file
+
 
 ```javascript
 let recipient = {'id': '57024957309673'},
@@ -1011,21 +1086,22 @@ Client.uploadAttachment(attachment, recipient)
  });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### sendTemplate
 
-Sends a template message via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
+Sends a template message via the [Send API][153].
 
-**Parameters**
+#### Parameters
 
--   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+-   `recipient` **[Object][143]** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `template` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the template to send. This is the `message.attachment.payload` property that would normally be included in a Send API request.
+-   `template` **[Object][143]** An object that describes the template to send. This is the `message.attachment.payload` property that would normally be included in a Send API request.
 
-**Examples**
+#### Examples
 
-_Generic Template_
+Generic Template
+
 
 ```javascript
 let recipient = {'id': '57024957309673'};
@@ -1061,7 +1137,8 @@ Client.sendTemplate(message)
   });
 ```
 
-_Media Template_
+Media Template
+
 
 ```javascript
 let recipient = {'id': '57024957309673'};
@@ -1091,19 +1168,19 @@ Client.sendTemplate(message)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### sendSenderAction
 
-Sends a sender action via the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api).
+Sends a sender action via the [Send API][153].
 
-**Parameters**
+#### Parameters
 
--   `recipient` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
+-   `recipient` **[Object][143]** An object that describes the message recipient in the format: `{<id_type>: <id>}`.
     For example, sends to a PSID would be `{'id': 123456}`, to a phone number \`{'phone_number': '+1 (408) 444-4444'}.
--   `sender_action` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The sender action to send. Must be `typing_on`, `typing_off`, or `mark_seen`.
+-   `sender_action` **[String][144]** The sender action to send. Must be `typing_on`, `typing_off`, or `mark_seen`.
 
-**Examples**
+#### Examples
 
 ```javascript
 let recipient = {'id': '57024957309673'},
@@ -1114,22 +1191,22 @@ Client.sendSenderAction(recipient, sender_action)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### sendSponsoredMessage
 
-Sends a new [Sponsored Message via the Messenger Platform](https://developers.facebook.com/docs/messenger-platform/reference/sponsored-messages).
+Sends a new [Sponsored Message via the Messenger Platform][154].
 
-**Parameters**
+#### Parameters
 
 -   `ad_account_id` **Integer** Your Facebook Ads account ID.
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the sponsored message to send.
-    -   `options.message_creative_id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The ID of a message creative to send. Created by calling [Client.createMessageCreative()](#createmessagecreative).
-    -   `options.daily_budget` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The maximum daily budget of the ad campaign for the Sponsored Message send.
-    -   `options.bid_amount` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The maximum bid for each message recipient.
-    -   `options.targeting` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** [Targeting spec](https://developers.facebook.com/docs/marketing-api/targeting-specs) for the Sponsored Message send.
+-   `options` **[Object][143]** An object that describes the sponsored message to send.
+    -   `options.message_creative_id` **[String][144]** The ID of a message creative to send. Created by calling [Client.createMessageCreative()][66].
+    -   `options.daily_budget` **[String][144]** The maximum daily budget of the ad campaign for the Sponsored Message send.
+    -   `options.bid_amount` **[String][144]** The maximum bid for each message recipient.
+    -   `options.targeting` **[String][144]** [Targeting spec][155] for the Sponsored Message send.
 
-**Examples**
+#### Examples
 
 ```javascript
 let options = {
@@ -1150,20 +1227,20 @@ Client.sendSponsoredMessage('test', options)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getMessagingInsights
 
-Retrieves metrics from the [Messaging Insights API](https://developers.facebook.com/docs/messenger-platform/reference/messaging-insights-api).
+Retrieves metrics from the [Messaging Insights API][156].
 
-**Parameters**
+#### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the metrics data to retrieve.
-    -   `options.metrics` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** An array list of the metrics to retrieve.
-    -   `options.since` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ UNIX timestamp of the start time to get the metric for.
-    -   `options.until` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ UNIX timestamp of the end time to get the metric for.
+-   `options` **[Object][143]** An object that describes the metrics data to retrieve.
+    -   `options.metrics` **[Array][157]&lt;[String][144]>** An array list of the metrics to retrieve.
+    -   `options.since` **[String][144]** _Optional._ UNIX timestamp of the start time to get the metric for.
+    -   `options.until` **[String][144]** _Optional._ UNIX timestamp of the end time to get the metric for.
 
-**Examples**
+#### Examples
 
 ```javascript
 let today = new Date().getTime();
@@ -1201,19 +1278,19 @@ Client.getMessagingInsights(options)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### generateMessengerCode
 
-Generate a new static or parametric [Messenger Code](https://developers.facebook.com/docs/messenger-platform/reference/messenger-code-api) for your bot.
+Generate a new static or parametric [Messenger Code][158] for your bot.
 
-**Parameters**
+#### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that describes the Messenger Code to generate.
+-   `options` **[Object][143]** An object that describes the Messenger Code to generate.
     -   `options.ref` **Integer** The ref string to pass to your bot is opened via the code. Max 250 characters. Valid characters: `a-z A-Z 0-9 +/=-.:_`.
-    -   `options.image_size` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The size, in pixels, for the image you are requesting. Supported range: 100-2000. Defaults to 1000.
+    -   `options.image_size` **[Object][143]** The size, in pixels, for the image you are requesting. Supported range: 100-2000. Defaults to 1000.
 
-**Examples**
+#### Examples
 
 ```javascript
 let options = {
@@ -1226,17 +1303,17 @@ Client.generateMessengerCode(options)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### setMessengerProfile
 
-Sets one or more properties of your bot's [Messenger Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api).
+Sets one or more properties of your bot's [Messenger Profile][159].
 
-**Parameters**
+#### Parameters
 
--   `fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** An object that contains the Messenger Profile properties to set as key-value pairs.
+-   `fields` **[Object][143]** An object that contains the Messenger Profile properties to set as key-value pairs.
 
-**Examples**
+#### Examples
 
 ```javascript
 let fields = {
@@ -1260,17 +1337,17 @@ Client.setMessengerProfile(fields)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getMessengerProfile
 
-Retrieves one or more properties of your bot's [Messenger Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api).
+Retrieves one or more properties of your bot's [Messenger Profile][159].
 
-**Parameters**
+#### Parameters
 
--   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** _Optional._ An array list of the Messenger Profile filds to retrieve.
+-   `fields` **[Array][157]&lt;[String][144]>** _Optional._ An array list of the Messenger Profile filds to retrieve.
 
-**Examples**
+#### Examples
 
 ```javascript
 let fields = ['whitelisted_domains', 'greeting'];
@@ -1295,17 +1372,17 @@ Client.getMessengerProfile(fields)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### deleteMessengerProfile
 
-Deletes one or more properties of your bot's [Messenger Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api).
+Deletes one or more properties of your bot's [Messenger Profile][159].
 
-**Parameters**
+#### Parameters
 
--   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** _Optional._ An array list of the Messenger Profile filds to delete.
+-   `fields` **[Array][157]&lt;[String][144]>** _Optional._ An array list of the Messenger Profile filds to delete.
 
-**Examples**
+#### Examples
 
 ```javascript
 let fields = ['whitelisted_domains', 'greeting'];
@@ -1315,17 +1392,17 @@ Client.deleteMessengerProfile(fields)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### setNlpConfigs
 
-Sets config values for [built-in NLP]\(<https://developers.facebook.com/docs/messenger-platform/built-in-nlp>.
+Sets config values for [built-in NLP]\([https://developers.facebook.com/docs/messenger-platform/built-in-nlp][160].
 
-**Parameters**
+#### Parameters
 
--   `configs` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The NLP configs to set
+-   `configs` **[Object][143]** The NLP configs to set
 
-**Examples**
+#### Examples
 
 ```javascript
 let configs = {
@@ -1341,28 +1418,28 @@ Client.setNlpConfigs(configs).then(res => {
  });
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.nlp_enabled  Enable/disable built-in NLP. Must be `true` or `false`
+Returns **[String][144]** configs.nlp_enabled  Enable/disable built-in NLP. Must be `true` or `false`
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.model  The default NLP model to use. For values, see the [Messenger Platform docs](https://developers.facebook.com/docs/messenger-platform/built-in-nlp#api).
+Returns **[String][144]** configs.model  The default NLP model to use. For values, see the [Messenger Platform docs][161].
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.custom_token  [Wit.ai](https://wit.ai/) server token for integrating a custom model.
+Returns **[String][144]** configs.custom_token  [Wit.ai][162] server token for integrating a custom model.
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.verbose  Enables verbose mode, which returns extra information like the position of the detected entity in the query. Must be `true` or `false`.
+Returns **[String][144]** configs.verbose  Enables verbose mode, which returns extra information like the position of the detected entity in the query. Must be `true` or `false`.
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** configs.n_best  The number of entities to return, in descending order of confidence. Minimum 1. Maximum 8.
+Returns **[String][144]** configs.n_best  The number of entities to return, in descending order of confidence. Minimum 1. Maximum 8.
 
 ### getMatchingPsids
 
 Returns all Page-scoped IDs (PSIDs) for a user across all Pages in the same 
 Facebook Business Manager account. Matches can be found using 
-a PSID or ASID. Uses the [ID Matching API](https://developers.facebook.com/docs/messenger-platform/identity/id-matching).
+a PSID or ASID. Uses the [ID Matching API][163].
 
-**Parameters**
+#### Parameters
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A valid ASID or PSID.
--   `id_type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of ID provided in the `id` argument: `ASID` or `PSID`.
+-   `id` **[String][144]** A valid ASID or PSID.
+-   `id_type` **[String][144]** The type of ID provided in the `id` argument: `ASID` or `PSID`.
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getMatchingPsids('95740976304764', 'PSID')
@@ -1395,20 +1472,20 @@ Client.getMatchingPsids('95740976304764', 'PSID')
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getMatchingAsids
 
 Returns all app-scoped IDs (ASIDs) for a user across all Pages in the same 
 Facebook Business Manager account. Matches can be found using 
-a PSID or ASID. Uses the [ID Matching API](https://developers.facebook.com/docs/messenger-platform/identity/id-matching).
+a PSID or ASID. Uses the [ID Matching API][163].
 
-**Parameters**
+#### Parameters
 
--   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** A valid ASID or PSID.
--   `id_type` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The type of ID provided in the `id` argument: `ASID` or `PSID`.
+-   `id` **[String][144]** A valid ASID or PSID.
+-   `id_type` **[String][144]** The type of ID provided in the `id` argument: `ASID` or `PSID`.
 
-**Examples**
+#### Examples
 
 ```javascript
 Client.getMatchingAsids('95740976304764', 'PSID')
@@ -1443,18 +1520,18 @@ Client.getMatchingAsids('95740976304764', 'PSID')
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ### getUserProfile
 
-Retrieves a user's profile via the [User Profile API](https://developers.facebook.com/docs/messenger-platform/identity/user-profile).
+Retrieves a user's profile via the [User Profile API][164].
 
-**Parameters**
+#### Parameters
 
 -   `psid` **Integer** A valid user PSID.
--   `fields` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** _Optional._ An array list of the user profile filds to retrieve. For a list of available fields, see the [Messenger Platform docs](https://developers.facebook.com/docs/messenger-platform/identity/user-profile#fields).
+-   `fields` **[Array][157]&lt;[String][144]>** _Optional._ An array list of the user profile filds to retrieve. For a list of available fields, see the [Messenger Platform docs][165].
 
-**Examples**
+#### Examples
 
 ```javascript
 let profile_fields = [
@@ -1476,21 +1553,21 @@ Client.getUserProfile('490730697356', profile_fields)
   });
 ```
 
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** The API response
+Returns **[Promise][147]&lt;[Object][143]>** The API response
 
 ## Webhook
 
 Creates and starts a webhook that emits all received webhook events.
 
-**Parameters**
+### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Configuration options for your webhook. All options may also be set as environment variables.
-    -   `options.verify_token` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** May also be set as `MESSENGER_VERIFY_TOKEN` in environment variables.
-    -   `options.endpoint` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ Defaults to `/webhook`. May also be set as `MESSENGER_APP_ENDPOINT` in environment variables.
-    -   `options.app_secret` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ Your app secret. Required for `validateSignedRequest()`. May also be set as `MESSENGER_APP_SECRET` in environment variables.
-    -   `options.port` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** _Optional._ Defaults to `1337`. May also be set as `MESSENGER_PORT` in environment variables.
+-   `options` **[Object][143]** Configuration options for your webhook. All options may also be set as environment variables.
+    -   `options.verify_token` **[string][144]** May also be set as `MESSENGER_VERIFY_TOKEN` in environment variables.
+    -   `options.endpoint` **[string][144]** _Optional._ Defaults to `/webhook`. May also be set as `MESSENGER_APP_ENDPOINT` in environment variables.
+    -   `options.app_secret` **[string][144]** _Optional._ Your app secret. Required for `validateSignedRequest()`. May also be set as `MESSENGER_APP_SECRET` in environment variables.
+    -   `options.port` **[string][144]** _Optional._ Defaults to `1337`. May also be set as `MESSENGER_PORT` in environment variables.
 
-**Examples**
+### Examples
 
 ```javascript
 const Messenger = require('messenger-node');
@@ -1505,18 +1582,18 @@ let options = {
 const Webhook = new Messenger.Webhook(options);
 ```
 
-Returns **[Webhook](#webhook)** 
+Returns **[Webhook][166]** 
 
 ### on
 
-Adds an event listener. Implements Node.js EventEmitter's [`emitter.on`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener).
+Adds an event listener. Implements Node.js EventEmitter's [`emitter.on`][167].
 
-**Parameters**
+#### Parameters
 
--   `event_name` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the event to listen for.
--   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The callback to execute when the event is received.
+-   `event_name` **[String][144]** The name of the event to listen for.
+-   `callback` **[Function][168]** The callback to execute when the event is received.
 
-**Examples**
+#### Examples
 
 ```javascript
 Webhook.on('messaging_postbacks', (event_type, sender_info, webhook_event) => {
@@ -1526,14 +1603,14 @@ Webhook.on('messaging_postbacks', (event_type, sender_info, webhook_event) => {
 
 ### once
 
-Adds a one-time event listener that will be removed after it is called once. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener).
+Adds a one-time event listener that will be removed after it is called once. Implements Node.js EventEmitter's [`emitter.once`][169].
 
-**Parameters**
+#### Parameters
 
--   `event_name` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The name of the event to listen for.
--   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** The callback to execute when the event is received.
+-   `event_name` **[String][144]** The name of the event to listen for.
+-   `callback` **[Function][168]** The callback to execute when the event is received.
 
-**Examples**
+#### Examples
 
 ```javascript
 Webhook.once('messaging_postbacks', (event_type, sender_info, webhook_event) => {
@@ -1543,42 +1620,42 @@ Webhook.once('messaging_postbacks', (event_type, sender_info, webhook_event) => 
 
 ### emit
 
-Emits an event from the Webhook instance. Event listeners can be set with `Webhook.on()` and `Webhook.once()`. Implements Node.js EventEmitter's [`emitter.once`](https://nodejs.org/api/events.html#events_emitter_emit_eventname_args).
+Emits an event from the Webhook instance. Event listeners can be set with `Webhook.on()` and `Webhook.once()`. Implements Node.js EventEmitter's [`emitter.once`][170].
 
-**Parameters**
+#### Parameters
 
--   `eventName` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The name of the event to emit.
+-   `eventName` **[Object][143]** The name of the event to emit.
 
-**Examples**
+#### Examples
 
 ```javascript
 Webhook.emit('my_event', arg1, arg2);
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** ...args  _Optional._ Arguments to pass to the event listener.
+Returns **[Object][143]** ...args  _Optional._ Arguments to pass to the event listener.
 
 ### getInstance
 
-Retrieves the current Webhook instance. This is the express.js [`app`](http://expressjs.com/en/4x/api.html#app) instance.
+Retrieves the current Webhook instance. This is the express.js [`app`][171] instance.
 
-**Examples**
+#### Examples
 
 ```javascript
 let instance = Webhook.getInstance();
 console.log(instance) // express.js app instance
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The Webhook instance.
+Returns **[Object][143]** The Webhook instance.
 
 ### stopInstance
 
 Stops the Webhook instance.
 
-**Parameters**
+#### Parameters
 
--   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** A callback function to execute when the webhook is stopped.
+-   `callback` **[Function][168]** A callback function to execute when the webhook is stopped.
 
-**Examples**
+#### Examples
 
 ```javascript
 Webhook.stopInstance(() => console.log('Webhook is stopped'));
@@ -1588,67 +1665,67 @@ Webhook.stopInstance(() => console.log('Webhook is stopped'));
 
 Retrieves the port the webhook is running on.
 
-**Examples**
+#### Examples
 
 ```javascript
 let port = Webhook.getPort();
 console.log(port) // '1337'
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The current port number.
+Returns **[String][144]** The current port number.
 
 ### getEndpoint
 
 Retrieves the current endpoint of the webhook.
 
-**Examples**
+#### Examples
 
 ```javascript
 let endpoint = Webhook.getEndpoint();
 console.log(endpoint) // '/webhook'
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The current endpoint.
+Returns **[String][144]** The current endpoint.
 
 ### getVerifyToken
 
 Retrieves the current verify token of the webhook.
 
-**Examples**
+#### Examples
 
 ```javascript
 let verifyToken = Webhook.getVerifyToken();
 console.log(verifyToken) // 'my_verify_token'
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The current verify token.
+Returns **[String][144]** The current verify token.
 
 ### setAppSecret
 
 Sets the app secret used for validating signed requests.
 
-**Parameters**
+#### Parameters
 
--   `app_secret` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The app secret to set.
+-   `app_secret` **[String][144]** The app secret to set.
 
-**Examples**
+#### Examples
 
 ```javascript
 let app_secret = Webhook.setAppSecret('hgr0a8h30gh30agh');
 console.log(app_secret) // 'hgr0a8h30gh30agh'
 ```
 
-Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The app secret that was successfully set.
+Returns **[String][144]** The app secret that was successfully set.
 
 ### validateSignedRequest
 
-Verifies a signed request received by calling [`getcontext()`](https://developers.facebook.com/docs/messenger-platform/webview/context) in the Messenger webview.
+Verifies a signed request received by calling [`getcontext()`][172] in the Messenger webview.
 
-**Parameters**
+#### Parameters
 
--   `signed_request` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The signed request.
+-   `signed_request` **[Object][143]** The signed request.
 
-**Examples**
+#### Examples
 
 ```javascript
 let request = {
@@ -1670,4 +1747,348 @@ console.log(decrypted_request)
 // }
 ```
 
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** The decrypted signed request.
+Returns **[Object][143]** The decrypted signed request.
+
+[1]: #client
+
+[2]: #parameters
+
+[3]: #examples
+
+[4]: #uploadattachment
+
+[5]: #parameters-1
+
+[6]: #examples-1
+
+[7]: #setpagetoken
+
+[8]: #parameters-2
+
+[9]: #examples-2
+
+[10]: #getpagetoken
+
+[11]: #examples-3
+
+[12]: #setapptoken
+
+[13]: #parameters-3
+
+[14]: #examples-4
+
+[15]: #getapptoken
+
+[16]: #examples-5
+
+[17]: #setapiversion
+
+[18]: #parameters-4
+
+[19]: #examples-6
+
+[20]: #getapiversion
+
+[21]: #examples-7
+
+[22]: #passthreadcontrol
+
+[23]: #parameters-5
+
+[24]: #examples-8
+
+[25]: #takethreadcontrol
+
+[26]: #parameters-6
+
+[27]: #examples-9
+
+[28]: #requestthreadcontrol
+
+[29]: #parameters-7
+
+[30]: #examples-10
+
+[31]: #getthreadowner
+
+[32]: #parameters-8
+
+[33]: #examples-11
+
+[34]: #getsecondaryreceiverlist
+
+[35]: #parameters-9
+
+[36]: #examples-12
+
+[37]: #sendbroadcast
+
+[38]: #parameters-10
+
+[39]: #examples-13
+
+[40]: #startbroadcastreachestimation
+
+[41]: #parameters-11
+
+[42]: #examples-14
+
+[43]: #getbroadcastreachestimation
+
+[44]: #parameters-12
+
+[45]: #examples-15
+
+[46]: #createcustomlabel
+
+[47]: #parameters-13
+
+[48]: #examples-16
+
+[49]: #getcustomlabelbyid
+
+[50]: #parameters-14
+
+[51]: #examples-17
+
+[52]: #getcustomlabelsbypsid
+
+[53]: #parameters-15
+
+[54]: #examples-18
+
+[55]: #getallcustomlabels
+
+[56]: #examples-19
+
+[57]: #deletecustomlabel
+
+[58]: #parameters-16
+
+[59]: #examples-20
+
+[60]: #addpsidtocustomlabel
+
+[61]: #parameters-17
+
+[62]: #examples-21
+
+[63]: #removepsidfromcustomlabel
+
+[64]: #parameters-18
+
+[65]: #examples-22
+
+[66]: #createmessagecreative
+
+[67]: #parameters-19
+
+[68]: #examples-23
+
+[69]: #sendtext
+
+[70]: #parameters-20
+
+[71]: #examples-24
+
+[72]: #sendquickreplies
+
+[73]: #parameters-21
+
+[74]: #examples-25
+
+[75]: #sendattachment
+
+[76]: #parameters-22
+
+[77]: #examples-26
+
+[78]: #sendtemplate
+
+[79]: #parameters-23
+
+[80]: #examples-27
+
+[81]: #sendsenderaction
+
+[82]: #parameters-24
+
+[83]: #examples-28
+
+[84]: #sendsponsoredmessage
+
+[85]: #parameters-25
+
+[86]: #examples-29
+
+[87]: #getmessaginginsights
+
+[88]: #parameters-26
+
+[89]: #examples-30
+
+[90]: #generatemessengercode
+
+[91]: #parameters-27
+
+[92]: #examples-31
+
+[93]: #setmessengerprofile
+
+[94]: #parameters-28
+
+[95]: #examples-32
+
+[96]: #getmessengerprofile
+
+[97]: #parameters-29
+
+[98]: #examples-33
+
+[99]: #deletemessengerprofile
+
+[100]: #parameters-30
+
+[101]: #examples-34
+
+[102]: #setnlpconfigs
+
+[103]: #parameters-31
+
+[104]: #examples-35
+
+[105]: #getmatchingpsids
+
+[106]: #parameters-32
+
+[107]: #examples-36
+
+[108]: #getmatchingasids
+
+[109]: #parameters-33
+
+[110]: #examples-37
+
+[111]: #getuserprofile
+
+[112]: #parameters-34
+
+[113]: #examples-38
+
+[114]: #webhook
+
+[115]: #parameters-35
+
+[116]: #examples-39
+
+[117]: #on
+
+[118]: #parameters-36
+
+[119]: #examples-40
+
+[120]: #once
+
+[121]: #parameters-37
+
+[122]: #examples-41
+
+[123]: #emit
+
+[124]: #parameters-38
+
+[125]: #examples-42
+
+[126]: #getinstance
+
+[127]: #examples-43
+
+[128]: #stopinstance
+
+[129]: #parameters-39
+
+[130]: #examples-44
+
+[131]: #getport
+
+[132]: #examples-45
+
+[133]: #getendpoint
+
+[134]: #examples-46
+
+[135]: #getverifytoken
+
+[136]: #examples-47
+
+[137]: #setappsecret
+
+[138]: #parameters-40
+
+[139]: #examples-48
+
+[140]: #validatesignedrequest
+
+[141]: #parameters-41
+
+[142]: #examples-49
+
+[143]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[144]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[145]: #client
+
+[146]: https://developers.facebook.com/docs/messenger-platform/reference/attachment-upload-api
+
+[147]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+[148]: https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control
+
+[149]: https://developers.facebook.com/docs/messenger-platform/handover-protocol/take-thread-control
+
+[150]: https://developers.facebook.com/docs/messenger-platform/handover-protocol/request-thread-control
+
+[151]: https://developers.facebook.com/docs/messenger-platform/handover-protocol#secondary_receivers_list
+
+[152]: https://developers.facebook.com/docs/messenger-platform/reference/broadcast-api
+
+[153]: https://developers.facebook.com/docs/messenger-platform/reference/send-api
+
+[154]: https://developers.facebook.com/docs/messenger-platform/reference/sponsored-messages
+
+[155]: https://developers.facebook.com/docs/marketing-api/targeting-specs
+
+[156]: https://developers.facebook.com/docs/messenger-platform/reference/messaging-insights-api
+
+[157]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[158]: https://developers.facebook.com/docs/messenger-platform/reference/messenger-code-api
+
+[159]: https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api
+
+[160]: https://developers.facebook.com/docs/messenger-platform/built-in-nlp
+
+[161]: https://developers.facebook.com/docs/messenger-platform/built-in-nlp#api
+
+[162]: https://wit.ai/
+
+[163]: https://developers.facebook.com/docs/messenger-platform/identity/id-matching
+
+[164]: https://developers.facebook.com/docs/messenger-platform/identity/user-profile
+
+[165]: https://developers.facebook.com/docs/messenger-platform/identity/user-profile#fields
+
+[166]: #webhook
+
+[167]: https://nodejs.org/api/events.html#events_emitter_on_eventname_listener
+
+[168]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[169]: https://nodejs.org/api/events.html#events_emitter_once_eventname_listener
+
+[170]: https://nodejs.org/api/events.html#events_emitter_emit_eventname_args
+
+[171]: http://expressjs.com/en/4x/api.html#app
+
+[172]: https://developers.facebook.com/docs/messenger-platform/webview/context
