@@ -1,6 +1,6 @@
 # Messenger Platform Node.js SDK
 
-[![Build Status](https://travis-ci.org/amuramoto/messenger-node.svg?branch=master)](https://travis-ci.org/amuramoto/messenger-node)
+[![Build Status](https://travis-ci.org/amuramoto/messenger-node.svg?branch=master)](https://travis-ci.org/amuramoto/messenger-node) * Build is failing right now because one of my test accounts got permissions revoked or something, but the SDK still works as expected
 
 The `messenger-node` module is a server-side SDK for building bots on Facebook's [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/). The SDK includes two base classes:
 
